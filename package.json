@@ -1,0 +1,36 @@
+{
+  "name": "oakdex-world-editor",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jalyna/oakdex-world-editor.git"
+  },
+  "description": "2d Map Editor based on React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "2d",
+    "Map",
+    "Tiles",
+    "Tilesets",
+    "Maps",
+    "World"
+  ],
+  "author": "Jalyna Schroeder",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^16.7.20",
+    "@types/react-dom": "^16.0.11",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.2.4",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  }
+}
