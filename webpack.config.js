@@ -13,7 +13,11 @@ module.exports = {
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: [".ts", ".tsx", ".js", ".json"],
+    alias: {
+      'components': path.resolve(__dirname, 'src/components/'),
+      'shared': path.resolve(__dirname, 'src/shared/'),
+    }
   },
 
   devServer: {

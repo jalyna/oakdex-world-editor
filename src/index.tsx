@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import Hello from './components/Hello'
+import TilesetEditor from './components/TilesetEditor'
 
 ReactDOM.render(
-  <Hello compiler='TypeScript' framework='React' />,
+  <TilesetEditor />,
   document.getElementById('app')
 )
