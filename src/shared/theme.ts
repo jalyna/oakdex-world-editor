@@ -10,3 +10,5 @@ export const TEAL_30 = '#26735e'
 export const TEAL_50 = '#40bf9d'
 export const TEAL_70 = '#8cd9c4'
 export const TEAL_90 = '#d9f2eb'
+
+export const DEFAULT_FONT = "'Roboto', sans-serif"

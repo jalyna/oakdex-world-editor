@@ -1,12 +1,19 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, StoreEnhancer } from 'redux'
 
-const testFn = function (): null {
-  console.log('test')
-  return null
+import tilesetData from './tilesetData'
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION__: () => StoreEnhancer | null
+  }
 }
 
-const reducers = combineReducers({
-  testFn
+window.__REDUX_DEVTOOLS_EXTENSION__ = window.__REDUX_DEVTOOLS_EXTENSION__ || null
+
+const debug = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : null
+
+const reducer = combineReducers({
+  tilesetData
 })
 
-export default createStore(reducers)
+export default createStore(reducer, {}, debug)

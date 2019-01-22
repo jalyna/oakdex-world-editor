@@ -1,1 +1,1 @@
-export const TEST_ACTION = 'TEST_ACTION'
+export const UPLOAD_TILESET = 'UPLOAD_TILESET'
