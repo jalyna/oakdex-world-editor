@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hello renders 1`] = `
+<h1>
+  <styled.button>
+    Helloe
+  </styled.button>
+   from 
+  foo
+   and 
+  lala
+  !
+</h1>
+`;
