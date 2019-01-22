@@ -8,7 +8,9 @@
   "description": "2d Map Editor based on React",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/webpack/bin/webpack.js --mode=production",
+    "start": "./node_modules/.bin/webpack-dev-server --mode=development"
   },
   "keywords": [
     "2d",
@@ -31,6 +33,7 @@
     "source-map-loader": "^0.2.4",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
   }
 }

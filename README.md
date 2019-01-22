@@ -2,7 +2,23 @@
 
 ## Getting Started
 
-TBD
+```
+$ npm install
+```
+
+### Build
+
+```
+$ npm run build
+```
+
+### Running in dev mode
+
+```
+$ npm run start
+```
+
+Go to `http://localhost:8080/`
 
 ## Contributing
 
