@@ -4,6 +4,7 @@ import { Dispatch } from 'redux'
 import styled from 'styled-components'
 
 import { DEFAULT_FONT } from 'shared/theme'
+import readImage from 'shared/readImage'
 
 import { UPLOAD_TILESET } from './actionTypes'
 
@@ -23,25 +24,12 @@ function mapDispatchToProps (dispatch: Dispatch) {
         if (file.name.indexOf('.json') >= 0) {
           alert('JSON is not possible yet')
         } else {
-          const fr = new FileReader()
-          const img = new Image()
-
-          fr.addEventListener('load', (e) => {
-            img.src = (fr.result as string)
-            img.addEventListener('load', () => {
-              console.log('woopwoop', img.naturalWidth, img.naturalHeight)
-              dispatch({
-                type: UPLOAD_TILESET,
-                data: {
-                  imageBase64: fr.result as string,
-                  width: img.naturalWidth / 16,
-                  height: img.naturalHeight / 16
-                }
-              })
+          readImage(file).then((imageData) => {
+            dispatch({
+              type: UPLOAD_TILESET,
+              data: imageData
             })
           })
-
-          fr.readAsDataURL(e.currentTarget.files[0])
         }
       }
     }

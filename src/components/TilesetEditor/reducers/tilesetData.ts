@@ -1,8 +1,9 @@
 import { Reducer } from 'redux'
 
-import { UPLOAD_TILESET } from './actionTypes'
+import { UPLOAD_TILESET } from '../actionTypes'
 
 export interface Tileset {
+  title: string,
   width: number,
   height: number,
   imageBase64: string

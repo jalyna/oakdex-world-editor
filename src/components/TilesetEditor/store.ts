@@ -1,6 +1,6 @@
 import { combineReducers, createStore, StoreEnhancer } from 'redux'
 
-import tilesetData from './tilesetData'
+import tilesetData from './reducers/tilesetData'
 
 declare global {
   interface Window {
@@ -16,4 +16,6 @@ const reducer = combineReducers({
   tilesetData
 })
 
-export default createStore(reducer, {}, debug)
+const store = debug ? createStore(reducer, {}, debug) : createStore(reducer)
+
+export default store
