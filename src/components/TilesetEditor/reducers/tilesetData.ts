@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 
-import { UPLOAD_TILESET } from '../actionTypes'
+import { UPLOAD_TILESET, UPDATE_TILESET, RESET_TILESET } from '../actionTypes'
 
 export interface AutoTileField {
   opacityAreas: { // e.g. 1 1 1 1 is full cover
@@ -70,6 +70,13 @@ const tilesetData: Reducer<Tileset> = (state: Tileset | null = null, action): Ti
         specialTiles: [],
         ...action.data
       }
+    case UPDATE_TILESET:
+      return {
+        ...state,
+        ...action.data
+      }
+    case RESET_TILESET:
+      return null
     default:
       return state
   }

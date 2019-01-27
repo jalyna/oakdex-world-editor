@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { DEFAULT_FONT } from 'shared/theme'
 import readImage from 'shared/readImage'
+import readJson from 'shared/readJson'
 
 import { UPLOAD_TILESET } from './actionTypes'
 
@@ -27,15 +28,19 @@ function mapDispatchToProps (dispatch: Dispatch) {
         changeLoading(true)
         const file = e.currentTarget.files[0]
         if (file.name.indexOf('.json') >= 0) {
-          alert('JSON is not possible yet')
+          readJson(file).then((json) => {
+            dispatch({
+              type: UPLOAD_TILESET,
+              data: json
+            })
+            changeLoading(false)
+          })
           changeLoading(false)
         } else {
           readImage(file).then((imageData) => {
             dispatch({
               type: UPLOAD_TILESET,
-              data: {
-                ...imageData
-              }
+              data: imageData
             })
             changeLoading(false)
           })
