@@ -13,22 +13,31 @@ const StyledWrapper = styled.div`
 `
 
 interface TilesetUploadProps {
-  onChangeFile: () => void
+  onChangeFile: (e: React.FormEvent<HTMLInputElement>, fn: (b: boolean) => void) => void
+}
+
+interface TilesetUploadState {
+  loading: boolean
 }
 
 function mapDispatchToProps (dispatch: Dispatch) {
   return {
-    onChangeFile: (e: React.FormEvent<HTMLInputElement>) => {
+    onChangeFile: (e: React.FormEvent<HTMLInputElement>, changeLoading: (b: boolean) => void) => {
       if (e.currentTarget.files && e.currentTarget.files[0]) {
+        changeLoading(true)
         const file = e.currentTarget.files[0]
         if (file.name.indexOf('.json') >= 0) {
           alert('JSON is not possible yet')
+          changeLoading(false)
         } else {
           readImage(file).then((imageData) => {
             dispatch({
               type: UPLOAD_TILESET,
-              data: imageData
+              data: {
+                ...imageData
+              }
             })
+            changeLoading(false)
           })
         }
       }
@@ -36,12 +45,39 @@ function mapDispatchToProps (dispatch: Dispatch) {
   }
 }
 
-function TilesetUpload ({ onChangeFile }: TilesetUploadProps) {
-  return (
-    <StyledWrapper>
-      <input type='file' onChange={onChangeFile} />
-    </StyledWrapper>
-  )
+class TilesetUpload extends React.Component<TilesetUploadProps, TilesetUploadState> {
+  constructor (props: TilesetUploadProps) {
+    super(props)
+    this.state = {
+      loading: false
+    }
+    this.onChangeFile = this.onChangeFile.bind(this)
+    this.changeLoading = this.changeLoading.bind(this)
+  }
+
+  render () {
+    if (this.state.loading) {
+      return (
+        <StyledWrapper>
+          Loading...
+        </StyledWrapper>
+      )
+    }
+
+    return (
+      <StyledWrapper>
+        <input type='file' onChange={this.onChangeFile} />
+      </StyledWrapper>
+    )
+  }
+
+  onChangeFile (e: React.FormEvent<HTMLInputElement>) {
+    this.props.onChangeFile(e, this.changeLoading)
+  }
+
+  changeLoading (value: boolean) {
+    this.setState({ loading: value })
+  }
 }
 
 export default connect(
