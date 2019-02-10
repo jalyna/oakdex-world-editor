@@ -1,17 +1,21 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70 } from 'shared/theme'
+import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
+
+interface ButtonProps {
+  isActive?: boolean
+}
 
 const StyledButton = styled.button`
   cursor: pointer;
   font-family: ${DEFAULT_FONT};
   font-size: 16px;
-  color: ${GREY_50};
-  border: 1px solid ${GREY_90};
+  color: ${({ isActive }: ButtonProps) => isActive ? 'white' : GREY_50};
+  border: 1px solid ${({ isActive }: ButtonProps) => isActive ? TEAL_30 : GREY_90};
   padding: 5px 10px;
   outline: none;
-  background: white;
+  background: ${({ isActive }: ButtonProps) => isActive ? TEAL_30 : 'white'};
   border-radius: 4px;
   box-sizing: border-box;
   width: 100%;
@@ -22,5 +26,6 @@ const StyledButton = styled.button`
 `
 
 export default function Button (props: any) {
+  const isActive = props.isActive as boolean
   return <StyledButton {...props} />
 }

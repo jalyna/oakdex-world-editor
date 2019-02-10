@@ -7,8 +7,10 @@ import { Coordinate } from 'components/TilesetEditor/reducers/currentCoordinates
 import { UPDATE_TILESET } from 'components/TilesetEditor/actionTypes'
 
 function executeObjects (coordinates: Coordinate): AnyAction {
-  let objects = JSON.parse(JSON.stringify(store.getState().tilesetData.objects))
-  objects[coordinates.y][coordinates.x] = !objects[coordinates.y][coordinates.x]
+  const state = store.getState()
+  let objects = JSON.parse(JSON.stringify(state.tilesetData.objects))
+  const newBool = state.tabData.objectsTool === 'erase' ? false : true
+  objects[coordinates.y][coordinates.x] = newBool
   return {
     type: UPDATE_TILESET,
     data: { objects }

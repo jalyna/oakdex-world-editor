@@ -4,6 +4,7 @@ import tilesetData from './reducers/tilesetData'
 import activeTab from './reducers/activeTab'
 import currentCoordinates from './reducers/currentCoordinates'
 import mouseHold from './reducers/mouseHold'
+import tabData from './reducers/tabData'
 
 declare global {
   interface Window {
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   tilesetData,
   activeTab,
   currentCoordinates,
-  mouseHold
+  mouseHold,
+  tabData
 })
 
 const store = debug ? createStore(reducer, {}, debug) : createStore(reducer)
