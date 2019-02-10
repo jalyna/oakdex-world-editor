@@ -23,6 +23,11 @@ const StyledButton = styled.button`
   &:hover {
     border-color: ${GREY_70};
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
 `
 
 export default function Button (props: any) {

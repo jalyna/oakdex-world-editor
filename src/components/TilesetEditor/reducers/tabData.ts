@@ -3,11 +3,13 @@ import { Reducer } from 'redux'
 import { CHANGE_TAB_DATA } from '../actionTypes'
 
 export interface TabData {
-  objectsTool: string
+  objectsTool: string,
+  zoom: number
 }
 
 const defaultTabData: TabData = {
-  objectsTool: 'default'
+  objectsTool: 'default',
+  zoom: 1
 }
 
 const tabData: Reducer<TabData> = (state: TabData = defaultTabData, action): TabData => {

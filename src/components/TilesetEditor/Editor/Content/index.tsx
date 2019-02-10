@@ -4,6 +4,7 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
+import { TabData } from 'components/TilesetEditor/reducers/tabData'
 import { Coordinate } from 'components/TilesetEditor/reducers/currentCoordinates'
 import { TEAL_90, TEAL_50 } from 'shared/theme'
 import getCoordinates from 'shared/getCoordinates'
@@ -11,32 +12,39 @@ import Tile from 'shared/Tile'
 import { CHANGE_CURRENT_COORDINATES, REMOVE_CURRENT_COORDINATES, CHANGE_MOUSE_HOLD } from 'components/TilesetEditor/actionTypes'
 
 import executeAction from './executeAction'
+import Magnifier from './Magnifier'
 import Objects from './Objects'
+
+interface TilesetWrapperProps {
+  zoom: number
+}
 
 interface ContentProps {
   tilesetData: Tileset,
+  tabData: TabData,
   activeTab: string,
   mouseHold: boolean,
   currentCoordinates: Coordinate | null,
-  onMouseMove: (currentCoordinates: Coordinate, mouseHold: boolean, e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseMove: (currentCoordinates: Coordinate, zoom: number, mouseHold: boolean, e: React.MouseEvent<HTMLDivElement>) => void,
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
   onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => void,
   onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-function mapStateToProps ({ tilesetData, currentCoordinates, activeTab, mouseHold }: any) {
+function mapStateToProps ({ tilesetData, tabData, currentCoordinates, activeTab, mouseHold }: any) {
   return {
     tilesetData,
     currentCoordinates,
     activeTab,
-    mouseHold
+    mouseHold,
+    tabData
   }
 }
 
 function mapDispatchToProps (dispatch: Dispatch) {
   return {
-    onMouseMove: (currentCoordinates: Coordinate, mouseHold: boolean, e: React.MouseEvent<HTMLDivElement>) => {
-      const newCoordinates = getCoordinates(e)
+    onMouseMove: (currentCoordinates: Coordinate, zoom: number, mouseHold: boolean, e: React.MouseEvent<HTMLDivElement>) => {
+      const newCoordinates = getCoordinates(zoom, e)
       if (!currentCoordinates || newCoordinates.x !== currentCoordinates.x || newCoordinates.y !== currentCoordinates.y) {
         dispatch({ type: CHANGE_CURRENT_COORDINATES, ...newCoordinates })
         if (mouseHold) {
@@ -63,6 +71,7 @@ function Content ({
   tilesetData,
   activeTab,
   currentCoordinates,
+  tabData,
   mouseHold,
   onMouseMove,
   onMouseDown,
@@ -79,13 +88,15 @@ function Content ({
     coordinates = currentCoordinates.x + ' | ' + currentCoordinates.y
   }
   return (
-    <StyledContent>
+    <StyledContent zoom={tabData.zoom}>
       <Coordinates>{coordinates}</Coordinates>
+      <Magnifier />
       <TilesetWrapper
+        zoom={tabData.zoom}
         style={tilesetStyle}
         onMouseUp={onMouseUp}
         onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove.bind(this, currentCoordinates, mouseHold)}
+        onMouseMove={onMouseMove.bind(this, currentCoordinates, tabData.zoom, mouseHold)}
         onMouseLeave={onMouseLeave}>
         {activeTab === 'objects' && <Objects />}
         {currentCoordinates !== null && <HoverTile {...currentCoordinates} />}
@@ -98,14 +109,18 @@ const StyledContent = styled.div`
   box-sizing: border-box;
   padding: 15px;
   position: relative;
+  display: flex;
+  justify-content: ${({ zoom }: TilesetWrapperProps) => zoom === 1 ? 'center' : 'flex-start'};
+  width: 100%;
 `
 
 const TilesetWrapper = styled.div`
   box-sizing: border-box;
   image-rendering: pixelated;
-  margin: 0 auto;
   cursor: pointer;
   position: relative;
+  transform-origin: 0 0;
+  transform: ${({ zoom }: TilesetWrapperProps) => 'scale(' + zoom + ')'};
 `
 
 const Coordinates = styled.div`

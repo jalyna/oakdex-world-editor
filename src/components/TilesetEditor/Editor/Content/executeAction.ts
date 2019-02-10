@@ -18,7 +18,7 @@ function executeObjects (coordinates: Coordinate): AnyAction {
 }
 
 export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>) {
-  const coordinates = getCoordinates(e)
+  const coordinates = getCoordinates(store.getState().tabData.zoom, e)
   const tab = store.getState().activeTab
   switch (tab) {
     case 'objects':
