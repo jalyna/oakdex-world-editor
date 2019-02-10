@@ -1,6 +1,7 @@
 import { combineReducers, createStore, StoreEnhancer } from 'redux'
 
 import tilesetData from './reducers/tilesetData'
+import activeTab from './reducers/activeTab'
 
 declare global {
   interface Window {
@@ -13,7 +14,8 @@ window.__REDUX_DEVTOOLS_EXTENSION__ = window.__REDUX_DEVTOOLS_EXTENSION__ || nul
 const debug = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : null
 
 const reducer = combineReducers({
-  tilesetData
+  tilesetData,
+  activeTab
 })
 
 const store = debug ? createStore(reducer, {}, debug) : createStore(reducer)

@@ -9,6 +9,7 @@ import { Tileset } from '../reducers/tilesetData'
 
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
+import Content from './Content'
 
 const TOPBAR_HEIGHT = 80
 const SIDEBAR_WIDTH = 400
@@ -27,7 +28,7 @@ function Editor ({ tilesetData }: EditorProps) {
   return (
     <Wrapper>
       <TopbarWrapper><Topbar /></TopbarWrapper>
-      <ContentWrapper>foo</ContentWrapper>
+      <ContentWrapper><Content /></ContentWrapper>
       <SidebarWrapper><Sidebar /></SidebarWrapper>
     </Wrapper>
   )
