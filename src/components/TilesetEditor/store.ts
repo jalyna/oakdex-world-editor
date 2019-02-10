@@ -3,6 +3,7 @@ import { combineReducers, createStore, StoreEnhancer } from 'redux'
 import tilesetData from './reducers/tilesetData'
 import activeTab from './reducers/activeTab'
 import currentCoordinates from './reducers/currentCoordinates'
+import mouseHold from './reducers/mouseHold'
 
 declare global {
   interface Window {
@@ -17,7 +18,8 @@ const debug = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTE
 const reducer = combineReducers({
   tilesetData,
   activeTab,
-  currentCoordinates
+  currentCoordinates,
+  mouseHold
 })
 
 const store = debug ? createStore(reducer, {}, debug) : createStore(reducer)

@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 interface TileProps {
   x: number,
-  y: number
+  y: number,
+  className?: string
 }
 
 const Tile = styled.div`
@@ -11,8 +12,12 @@ const Tile = styled.div`
   box-sizing: border-box;
   width: 16px;
   height: 16px;
-  top: ${({ y }: TileProps) => y * 16}px;
-  left: ${({ x }: TileProps) => x * 16}px;
 `
 
-export default Tile
+export default function ({ x, y, className }: TileProps) {
+  const style = {
+    top: (y * 16) + 'px',
+    left: (x * 16) + 'px'
+  }
+  return <Tile style={style} className={className} />
+}

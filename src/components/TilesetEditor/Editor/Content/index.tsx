@@ -2,42 +2,73 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDotCircle } from '@fortawesome/free-solid-svg-icons'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { Coordinate } from 'components/TilesetEditor/reducers/currentCoordinates'
 import { TEAL_90, TEAL_50 } from 'shared/theme'
 import getCoordinates from 'shared/getCoordinates'
 import Tile from 'shared/Tile'
-import { CHANGE_CURRENT_COORDINATES, REMOVE_CURRENT_COORDINATES } from 'components/TilesetEditor/actionTypes'
+import { CHANGE_CURRENT_COORDINATES, REMOVE_CURRENT_COORDINATES, CHANGE_MOUSE_HOLD } from 'components/TilesetEditor/actionTypes'
+
+import executeAction from './executeAction'
+import Objects from './Objects'
 
 interface ContentProps {
   tilesetData: Tileset,
+  activeTab: string,
+  mouseHold: boolean,
   currentCoordinates: Coordinate | null,
-  onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => void,
-  onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void
+  onMouseMove: (currentCoordinates: Coordinate, mouseHold: boolean, e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-function mapStateToProps ({ tilesetData, currentCoordinates }: any) {
+function mapStateToProps ({ tilesetData, currentCoordinates, activeTab, mouseHold }: any) {
   return {
     tilesetData,
-    currentCoordinates
+    currentCoordinates,
+    activeTab,
+    mouseHold
   }
 }
 
 function mapDispatchToProps (dispatch: Dispatch) {
   return {
-    onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
-      dispatch({ type: CHANGE_CURRENT_COORDINATES, ...getCoordinates(e) })
+    onMouseMove: (currentCoordinates: Coordinate, mouseHold: boolean, e: React.MouseEvent<HTMLDivElement>) => {
+      const newCoordinates = getCoordinates(e)
+      if (!currentCoordinates || newCoordinates.x !== currentCoordinates.x || newCoordinates.y !== currentCoordinates.y) {
+        dispatch({ type: CHANGE_CURRENT_COORDINATES, ...newCoordinates })
+        if (mouseHold) {
+          executeAction(dispatch, e)
+        }
+      }
     },
     onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+      dispatch({ type: CHANGE_MOUSE_HOLD, hold: false })
       dispatch({ type: REMOVE_CURRENT_COORDINATES })
+    },
+    onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => {
+      dispatch({ type: CHANGE_MOUSE_HOLD, hold: true })
+      executeAction(dispatch, e)
+    },
+    onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => {
+      dispatch({ type: CHANGE_MOUSE_HOLD, hold: false })
+      executeAction(dispatch, e)
     }
   }
 }
 
-function Content ({ tilesetData, currentCoordinates, onMouseMove, onMouseLeave }: ContentProps) {
+function Content ({
+  tilesetData,
+  activeTab,
+  currentCoordinates,
+  mouseHold,
+  onMouseMove,
+  onMouseDown,
+  onMouseLeave,
+  onMouseUp
+}: ContentProps) {
   const tilesetStyle = {
     width: tilesetData.width * 16,
     height: tilesetData.height * 16,
@@ -52,8 +83,11 @@ function Content ({ tilesetData, currentCoordinates, onMouseMove, onMouseLeave }
       <Coordinates>{coordinates}</Coordinates>
       <TilesetWrapper
         style={tilesetStyle}
-        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove.bind(this, currentCoordinates, mouseHold)}
         onMouseLeave={onMouseLeave}>
+        {activeTab === 'objects' && <Objects />}
         {currentCoordinates !== null && <HoverTile {...currentCoordinates} />}
       </TilesetWrapper>
     </StyledContent>
