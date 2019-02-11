@@ -70,8 +70,7 @@ function Walk ({ walkability, tabData }: WalkProps) {
         return rows.map((cell, x) => {
           return (
             <WalkTile key={y + '_' + x} x={x} y={y}>
-              {tabData.walkabilityMode === 'details' && renderGrid(cell)}
-              {tabData.walkabilityMode === 'default' && renderSimple(cell)}
+              {tabData.walkabilityMode === 'details' ? renderGrid(cell) : renderSimple(cell)}
             </WalkTile>
           )
         })
