@@ -4,11 +4,13 @@ import { CHANGE_TAB_DATA } from '../actionTypes'
 
 export interface TabData {
   objectsTool: string,
+  walkabilityMode: string,
   zoom: number
 }
 
 const defaultTabData: TabData = {
   objectsTool: 'default',
+  walkabilityMode: 'default',
   zoom: 1
 }
 

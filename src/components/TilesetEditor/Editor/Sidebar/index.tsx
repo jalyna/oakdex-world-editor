@@ -9,6 +9,7 @@ import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import { CHANGE_TAB } from 'components/TilesetEditor/actionTypes'
 
 import Objects from './Objects'
+import Walk from './Walk'
 
 interface TabItemProps {
   isActive?: boolean
@@ -29,7 +30,7 @@ const TABS: TabData = {
     title: 'Objects'
   },
   walk: {
-    component: Objects,
+    component: Walk,
     icon: faWalking,
     title: 'Walk'
   },

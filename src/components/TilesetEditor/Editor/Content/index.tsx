@@ -14,6 +14,7 @@ import { CHANGE_CURRENT_COORDINATES, REMOVE_CURRENT_COORDINATES, CHANGE_MOUSE_HO
 import executeAction from './executeAction'
 import Magnifier from './Magnifier'
 import Objects from './Objects'
+import Walk from './Walk'
 
 interface TilesetWrapperProps {
   zoom: number
@@ -99,6 +100,7 @@ function Content ({
         onMouseMove={onMouseMove.bind(this, currentCoordinates, tabData.zoom, mouseHold)}
         onMouseLeave={onMouseLeave}>
         {activeTab === 'objects' && <Objects />}
+        {activeTab === 'walk' && <Walk />}
         {currentCoordinates !== null && <HoverTile {...currentCoordinates} />}
       </TilesetWrapper>
     </StyledContent>
