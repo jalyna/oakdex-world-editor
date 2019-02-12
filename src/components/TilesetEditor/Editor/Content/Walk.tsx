@@ -32,13 +32,15 @@ function allSame (tile: Walkability, status: number): boolean {
 }
 
 function renderSimple (cell: Walkability): React.ReactNode {
-  return (
-    <React.Fragment>
-      {allSame(cell, 2) && <FontAwesomeIcon icon={faTimes} />}
-      {allSame(cell, 1) && <FontAwesomeIcon icon={faCircle} />}
-      {allSame(cell, 0) && 'O'}
-    </React.Fragment>
-  )
+  if (allSame(cell, 2)) {
+    return <FontAwesomeIcon icon={faTimes} />
+  } else if (allSame(cell, 1)) {
+    return <FontAwesomeIcon icon={faCircle} />
+  } else if (allSame(cell, 0)) {
+    return 'O'
+  } else {
+    return '~'
+  }
 }
 
 function renderType (status: number): React.ReactNode | string {
