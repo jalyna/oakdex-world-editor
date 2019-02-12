@@ -10,6 +10,7 @@ import { CHANGE_TAB } from 'components/TilesetEditor/actionTypes'
 
 import Objects from './Objects'
 import Walk from './Walk'
+import Auto from './Auto'
 
 interface TabItemProps {
   isActive?: boolean
@@ -35,7 +36,7 @@ const TABS: TabData = {
     title: 'Walk'
   },
   auto: {
-    component: Objects,
+    component: Auto,
     icon: faPuzzlePiece,
     title: 'Auto'
   },

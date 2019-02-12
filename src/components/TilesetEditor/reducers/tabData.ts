@@ -5,12 +5,17 @@ import { CHANGE_TAB_DATA } from '../actionTypes'
 export interface TabData {
   objectsTool: string,
   walkabilityMode: string,
-  zoom: number
+  autoTool: string,
+  zoom: number,
+  nextAutoTileTitle: string,
+  selectedAutoTile?: string
 }
 
 const defaultTabData: TabData = {
   objectsTool: 'default',
   walkabilityMode: 'default',
+  autoTool: 'default',
+  nextAutoTileTitle: '',
   zoom: 1
 }
 
