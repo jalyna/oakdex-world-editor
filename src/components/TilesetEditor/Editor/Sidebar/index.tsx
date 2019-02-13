@@ -11,6 +11,7 @@ import { CHANGE_TAB } from 'components/TilesetEditor/actionTypes'
 import Objects from './Objects'
 import Walk from './Walk'
 import Auto from './Auto'
+import Special from './Special'
 
 interface TabItemProps {
   isActive?: boolean
@@ -40,8 +41,8 @@ const TABS: TabData = {
     icon: faPuzzlePiece,
     title: 'Auto'
   },
-  Special: {
-    component: Objects,
+  special: {
+    component: Special,
     icon: faStar,
     title: 'Special'
   }

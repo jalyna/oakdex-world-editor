@@ -16,6 +16,7 @@ import Magnifier from './Magnifier'
 import Objects from './Objects'
 import Walk from './Walk'
 import Auto from './Auto'
+import Special from './Special'
 
 interface TilesetWrapperProps {
   zoom: number
@@ -105,6 +106,7 @@ function Content ({
         {activeTab === 'objects' && <Objects />}
         {activeTab === 'walk' && <Walk />}
         {activeTab === 'auto' && <Auto />}
+        {activeTab === 'special' && <Special />}
         {currentCoordinates !== null && <HoverTile {...currentCoordinates} />}
       </TilesetWrapper>
     </StyledContent>

@@ -8,6 +8,7 @@ import { UPDATE_TILESET } from 'components/TilesetEditor/actionTypes'
 
 import executeWalk from './executeWalk'
 import executeAuto from './executeAuto'
+import executeSpecial from './executeSpecial'
 
 function executeObjects (coordinates: Coordinate): AnyAction {
   const state = store.getState()
@@ -37,6 +38,12 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
       const autoAction = executeAuto(e, coordinates)
       if (autoAction) {
         dispatch(autoAction)
+      }
+      break
+    case 'special':
+      const specialAction = executeSpecial(e, coordinates)
+      if (specialAction) {
+        dispatch(specialAction)
       }
       break
   }
