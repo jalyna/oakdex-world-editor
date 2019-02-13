@@ -1,23 +1,27 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { AutoTile } from 'components/TilesetEditor/reducers/tilesetData'
+import { AutoTile, AutoTileField } from 'components/TilesetEditor/reducers/tilesetData'
 import Tile from 'shared/Tile'
 
-import autoSelection from './autoSelection.png'
+import * as autoSelection from './autoSelection.png'
 
 interface AutoTileProps {
-  autoTile: AutoTile
+  autoTileField: AutoTileField
 }
 
 interface StyledAutoTileProps {
   position: string
 }
 
-function autoTileToString (tile: AutoTile): string {
-  return Object.values(tile.opacityAreas.opacityAreas).map((b) => {
+function autoTileToString (tile: AutoTileField): string {
+  return Object.values([tile.opacityAreas.topLeft, tile.opacityAreas.topRight, tile.opacityAreas.bottomLeft, tile.opacityAreas.bottomRight]).map((b) => {
     return b ? '1' : '0'
   }).join(', ')
+}
+
+interface AutoTileMapping {
+  [key: string]: string
 }
 
 const AUTO_TILE_MAPPING = {
@@ -34,13 +38,13 @@ const AUTO_TILE_MAPPING = {
   '1, 0, 1, 1': '-48px -16px',
   '1, 1, 0, 1': '-64px 0px',
   '1, 1, 1, 0': '-48px 0px'
-}
+} as AutoTileMapping
 
-export default function ({ autoTile }: AutoTileProps) {
+export default function ({ autoTileField }: AutoTileProps) {
   return (
     <StyledAutoTile
-      x={autoTile.x} y={autoTile.y}
-      position={AUTO_TILE_MAPPING[autoTileToString(autoTile)]}
+      x={autoTileField.x} y={autoTileField.y}
+      position={AUTO_TILE_MAPPING[autoTileToString(autoTileField)]}
     />
   )
 }
@@ -49,5 +53,3 @@ const StyledAutoTile = styled(Tile)`
   background-image: url(${autoSelection});
   background-position: ${({ position }: StyledAutoTileProps) => position};
 `
-
-

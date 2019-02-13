@@ -15,6 +15,7 @@ import executeAction from './executeAction'
 import Magnifier from './Magnifier'
 import Objects from './Objects'
 import Walk from './Walk'
+import Auto from './Auto'
 
 interface TilesetWrapperProps {
   zoom: number
@@ -28,8 +29,8 @@ interface ContentProps {
   currentCoordinates: Coordinate | null,
   onMouseMove: (currentCoordinates: Coordinate, zoom: number, mouseHold: boolean, e: React.MouseEvent<HTMLDivElement>) => void,
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
-  onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => void,
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void
+  onMouseUp: (currentCoordinates: Coordinate, zoom: number, e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseDown: (currentCoordinates: Coordinate, zoom: number, e: React.MouseEvent<HTMLDivElement>) => void
 }
 
 function mapStateToProps ({ tilesetData, tabData, currentCoordinates, activeTab, mouseHold }: any) {
@@ -57,13 +58,15 @@ function mapDispatchToProps (dispatch: Dispatch) {
       dispatch({ type: CHANGE_MOUSE_HOLD, hold: false })
       dispatch({ type: REMOVE_CURRENT_COORDINATES })
     },
-    onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => {
+    onMouseDown: (currentCoordinates: Coordinate, zoom: number, e: React.MouseEvent<HTMLDivElement>) => {
+      const newCoordinates = getCoordinates(zoom, e)
       dispatch({ type: CHANGE_MOUSE_HOLD, hold: true })
       executeAction(dispatch, e)
     },
-    onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => {
+    onMouseUp: (currentCoordinates: Coordinate, zoom: number, e: React.MouseEvent<HTMLDivElement>) => {
+      const newCoordinates = getCoordinates(zoom, e)
       dispatch({ type: CHANGE_MOUSE_HOLD, hold: false })
-      executeAction(dispatch, e)
+      //executeAction(dispatch, e)
     }
   }
 }
@@ -95,12 +98,13 @@ function Content ({
       <TilesetWrapper
         zoom={tabData.zoom}
         style={tilesetStyle}
-        onMouseUp={onMouseUp}
-        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp.bind(this, currentCoordinates, tabData.zoom)}
+        onMouseDown={onMouseDown.bind(this, currentCoordinates, tabData.zoom)}
         onMouseMove={onMouseMove.bind(this, currentCoordinates, tabData.zoom, mouseHold)}
         onMouseLeave={onMouseLeave}>
         {activeTab === 'objects' && <Objects />}
         {activeTab === 'walk' && <Walk />}
+        {activeTab === 'auto' && <Auto />}
         {currentCoordinates !== null && <HoverTile {...currentCoordinates} />}
       </TilesetWrapper>
     </StyledContent>

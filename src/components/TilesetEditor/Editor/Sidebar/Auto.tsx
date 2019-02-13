@@ -16,7 +16,6 @@ import { GREY_90, DEFAULT_FONT, GREY_30, TEAL_30, TEAL_70 } from 'shared/theme'
 interface ObjectsProps {
   tabData: TabData,
   autoTiles: AutoTile[],
-  changeTool: (tool: string) => void,
   onChangeTitle: (e: React.FormEvent) => void,
   onAutoTileAdd: () => void,
   onSelectAutoTile: (title: string) => void,
@@ -36,9 +35,6 @@ function mapStateToProps ({ tabData, tilesetData }: any) {
 
 function mapDispatchToProps (dispatch: Dispatch) {
   return {
-    changeTool: (autoTool: string) => {
-      dispatch({ type: CHANGE_TAB_DATA, data: { autoTool } })
-    },
     onChangeTitle: (e: React.ChangeEvent) => {
       const target = e.target as HTMLInputElement
       dispatch({
@@ -87,7 +83,6 @@ function mapDispatchToProps (dispatch: Dispatch) {
 
 function Auto ({
   tabData,
-  changeTool,
   autoTiles,
   onChangeTitle,
   onAutoTileAdd,
@@ -96,16 +91,6 @@ function Auto ({
 }: ObjectsProps) {
   return (
     <div>
-      <ActionWrapper>
-        <Button isActive={tabData.autoTool === 'default'}
-          onClick={changeTool.bind(this, 'default')}>
-          <FontAwesomeIcon icon={faPaintBrush} /> Add Tile
-        </Button>
-        <Button isActive={tabData.autoTool === 'erase'}
-          onClick={changeTool.bind(this, 'erase')}>
-          <FontAwesomeIcon icon={faEraser} /> Remove Tile
-        </Button>
-      </ActionWrapper>
       <AutoTileList>
         {autoTiles.map((autoTile) => {
           return (
@@ -173,19 +158,6 @@ const InputWrapper = styled.div`
   flex-grow: 1;
   flex-basis: 90%;
   margin-right: 10px;
-`
-
-const ActionWrapper = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-
-  > * {
-    margin-right: 10px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
 `
 
 export default connect(

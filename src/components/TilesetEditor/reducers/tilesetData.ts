@@ -4,10 +4,10 @@ import { UPLOAD_TILESET, UPDATE_TILESET, RESET_TILESET } from '../actionTypes'
 
 export interface AutoTileField {
   opacityAreas: { // e.g. 1 1 1 1 is full cover
-    top: boolean,
-    right: boolean,
-    bottom: boolean,
-    left: boolean
+    topLeft: boolean,
+    topRight: boolean,
+    bottomRight: boolean,
+    bottomLeft: boolean
   },
   y: number,
   x: number
