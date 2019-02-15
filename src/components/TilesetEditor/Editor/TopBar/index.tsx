@@ -4,13 +4,14 @@ import styled from 'styled-components'
 import TitleField from './TitleField'
 import SaveButton from './SaveButton'
 import CloseButton from './CloseButton'
+import NewMapButton from './NewMapButton'
 
 export default function Topbar () {
   return (
     <StyledTopbar>
       <TitleField />
       <ButtonsWrapper>
-        <SaveButton /><CloseButton />
+        <SaveButton /><CloseButton /><NewMapButton />
       </ButtonsWrapper>
     </StyledTopbar>
   )

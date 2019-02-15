@@ -12,6 +12,10 @@ import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { UPLOAD_TILESET, CHANGE_TAB_DATA } from 'components/TilesetEditor/actionTypes'
 import TilesetEditor from 'components/TilesetEditor'
 
+import mapEditorStore from 'components/MapEditor/store'
+import MapEditor from 'components/MapEditor'
+import { UPLOAD_MAP, CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
+
 interface UploadState {
   loading: boolean,
   page?: string
@@ -32,6 +36,8 @@ class Upload extends React.Component<{}, UploadState> {
   render () {
     if (this.state.page === 'tilesetEditor') {
       return <TilesetEditor />
+    } else if (this.state.page === 'mapEditor') {
+      return <MapEditor />
     }
 
     if (this.state.loading) {
@@ -59,7 +65,19 @@ class Upload extends React.Component<{}, UploadState> {
   }
 
   createMap (tilesetData: Tileset) {
-    // TODO
+    mapEditorStore.dispatch({
+      type: UPLOAD_MAP,
+      data: {
+        tilesets: [tilesetData]
+      }
+    })
+    mapEditorStore.dispatch({
+      type: CHANGE_EDITOR_DATA,
+      data: {
+        close: this.closeEditor
+      }
+    })
+    this.setState({ page: 'mapEditor' })
   }
 
   onChangeFile (e: React.FormEvent<HTMLInputElement>) {

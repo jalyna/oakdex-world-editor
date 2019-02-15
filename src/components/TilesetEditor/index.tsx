@@ -2,8 +2,6 @@ import * as React from 'react'
 import { Provider, connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { GREY_50 } from 'shared/theme'
-
 import store from './store'
 
 import { Tileset } from './reducers/tilesetData'

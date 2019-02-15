@@ -4,7 +4,8 @@ import { CHANGE_EDITOR_DATA } from '../actionTypes'
 
 export interface EditorData {
   tool: string,
-  currentLayer?: number
+  currentLayer?: number,
+  close?: () => void
 }
 
 const defaultEditorData: EditorData = {

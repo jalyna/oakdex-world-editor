@@ -2,19 +2,24 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMap } from '@fortawesome/free-solid-svg-icons'
 
 import Button from 'shared/Button'
 
 import { RESET_TILESET } from 'components/TilesetEditor/actionTypes'
+import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 
-interface CloseButtonProps {
+interface NewMapButtonProps {
   onClick: (e: React.MouseEvent) => void,
-  close: () => void
+  createMap: (tilesetData: Tileset) => void,
+  tilesetData: Tileset
 }
 
-function mapStateToProps ({ tabData }: any) {
+function mapStateToProps ({ tabData, tilesetData }: any) {
   return {
-    close: tabData.close
+    createMap: tabData.createMap,
+    tilesetData: tilesetData
   }
 }
 
@@ -26,8 +31,8 @@ function mapDispatchToProps (dispatch: Dispatch) {
   }
 }
 
-class CloseButton extends React.Component<CloseButtonProps, {}> {
-  constructor (props: CloseButtonProps) {
+class NewMapButton extends React.Component<NewMapButtonProps, {}> {
+  constructor (props: NewMapButtonProps) {
     super(props)
     this.onClick = this.onClick.bind(this)
   }
@@ -35,7 +40,9 @@ class CloseButton extends React.Component<CloseButtonProps, {}> {
   render () {
     return (
       <Button onClick={this.onClick}>
-        Close
+        <FontAwesomeIcon icon={faMap} />
+        &nbsp;
+        New Map
       </Button>
     )
   }
@@ -43,11 +50,11 @@ class CloseButton extends React.Component<CloseButtonProps, {}> {
   onClick (e: React.MouseEvent) {
     e.preventDefault()
     this.props.onClick(e)
-    this.props.close()
+    this.props.createMap(this.props.tilesetData)
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CloseButton)
+)(NewMapButton)
