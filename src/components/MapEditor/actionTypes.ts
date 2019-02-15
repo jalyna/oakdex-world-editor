@@ -1,0 +1,2 @@
+export const CHANGE_EDITOR_DATA = 'CHANGE_EDITOR_DATA'
+export const UPLOAD_MAP = 'UPLOAD_MAP'

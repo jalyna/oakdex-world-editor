@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
 import { Tileset } from './reducers/tilesetData'
-import TilesetUpload from './TilesetUpload'
 import Editor from './Editor'
 
 interface AppProps {
@@ -20,7 +19,7 @@ function App ({ tilesetData }: AppProps) {
   if (tilesetData) {
     return <Editor />
   } else {
-    return <TilesetUpload />
+    return null
   }
 }
 

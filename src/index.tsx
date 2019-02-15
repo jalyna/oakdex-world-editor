@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import TilesetEditor from './components/TilesetEditor'
+import Upload from './components/Upload'
 
 ReactDOM.render(
-  <TilesetEditor />,
+  <Upload />,
   document.getElementById('app')
 )
