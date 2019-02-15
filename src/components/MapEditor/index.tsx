@@ -5,6 +5,7 @@ import { Dispatch } from 'redux'
 import store from './store'
 
 import { MapData } from './reducers/mapData'
+import Editor from './Editor'
 
 interface AppProps {
   mapData: MapData | null
@@ -18,7 +19,7 @@ function mapStateToProps ({ mapData }: any) {
 
 function AppComponent ({ mapData }: AppProps): React.ReactElement<any> {
   if (mapData) {
-    return <div>MAP EDITOR</div>//<Editor />
+    return <Editor />
   } else {
     return null
   }

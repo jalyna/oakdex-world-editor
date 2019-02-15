@@ -14,7 +14,7 @@ import TilesetEditor from 'components/TilesetEditor'
 
 import mapEditorStore from 'components/MapEditor/store'
 import MapEditor from 'components/MapEditor'
-import { UPLOAD_MAP, CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
+import { UPLOAD_MAP, CHANGE_EDITOR_DATA, ADD_TILESET } from 'components/MapEditor/actionTypes'
 
 interface UploadState {
   loading: boolean,
@@ -67,15 +67,17 @@ class Upload extends React.Component<{}, UploadState> {
   createMap (tilesetData: Tileset) {
     mapEditorStore.dispatch({
       type: UPLOAD_MAP,
-      data: {
-        tilesets: [tilesetData]
-      }
+      data: {}
     })
     mapEditorStore.dispatch({
       type: CHANGE_EDITOR_DATA,
       data: {
         close: this.closeEditor
       }
+    })
+    mapEditorStore.dispatch({
+      type: ADD_TILESET,
+      data: tilesetData
     })
     this.setState({ page: 'mapEditor' })
   }

@@ -2,6 +2,7 @@ import { combineReducers, createStore, StoreEnhancer } from 'redux'
 
 import mapData from './reducers/mapData'
 import editorData from './reducers/editorData'
+import tilesets from './reducers/tilesets'
 
 declare global {
   interface Window {
@@ -15,6 +16,7 @@ const debug = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTE
 
 const reducer = combineReducers({
   mapData,
+  tilesets,
   editorData
 })
 

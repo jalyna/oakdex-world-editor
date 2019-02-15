@@ -2,7 +2,7 @@ import { Reducer } from 'redux'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 
-import { UPLOAD_MAP } from '../actionTypes'
+import { UPLOAD_MAP, UPDATE_MAP, RESET_MAP } from '../actionTypes'
 
 export interface LayerField {
   x: number,
@@ -21,7 +21,6 @@ export interface MapData {
   title: string,
   width: number,
   height: number,
-  tilesets: Tileset[],
   layers: Layer[]
 }
 
@@ -33,9 +32,15 @@ const mapData: Reducer<MapData> = (state: MapData | null = null, action): MapDat
         width: 30,
         height: 20,
         title: 'New Map',
-        tilesets: [],
         ...action.data
       }
+    case UPDATE_MAP:
+      return {
+        ...state,
+        ...action.data
+      }
+    case RESET_MAP:
+      return null
     default:
       return state
   }
