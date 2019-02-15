@@ -8,7 +8,8 @@ import readImage from 'shared/readImage'
 import readJson from 'shared/readJson'
 
 import tilesetEditorStore from 'components/TilesetEditor/store'
-import { UPLOAD_TILESET } from 'components/TilesetEditor/actionTypes'
+import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
+import { UPLOAD_TILESET, CHANGE_TAB_DATA } from 'components/TilesetEditor/actionTypes'
 import TilesetEditor from 'components/TilesetEditor'
 
 interface UploadState {
@@ -24,6 +25,8 @@ class Upload extends React.Component<{}, UploadState> {
     }
     this.onChangeFile = this.onChangeFile.bind(this)
     this.changeLoading = this.changeLoading.bind(this)
+    this.closeEditor = this.closeEditor.bind(this)
+    this.createMap = this.createMap.bind(this)
   }
 
   render () {
@@ -51,31 +54,46 @@ class Upload extends React.Component<{}, UploadState> {
     )
   }
 
+  closeEditor () {
+    this.setState({ page: undefined })
+  }
+
+  createMap (tilesetData: Tileset) {
+    // TODO
+  }
+
   onChangeFile (e: React.FormEvent<HTMLInputElement>) {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       this.changeLoading(true)
       const file = e.currentTarget.files[0]
       if (file.name.indexOf('.json') >= 0) {
         readJson(file).then((json) => {
-          tilesetEditorStore.dispatch({
-            type: UPLOAD_TILESET,
-            data: json
-          })
+          this.passDataToTilesetEditor(json)
           this.changeLoading(false)
-          this.setState({ page: 'tilesetEditor' })
         })
         this.changeLoading(false)
       } else {
         readImage(file).then((imageData) => {
-          tilesetEditorStore.dispatch({
-            type: UPLOAD_TILESET,
-            data: imageData
-          })
+          this.passDataToTilesetEditor(imageData)
           this.changeLoading(false)
-          this.setState({ page: 'tilesetEditor' })
         })
       }
     }
+  }
+
+  passDataToTilesetEditor (json: any) {
+    tilesetEditorStore.dispatch({
+      type: UPLOAD_TILESET,
+      data: json
+    })
+    tilesetEditorStore.dispatch({
+      type: CHANGE_TAB_DATA,
+      data: {
+        close: this.closeEditor,
+        createMap: this.createMap
+      }
+    })
+    this.setState({ page: 'tilesetEditor' })
   }
 
   changeLoading (value: boolean) {

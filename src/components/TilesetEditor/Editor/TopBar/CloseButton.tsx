@@ -9,11 +9,14 @@ import downloadJson from 'shared/downloadJson'
 import { RESET_TILESET } from 'components/TilesetEditor/actionTypes'
 
 interface CloseButtonProps {
-  onClick: (e: React.MouseEvent) => void
+  onClick: (e: React.MouseEvent) => void,
+  close: () => void
 }
 
-function mapStateToProps () {
-  return {}
+function mapStateToProps ({ tabData }: any) {
+  return {
+    close: tabData.close
+  }
 }
 
 function mapDispatchToProps (dispatch: Dispatch) {
@@ -41,6 +44,7 @@ class CloseButton extends React.Component<CloseButtonProps, {}> {
   onClick (e: React.MouseEvent) {
     e.preventDefault()
     this.props.onClick(e)
+    this.props.close()
   }
 }
 

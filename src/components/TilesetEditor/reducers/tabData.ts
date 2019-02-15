@@ -1,6 +1,7 @@
 import { Reducer } from 'redux'
 
 import { CHANGE_TAB_DATA } from '../actionTypes'
+import { Tileset } from './tilesetData'
 
 export interface TabData {
   objectsTool: string,
@@ -10,7 +11,9 @@ export interface TabData {
   nextAutoTileTitle: string,
   nextSpecialTileTitle: string,
   selectedAutoTile?: string,
-  selectedSpecialTile?: string
+  selectedSpecialTile?: string,
+  close?: () => void,
+  createMap?: (tilesetData: Tileset) => void
 }
 
 const defaultTabData: TabData = {
