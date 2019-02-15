@@ -84,17 +84,19 @@ class Upload extends React.Component<{}, UploadState> {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       this.changeLoading(true)
       const file = e.currentTarget.files[0]
-      if (file.name.indexOf('.json') >= 0) {
+      if (file.name.indexOf('.tileset.json') >= 0) {
         readJson(file).then((json) => {
           this.passDataToTilesetEditor(json)
           this.changeLoading(false)
         })
         this.changeLoading(false)
-      } else {
+      } else if (file.name.indexOf('.png') >= 0) {
         readImage(file).then((imageData) => {
           this.passDataToTilesetEditor(imageData)
           this.changeLoading(false)
         })
+      } else {
+        alert('INVALID FORMAT')
       }
     }
   }
