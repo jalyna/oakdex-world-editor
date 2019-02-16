@@ -3,12 +3,14 @@ import styled from 'styled-components'
 
 import TitleField from './TitleField'
 import CloseButton from './CloseButton'
+import SaveButton from './SaveButton'
 
 export default function Topbar () {
   return (
     <StyledTopbar>
       <TitleField />
       <ButtonsWrapper>
+        <SaveButton />
         <CloseButton />
       </ButtonsWrapper>
     </StyledTopbar>

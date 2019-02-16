@@ -14,7 +14,7 @@ import TilesetEditor from 'components/TilesetEditor'
 
 import mapEditorStore from 'components/MapEditor/store'
 import MapEditor from 'components/MapEditor'
-import { UPLOAD_MAP, CHANGE_EDITOR_DATA, ADD_TILESET } from 'components/MapEditor/actionTypes'
+import { UPLOAD_MAP, CHANGE_EDITOR_DATA, ADD_TILESET, RESET_MAP } from 'components/MapEditor/actionTypes'
 
 interface UploadState {
   loading: boolean,
@@ -92,6 +92,12 @@ class Upload extends React.Component<{}, UploadState> {
           this.changeLoading(false)
         })
         this.changeLoading(false)
+      } else if (file.name.indexOf('.map.json') >= 0) {
+        readJson(file).then((json) => {
+          this.passDataToMapEditor(json)
+          this.changeLoading(false)
+        })
+        this.changeLoading(false)
       } else if (file.name.indexOf('.png') >= 0) {
         readImage(file).then((imageData) => {
           this.passDataToTilesetEditor(imageData)
@@ -101,6 +107,31 @@ class Upload extends React.Component<{}, UploadState> {
         alert('INVALID FORMAT')
       }
     }
+  }
+
+  passDataToMapEditor (json: any) {
+    const tilesets = json.tilesets
+    delete json.tilesets
+    mapEditorStore.dispatch({
+      type: RESET_MAP
+    })
+    mapEditorStore.dispatch({
+      type: UPLOAD_MAP,
+      data: json
+    })
+    mapEditorStore.dispatch({
+      type: CHANGE_EDITOR_DATA,
+      data: {
+        close: this.closeEditor
+      }
+    })
+    tilesets.forEach((t) => {
+      mapEditorStore.dispatch({
+        type: ADD_TILESET,
+        data: t
+      })
+    })
+    this.setState({ page: 'mapEditor' })
   }
 
   passDataToTilesetEditor (json: any) {
