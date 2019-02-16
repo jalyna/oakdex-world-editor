@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { DEFAULT_FONT, GREY_30, GREY_90 } from 'shared/theme'
 
 import Topbar from './Topbar'
+import Sidebar from './Sidebar'
 
 const TOPBAR_HEIGHT = 80
 const SIDEBAR_WIDTH = 400
@@ -13,7 +14,7 @@ export default function Editor () {
     <Wrapper>
       <TopbarWrapper><Topbar /></TopbarWrapper>
       <ContentWrapper>CONTENT</ContentWrapper>
-      <SidebarWrapper>SIDEBAR</SidebarWrapper>
+      <SidebarWrapper><Sidebar /></SidebarWrapper>
     </Wrapper>
   )
 }
