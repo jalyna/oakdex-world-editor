@@ -22,7 +22,9 @@ interface LayerMenuProps {
   onAdd: (beforeLayerIndex?: number) => void,
   onEdit: (layerIndex: number) => void,
   onFinishEdit: (layerIndex: number, e: React.KeyboardEvent<HTMLInputElement>) => void,
-  onChangeTitle: (layerIndex: number, e: React.FormEvent<HTMLInputElement>) => void
+  onChangeTitle: (layerIndex: number, e: React.FormEvent<HTMLInputElement>) => void,
+  onMoveUp: (layerIndex: number) => void,
+  onMoveDown: (layerIndex: number) => void
 }
 
 interface LayerItemProps {
@@ -53,6 +55,42 @@ function mapDispatchToProps (dispatch: Dispatch) {
       if (e.key === 'Enter') {
         dispatch({ type: CHANGE_EDITOR_DATA, data: { editTitleLayerIndex: undefined }})
       }
+    },
+    onMoveUp: (layerIndex: number) => {
+      const mapData = store.getState().mapData
+      if (!mapData) {
+        return
+      }
+      let layers = mapData.layers.slice()
+      const layer = layers[layerIndex]
+      layers.splice(layerIndex, 1)
+      layers.splice(layerIndex + 1, 0, layer)
+
+      dispatch({
+        type: UPDATE_MAP,
+        data: {
+          ...mapData,
+          layers: layers
+        }
+      })
+    },
+    onMoveDown: (layerIndex: number) => {
+      const mapData = store.getState().mapData
+      if (!mapData) {
+        return
+      }
+      let layers = mapData.layers.slice()
+      const layer = layers[layerIndex]
+      layers.splice(layerIndex, 1)
+      layers.splice(layerIndex - 1, 0, layer)
+
+      dispatch({
+        type: UPDATE_MAP,
+        data: {
+          ...mapData,
+          layers: layers
+        }
+      })
     },
     onChangeTitle: (layerIndex: number, e: React.FormEvent<HTMLInputElement>) => {
       const mapData = store.getState().mapData
@@ -121,7 +159,9 @@ function LayerMenu ({
   onDelete,
   onEdit,
   onChangeTitle,
-  onFinishEdit
+  onFinishEdit,
+  onMoveUp,
+  onMoveDown
 }: LayerMenuProps) {
   const reverseLayers = layers.slice().reverse()
   return (
@@ -138,8 +178,8 @@ function LayerMenu ({
                   onKeyPress={onFinishEdit.bind(this, i)}
                   onChange={onChangeTitle.bind(this, i)} />}
               </LayerTitle>
-              {i !== 0 && <Button><FontAwesomeIcon icon={faArrowDown} /></Button>}
-              {i + 1 !== reverseLayers.length && <Button><FontAwesomeIcon icon={faArrowUp} /></Button>}
+              {i !== 0 && <Button onClick={onMoveDown.bind(this, i)}><FontAwesomeIcon icon={faArrowDown} /></Button>}
+              {i + 1 !== reverseLayers.length && <Button onClick={onMoveUp.bind(this, i)}><FontAwesomeIcon icon={faArrowUp} /></Button>}
               <Button onClick={onEdit.bind(this, i)}><FontAwesomeIcon icon={faPen} /></Button>
               <Button onClick={onDelete.bind(this, i)}><FontAwesomeIcon icon={faTrash} /></Button>
             </LayerItem>
