@@ -6,6 +6,7 @@ export interface EditorData {
   tool: string,
   currentLayer?: number,
   activeTileset?: string,
+  activeLayerIndex?: number,
   close?: () => void
 }
 

@@ -14,7 +14,7 @@ interface TabItemProps {
   isActive?: boolean
 }
 
-interface SidebarProps {
+interface TilesetMenuProps {
   tilesets: Tileset[],
   activeTileset?: string,
   onTabClick: (tilesetTitle: string) => void
@@ -43,7 +43,7 @@ function styleForTileset (tileset: Tileset) {
   }
 }
 
-function Sidebar ({ tilesets, onTabClick, activeTileset }: SidebarProps) {
+function TilesetMenu ({ tilesets, onTabClick, activeTileset }: TilesetMenuProps) {
   const selectedTileset = tilesets.find((t) => t.title === activeTileset)  
 
   return (
@@ -103,4 +103,4 @@ const TabItem = styled.button`
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Sidebar)
+)(TilesetMenu)

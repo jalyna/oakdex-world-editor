@@ -125,7 +125,7 @@ class Upload extends React.Component<{}, UploadState> {
         close: this.closeEditor
       }
     })
-    tilesets.forEach((t) => {
+    tilesets.forEach((t: Tileset) => {
       mapEditorStore.dispatch({
         type: ADD_TILESET,
         data: t

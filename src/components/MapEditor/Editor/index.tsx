@@ -4,9 +4,11 @@ import styled from 'styled-components'
 import { DEFAULT_FONT, GREY_30, GREY_90 } from 'shared/theme'
 
 import Topbar from './Topbar'
-import Sidebar from './Sidebar'
+import TilesetMenu from './TilesetMenu'
+import LayerMenu from './LayerMenu'
 
-const TOPBAR_HEIGHT = 80
+const TOPBAR_HEIGHT = 60
+const LAYER_MENU_HEIGHT = 200
 const SIDEBAR_WIDTH = 400
 
 export default function Editor () {
@@ -14,7 +16,12 @@ export default function Editor () {
     <Wrapper>
       <TopbarWrapper><Topbar /></TopbarWrapper>
       <ContentWrapper>CONTENT</ContentWrapper>
-      <SidebarWrapper><Sidebar /></SidebarWrapper>
+      <LayerMenuWrapper>
+        <LayerMenu />
+      </LayerMenuWrapper>
+      <TilesetMenuWrapper>
+        <TilesetMenu />
+      </TilesetMenuWrapper>
     </Wrapper>
   )
 }
@@ -44,8 +51,18 @@ const ContentWrapper = styled.div`
   float: left;
 `
 
-const SidebarWrapper = styled.div`
-  height: calc(100% - ${TOPBAR_HEIGHT}px);
+const LayerMenuWrapper = styled.div`
+  height: ${LAYER_MENU_HEIGHT}px;
+  width: ${SIDEBAR_WIDTH}px;
+  overflow: auto;
+  box-sizing: border-box;
+  border-left: 1px solid ${GREY_90};
+  border-bottom: 1px solid ${GREY_90};
+  float: left;
+`
+
+const TilesetMenuWrapper = styled.div`
+  height: calc(100% - ${TOPBAR_HEIGHT}px - ${LAYER_MENU_HEIGHT}px);
   width: ${SIDEBAR_WIDTH}px;
   overflow: auto;
   box-sizing: border-box;
