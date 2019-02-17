@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrash, faPen, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import Button from 'shared/Button'
@@ -123,10 +123,12 @@ function LayerMenu ({
   onChangeTitle,
   onFinishEdit
 }: LayerMenuProps) {
+  const reverseLayers = layers.slice().reverse()
   return (
     <StyledSidebar>
       <LayerList>
-        {layers.map((layer: Layer, i: number) => {
+        {reverseLayers.map((layer: Layer, j: number) => {
+          const i = reverseLayers.length - j - 1
           return (
             <LayerItem key={i} onClick={onSelect.bind(this, i, activeLayerIndex)} selected={activeLayerIndex === i}>
               <LayerTitle>
@@ -136,6 +138,8 @@ function LayerMenu ({
                   onKeyPress={onFinishEdit.bind(this, i)}
                   onChange={onChangeTitle.bind(this, i)} />}
               </LayerTitle>
+              {i !== 0 && <Button><FontAwesomeIcon icon={faArrowDown} /></Button>}
+              {i + 1 !== reverseLayers.length && <Button><FontAwesomeIcon icon={faArrowUp} /></Button>}
               <Button onClick={onEdit.bind(this, i)}><FontAwesomeIcon icon={faPen} /></Button>
               <Button onClick={onDelete.bind(this, i)}><FontAwesomeIcon icon={faTrash} /></Button>
             </LayerItem>
@@ -165,6 +169,7 @@ const LayerItem = styled.div`
   button {
     flex-grow: 0;
     margin-left: 3px;
+    width: auto;
   }
 `
 
