@@ -25,6 +25,10 @@ interface LayerMenuProps {
   onChangeTitle: (layerIndex: number, e: React.FormEvent<HTMLInputElement>) => void
 }
 
+interface LayerItemProps {
+  selected?: boolean
+}
+
 function mapStateToProps ({ mapData, editorData }: any) {
   return {
     layers: mapData.layers,
@@ -124,7 +128,7 @@ function LayerMenu ({
       <LayerList>
         {layers.map((layer: Layer, i: number) => {
           return (
-            <LayerItem key={i}>
+            <LayerItem key={i} onClick={onSelect.bind(this, i, activeLayerIndex)} selected={activeLayerIndex === i}>
               <LayerTitle>
                 {i !== editTitleLayerIndex && layer.title}
                 {i === editTitleLayerIndex && <TextField
@@ -148,10 +152,15 @@ function LayerMenu ({
 
 const LayerItem = styled.div`
   margin-bottom: 3px;
-  padding: 3px 0;
+  padding: 3px;
   border-bottom: 1px solid ${GREY_90};
   display: flex;
   align-items: center;
+  cursor: pointer;
+  ${({ selected }: LayerItemProps) => selected && `
+    background: ${TEAL_30};
+    color: white;
+  `};
 
   button {
     flex-grow: 0;
