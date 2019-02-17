@@ -7,6 +7,7 @@ export interface EditorData {
   currentLayer?: number,
   activeTileset?: string,
   activeLayerIndex?: number,
+  editTitleLayerIndex?: number,
   close?: () => void
 }
 
