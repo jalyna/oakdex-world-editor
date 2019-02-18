@@ -6,6 +6,7 @@ import { DEFAULT_FONT, GREY_30, GREY_90 } from 'shared/theme'
 import Topbar from './Topbar'
 import TilesetMenu from './TilesetMenu'
 import LayerMenu from './LayerMenu'
+import Content from './Content'
 
 const TOPBAR_HEIGHT = 60
 const LAYER_MENU_HEIGHT = 200
@@ -15,7 +16,7 @@ export default function Editor () {
   return (
     <Wrapper>
       <TopbarWrapper><Topbar /></TopbarWrapper>
-      <ContentWrapper>CONTENT</ContentWrapper>
+      <ContentWrapper><Content /></ContentWrapper>
       <LayerMenuWrapper>
         <LayerMenu />
       </LayerMenuWrapper>
