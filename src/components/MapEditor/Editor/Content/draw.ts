@@ -23,6 +23,20 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
   const tilesetAreaBox = tilesetAreaToBox(selectedTilesetArea)
 
   let layers = store.getState().mapData.layers.slice()
+  let newFields = [] as LayerField[];
+
+  [...Array(tilesetAreaBox.height)].forEach((_, offsetY) => {
+    [...Array(tilesetAreaBox.width)].forEach((_, offsetX) => {
+      newFields.push({
+        x: coordinates.x + offsetX,
+        y: coordinates.y + offsetY,
+        tilesetTitle: activeTileset,
+        tilesetX: tilesetAreaBox.x + offsetX,
+        tilesetY: tilesetAreaBox.y + offsetY
+      }) 
+    })
+  })
+
   const newField = {
     ...coordinates,
     tilesetTitle: activeTileset,
@@ -33,7 +47,7 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
   layers[currentLayer].fields = layers[currentLayer].fields.filter((field) => {
     return field.x !== coordinates.x || field.y !== coordinates.y
   })
-  layers[currentLayer].fields.push(newField)
+  layers[currentLayer].fields = newFields.concat(layers[currentLayer].fields)
 
   dispatch({
     type: UPDATE_MAP,
