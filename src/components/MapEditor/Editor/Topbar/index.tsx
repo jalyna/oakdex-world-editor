@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import TitleField from './TitleField'
 import CloseButton from './CloseButton'
 import SaveButton from './SaveButton'
+import ExportAsPngButton from './ExportAsPngButton'
 import Tools from './Tools'
 
 export default function Topbar () {
@@ -13,6 +14,7 @@ export default function Topbar () {
       <Tools />
       <ButtonsWrapper>
         <SaveButton />
+        <ExportAsPngButton />
         <CloseButton />
       </ButtonsWrapper>
     </StyledTopbar>
@@ -36,7 +38,7 @@ const TitleWrapper = styled.div`
 const ButtonsWrapper = styled.div`
   flex-grow: 0;
   display: flex;
-  flex-basis: 400px;
+  flex-basis: 600px;
   box-sizing: border-box;
   padding-right: 15px;
 
