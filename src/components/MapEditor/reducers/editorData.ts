@@ -22,6 +22,7 @@ export interface EditorData {
   tool: string,
   tilesetMouseHolding: boolean,
   mapMouseHolding: boolean,
+  activeAutoTile?: string,
   currentCoordinates?: Coordinate,
   activeTileset?: string,
   activeLayerIndex?: number,

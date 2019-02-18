@@ -2,13 +2,16 @@ import { Reducer } from 'redux'
 
 import { UPLOAD_TILESET, UPDATE_TILESET, RESET_TILESET } from '../actionTypes'
 
+// e.g. 1 1 1 1 is full cover
+export interface OpacityAreas {
+  topLeft: boolean,
+  topRight: boolean,
+  bottomRight: boolean,
+  bottomLeft: boolean
+}
+
 export interface AutoTileField {
-  opacityAreas: { // e.g. 1 1 1 1 is full cover
-    topLeft: boolean,
-    topRight: boolean,
-    bottomRight: boolean,
-    bottomLeft: boolean
-  },
+  opacityAreas: OpacityAreas,
   y: number,
   x: number
 }

@@ -14,6 +14,7 @@ import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import { CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
 
 import draw from './draw'
+import AutoTiles from './AutoTiles'
 
 interface TabItemProps {
   isActive?: boolean
@@ -22,6 +23,7 @@ interface TabItemProps {
 interface TilesetMenuProps {
   tilesets: Tileset[],
   activeTileset?: string,
+  tool: string,
   selectedTilesetArea?: SelectedTilesetArea,
   onTabClick: (tilesetTitle: string) => void,
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
@@ -34,7 +36,8 @@ function mapStateToProps ({ tilesets, editorData }: any) {
   return {
     tilesets,
     activeTileset: editorData.activeTileset,
-    selectedTilesetArea: editorData.selectedTilesetArea
+    selectedTilesetArea: editorData.selectedTilesetArea,
+    tool: editorData.tool
   }
 }
 
@@ -100,6 +103,7 @@ function renderSelectedTilesetArea (selectedTilesetArea?: SelectedTilesetArea): 
 
 function TilesetMenu ({
   tilesets,
+  tool,
   onTabClick,
   activeTileset,
   selectedTilesetArea,
@@ -124,7 +128,7 @@ function TilesetMenu ({
           )
         })}
       </TabList>
-      {selectedTileset && (
+      {selectedTileset && tool !== 'auto' && (
         <TilesetWrapper
           onMouseUp={onMouseUp}
           onMouseDown={onMouseDown}
@@ -133,6 +137,9 @@ function TilesetMenu ({
           style={styleForTileset(selectedTileset)}>
           {renderSelectedTilesetArea(selectedTilesetArea)}
         </TilesetWrapper>
+      )}
+      {selectedTileset && tool === 'auto' && (
+        <AutoTiles tileset={selectedTileset} />
       )}
     </StyledSidebar>
   )
