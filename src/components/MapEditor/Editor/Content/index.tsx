@@ -15,6 +15,7 @@ import { GREY_70 } from 'shared/theme'
 import draw from './draw'
 import fill from './fill'
 import drawFields from './drawFields'
+import { drawMap } from './canvas'
 
 interface ContentProps {
   tilesets: Tileset[],
@@ -105,41 +106,57 @@ function renderLayer (layerFields: LayerField[], i: number, tilesets: Tileset[])
   )
 }
 
-function Content ({
-  tilesets,
-  mapData,
-  previewFields,
-  onMouseUp,
-  onMouseDown,
-  onMouseMove,
-  onMouseLeave
-}: ContentProps) {
-  if (!mapData) {
-    return
+class Content extends React.Component<ContentProps, {}> {
+  constructor (props: ContentProps) {
+    super(props)
   }
 
-  const mapStyle = {
-    width: mapData.width * 16 + 2,
-    height: mapData.height * 16 + 2
+  private canvas = React.createRef<HTMLCanvasElement>()
+
+  render () {
+    const {
+      tilesets,
+      mapData,
+      previewFields,
+      onMouseUp,
+      onMouseDown,
+      onMouseMove,
+      onMouseLeave
+    } = this.props
+
+    if (!mapData) {
+      return
+    }
+
+    const mapStyle = {
+      width: mapData.width * 16 + 2,
+      height: mapData.height * 16 + 2
+    }
+
+    return (
+      <StyledContent>
+        <MapWrapper
+          style={mapStyle}
+          onMouseUp={onMouseUp}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}>
+          <canvas ref={this.canvas} width={mapData.width * 16} height={mapData.height * 16} />
+          <PreviewLayer>
+            {renderLayer(previewFields, -1, tilesets)}
+          </PreviewLayer>
+        </MapWrapper>
+      </StyledContent>
+    )
   }
 
-  return (
-    <StyledContent>
-      <MapWrapper
-        style={mapStyle}
-        onMouseUp={onMouseUp}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}>
-        {mapData.layers.map((layer: Layer, i: number) => {
-          return renderLayer(layer.fields, i, tilesets)
-        })}
-        <PreviewLayer>
-          {renderLayer(previewFields, -1, tilesets)}
-        </PreviewLayer>
-      </MapWrapper>
-    </StyledContent>
-  )
+  componentDidUpdate () {
+    this.redraw()
+  }
+
+  redraw () {
+    drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets)
+  }
 }
 
 const StyledContent = styled.div`
@@ -159,6 +176,8 @@ const MapWrapper = styled.div`
 const PreviewLayer = styled.div`
   opacity: 0.6;
   position: absolute;
+  top: 0;
+  left: 0;
 `
 
 export default connect(
