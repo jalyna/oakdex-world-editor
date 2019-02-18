@@ -3,26 +3,18 @@ import store from 'components/MapEditor/store'
 import { AnyAction } from 'redux'
 
 import { LayerField } from 'components/MapEditor/reducers/mapData'
-import { tilesetAreaToBox } from 'components/MapEditor/reducers/editorData'
+import { tilesetAreaToBox, SelectedTilesetArea, TilesetAreaBox } from 'components/MapEditor/reducers/editorData'
 import { Coordinate } from 'components/TilesetEditor/reducers/currentCoordinates'
 import getCoordinates from 'shared/getCoordinates'
 
 import { UPDATE_MAP } from 'components/MapEditor/actionTypes'
 
-export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>) {
-  const coordinates = getCoordinates(1, e)
-  const state = store.getState()
-  const selectedTilesetArea = state.editorData.selectedTilesetArea
-  const activeTileset = state.editorData.activeTileset
-  const currentLayer = state.editorData.activeLayerIndex
-
-  if (!selectedTilesetArea || !activeTileset || currentLayer === undefined) {
-    return
+export function drawFields (coordinates: Coordinate, selectedTilesetArea?: SelectedTilesetArea, activeTileset?: string): LayerField[] {
+  if (!selectedTilesetArea || !activeTileset) {
+    return []
   }
 
   const tilesetAreaBox = tilesetAreaToBox(selectedTilesetArea)
-
-  let layers = store.getState().mapData.layers.slice()
   let newFields = [] as LayerField[];
 
   [...Array(tilesetAreaBox.height)].forEach((_, offsetY) => {
@@ -37,12 +29,22 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
     })
   })
 
-  const newField = {
-    ...coordinates,
-    tilesetTitle: activeTileset,
-    tilesetX: tilesetAreaBox.x,
-    tilesetY: tilesetAreaBox.y
-  } as LayerField
+  return newFields
+}
+
+export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>) {
+  const coordinates = getCoordinates(1, e)
+  const state = store.getState()
+  const selectedTilesetArea = state.editorData.selectedTilesetArea
+  const activeTileset = state.editorData.activeTileset
+  const currentLayer = state.editorData.activeLayerIndex
+
+  if (!selectedTilesetArea || !activeTileset || currentLayer === undefined) {
+    return
+  }
+
+  let layers = store.getState().mapData.layers.slice()
+  const newFields = drawFields(coordinates, selectedTilesetArea, activeTileset)
 
   layers[currentLayer].fields = layers[currentLayer].fields.filter((field) => {
     return field.x !== coordinates.x || field.y !== coordinates.y

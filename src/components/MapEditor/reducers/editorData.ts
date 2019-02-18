@@ -2,6 +2,7 @@ import { Reducer } from 'redux'
 
 import { CHANGE_EDITOR_DATA, ADD_TILESET } from '../actionTypes'
 import { Coordinate } from 'components/TilesetEditor/reducers/currentCoordinates'
+import { LayerField } from 'components/MapEditor/reducers/mapData'
 
 export interface SelectedTilesetArea {
   x: number,
@@ -26,13 +27,15 @@ export interface EditorData {
   activeLayerIndex?: number,
   editTitleLayerIndex?: number,
   selectedTilesetArea?: SelectedTilesetArea,
+  previewFields: LayerField[],
   close?: () => void
 }
 
 const defaultEditorData: EditorData = {
   tool: 'default',
   tilesetMouseHolding: false,
-  mapMouseHolding: false
+  mapMouseHolding: false,
+  previewFields: []
 }
 
 export function tilesetAreaToBox (tilesetArea: SelectedTilesetArea): TilesetAreaBox {
