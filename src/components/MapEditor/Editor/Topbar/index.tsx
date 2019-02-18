@@ -6,11 +6,13 @@ import CloseButton from './CloseButton'
 import SaveButton from './SaveButton'
 import ExportAsPngButton from './ExportAsPngButton'
 import Tools from './Tools'
+import CurrentCoordinates from './CurrentCoordinates'
 
 export default function Topbar () {
   return (
     <StyledTopbar>
       <TitleWrapper><TitleField /></TitleWrapper>
+      <CurrentCoordinates />
       <Tools />
       <ButtonsWrapper>
         <SaveButton />

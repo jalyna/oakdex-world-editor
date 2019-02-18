@@ -46,7 +46,7 @@ function mapDispatchToProps (dispatch: Dispatch) {
         dispatch({
           type: CHANGE_EDITOR_DATA,
           data: {
-            coordinates,
+            currentCoordinates: coordinates,
             previewFields: drawFields(coordinates, editorData.selectedTilesetArea, editorData.activeTileset)
           }
         })
@@ -79,7 +79,7 @@ function mapDispatchToProps (dispatch: Dispatch) {
     onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
       dispatch({
         type: CHANGE_EDITOR_DATA,
-        data: { coordinates: undefined, mapMouseHolding: false }
+        data: { currentCoordinates: undefined, mapMouseHolding: false }
       })
     }
   }
