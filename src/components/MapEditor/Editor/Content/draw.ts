@@ -14,7 +14,7 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
   const activeTileset = state.editorData.activeTileset
   const currentLayer = state.editorData.activeLayerIndex
 
-  if (!selectedTilesetArea || !activeTileset || currentLayer === undefined) {
+  if (!activeTileset || currentLayer === undefined) {
     return
   }
 
@@ -23,7 +23,7 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
   const newFields = drawFields(coordinates, selectedTilesetArea, activeTileset)
 
   layers[currentLayer].fields = layers[currentLayer].fields.filter((field) => {
-    return field.x !== coordinates.x || field.y !== coordinates.y
+    return newFields.every((f) => f.x !== field.x || f.y !== field.y)
   })
   layers[currentLayer].fields = newFields.filter((field) => {
     return field.x >= 0 && field.x < mapData.width && field.y >= 0 && field.y < mapData.height

@@ -7,7 +7,8 @@ export interface OpacityAreas {
   topLeft: boolean,
   topRight: boolean,
   bottomRight: boolean,
-  bottomLeft: boolean
+  bottomLeft: boolean,
+  [key: string]: boolean
 }
 
 export interface AutoTileField {
