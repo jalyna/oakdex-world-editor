@@ -2,17 +2,48 @@ import { Reducer } from 'redux'
 
 import { CHANGE_EDITOR_DATA, ADD_TILESET } from '../actionTypes'
 
+export interface SelectedTilesetArea {
+  x: number,
+  y: number,
+  targetX: number,
+  targetY: number
+}
+
+export interface TilesetAreaBox {
+  x: number,
+  y: number,
+  width: number,
+  height: number
+}
+
 export interface EditorData {
   tool: string,
+  tilesetMouseHolding: boolean,
   currentLayer?: number,
   activeTileset?: string,
   activeLayerIndex?: number,
   editTitleLayerIndex?: number,
+  selectedTilesetArea?: SelectedTilesetArea,
   close?: () => void
 }
 
 const defaultEditorData: EditorData = {
-  tool: 'default'
+  tool: 'default',
+  tilesetMouseHolding: false
+}
+
+export function tilesetAreaToBox (tilesetArea: SelectedTilesetArea): TilesetAreaBox {
+  const x = Math.min(tilesetArea.x, tilesetArea.targetX)
+  const y = Math.min(tilesetArea.y, tilesetArea.targetY)
+  const goalX = Math.max(tilesetArea.x, tilesetArea.targetX)
+  const goalY = Math.max(tilesetArea.y, tilesetArea.targetY)
+
+  return {
+    x,
+    y,
+    width: goalX - x + 1,
+    height: goalY - y + 1
+  }
 }
 
 const editorData: Reducer<EditorData> = (state: EditorData = defaultEditorData, action): EditorData => {

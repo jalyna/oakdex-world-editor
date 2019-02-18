@@ -6,9 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faObjectUngroup } from '@fortawesome/free-solid-svg-icons'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
+import { SelectedTilesetArea, tilesetAreaToBox } from 'components/MapEditor/reducers/editorData'
+import store from 'components/MapEditor/store'
+import Tile from 'shared/Tile'
 
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import { CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
+
+import draw from './draw'
 
 interface TabItemProps {
   isActive?: boolean
@@ -17,13 +22,19 @@ interface TabItemProps {
 interface TilesetMenuProps {
   tilesets: Tileset[],
   activeTileset?: string,
-  onTabClick: (tilesetTitle: string) => void
+  selectedTilesetArea?: SelectedTilesetArea,
+  onTabClick: (tilesetTitle: string) => void,
+  onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
 function mapStateToProps ({ tilesets, editorData }: any) {
   return {
     tilesets,
-    activeTileset: editorData.activeTileset
+    activeTileset: editorData.activeTileset,
+    selectedTilesetArea: editorData.selectedTilesetArea
   }
 }
 
@@ -31,6 +42,33 @@ function mapDispatchToProps (dispatch: Dispatch) {
   return {
     onTabClick: (tilesetTitle: string) => {
       dispatch({ type: CHANGE_EDITOR_DATA, activeTileset: tilesetTitle })
+    },
+    onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
+      if (store.getState().editorData.tilesetMouseHolding) {
+        draw(dispatch, e)
+      }
+    },
+    onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: { tilesetMouseHolding: false }
+      })
+    },
+    onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => {
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: { tilesetMouseHolding: false }
+      })
+    },
+    onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => {
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: {
+          tilesetMouseHolding: true,
+          selectedTilesetArea: undefined
+        }
+      })
+      draw(dispatch, e)
     }
   }
 }
@@ -43,7 +81,33 @@ function styleForTileset (tileset: Tileset) {
   }
 }
 
-function TilesetMenu ({ tilesets, onTabClick, activeTileset }: TilesetMenuProps) {
+function renderSelectedTilesetArea (selectedTilesetArea?: SelectedTilesetArea): React.ReactNode {
+  if (!selectedTilesetArea) {
+    return null
+  }
+
+  const tilesetBox = tilesetAreaToBox(selectedTilesetArea)
+
+  const style = {
+    width: (tilesetBox.width * 16) + 'px',
+    height: (tilesetBox.height * 16) + 'px'
+  }
+
+  return (
+    <SelectedTile style={style} x={tilesetBox.x} y={tilesetBox.y} />
+  )
+}
+
+function TilesetMenu ({
+  tilesets,
+  onTabClick,
+  activeTileset,
+  selectedTilesetArea,
+  onMouseUp,
+  onMouseDown,
+  onMouseMove,
+  onMouseLeave
+}: TilesetMenuProps) {
   const selectedTileset = tilesets.find((t) => t.title === activeTileset)  
 
   return (
@@ -60,8 +124,16 @@ function TilesetMenu ({ tilesets, onTabClick, activeTileset }: TilesetMenuProps)
           )
         })}
       </TabList>
-      {selectedTileset && <TilesetWrapper
-        style={styleForTileset(selectedTileset)} />}
+      {selectedTileset && (
+        <TilesetWrapper
+          onMouseUp={onMouseUp}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
+          style={styleForTileset(selectedTileset)}>
+          {renderSelectedTilesetArea(selectedTilesetArea)}
+        </TilesetWrapper>
+      )}
     </StyledSidebar>
   )
 }
@@ -81,6 +153,11 @@ const TilesetWrapper = styled.div`
   image-rendering: pixelated;
   cursor: pointer;
   position: relative;
+`
+
+const SelectedTile = styled(Tile)`
+  background: rgba(43, 111, 219, 0.6);
+  border: 1px solid rgb(43, 111, 219);
 `
 
 const TabItem = styled.button`

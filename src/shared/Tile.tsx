@@ -5,6 +5,7 @@ interface TileProps {
   x: number,
   y: number,
   className?: string,
+  style?: any,
   children?: React.ReactNode
 }
 
@@ -15,10 +16,10 @@ const Tile = styled.div`
   height: 16px;
 `
 
-export default function ({ x, y, className, children }: TileProps) {
-  const style = {
+export default function ({ x, y, className, children, style }: TileProps) {
+  const newStyle = {
     top: (y * 16) + 'px',
     left: (x * 16) + 'px'
   }
-  return <Tile style={style} className={className}>{children}</Tile>
+  return <Tile style={{ ...style, ...newStyle }} className={className}>{children}</Tile>
 }
