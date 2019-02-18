@@ -16,6 +16,7 @@ import draw from './draw'
 import fill from './fill'
 import drawFields from './drawFields'
 import { drawMap } from './canvas'
+import Resize from './Resize'
 
 interface ContentProps {
   tilesets: Tileset[],
@@ -145,6 +146,7 @@ class Content extends React.Component<ContentProps, {}> {
           <PreviewLayer>
             {renderLayer(previewFields, -1, tilesets)}
           </PreviewLayer>
+          <Resize />
         </MapWrapper>
       </StyledContent>
     )
@@ -161,7 +163,7 @@ class Content extends React.Component<ContentProps, {}> {
 
 const StyledContent = styled.div`
   box-sizing: border-box;
-  padding: 15px;
+  padding: 50px;
 `
 
 const MapWrapper = styled.div`
