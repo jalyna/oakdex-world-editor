@@ -43,13 +43,16 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
     return
   }
 
-  let layers = store.getState().mapData.layers.slice()
+  const mapData = store.getState().mapData
+  let layers = mapData.layers.slice()
   const newFields = drawFields(coordinates, selectedTilesetArea, activeTileset)
 
   layers[currentLayer].fields = layers[currentLayer].fields.filter((field) => {
     return field.x !== coordinates.x || field.y !== coordinates.y
   })
-  layers[currentLayer].fields = newFields.concat(layers[currentLayer].fields)
+  layers[currentLayer].fields = newFields.filter((field) => {
+    return field.x >= 0 && field.x < mapData.width && field.y >= 0 && field.y < mapData.height
+  }).concat(layers[currentLayer].fields)
 
   dispatch({
     type: UPDATE_MAP,
