@@ -12,7 +12,9 @@ import getCoordinates from 'shared/getCoordinates'
 import { CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
 import { GREY_70 } from 'shared/theme'
 
-import draw, { drawFields } from './draw'
+import draw from './draw'
+import fill from './fill'
+import drawFields from './drawFields'
 
 interface ContentProps {
   tilesets: Tileset[],
@@ -47,7 +49,11 @@ function mapDispatchToProps (dispatch: Dispatch) {
           }
         })
         if (editorData.mapMouseHolding) {
-          draw(dispatch, e)
+          if (editorData.tool === 'fill') {
+            fill(dispatch, e)
+          } else {
+            draw(dispatch, e)
+          }
         }
       }
     },
@@ -62,7 +68,11 @@ function mapDispatchToProps (dispatch: Dispatch) {
         type: CHANGE_EDITOR_DATA,
         data: { mapMouseHolding: true }
       })
-      draw(dispatch, e)
+      if (store.getState().editorData.tool === 'fill') {
+        fill(dispatch, e)
+      } else {
+        draw(dispatch, e)
+      }
     },
     onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
       dispatch({
@@ -109,8 +119,8 @@ function Content ({
   }
 
   const mapStyle = {
-    width: mapData.width * 16,
-    height: mapData.height * 16
+    width: mapData.width * 16 + 2,
+    height: mapData.height * 16 + 2
   }
 
   return (

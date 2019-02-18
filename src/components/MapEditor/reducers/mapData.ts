@@ -4,12 +4,15 @@ import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 
 import { UPLOAD_MAP, UPDATE_MAP, RESET_MAP } from '../actionTypes'
 
-export interface LayerField {
-  x: number,
-  y: number,
+export interface TilesetField {
   tilesetTitle: string,
   tilesetX: number,
   tilesetY: number
+}
+
+export interface LayerField extends TilesetField {
+  x: number,
+  y: number
 }
 
 export interface Layer {
