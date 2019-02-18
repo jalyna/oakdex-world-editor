@@ -20,8 +20,8 @@ export function drawFields (coordinates: Coordinate, selectedTilesetArea?: Selec
   [...Array(tilesetAreaBox.height)].forEach((_, offsetY) => {
     [...Array(tilesetAreaBox.width)].forEach((_, offsetX) => {
       newFields.push({
-        x: coordinates.x + offsetX,
-        y: coordinates.y + offsetY,
+        x: coordinates.x - Math.floor(tilesetAreaBox.width / 2) + offsetX,
+        y: coordinates.y - Math.floor(tilesetAreaBox.height / 2) + offsetY,
         tilesetTitle: activeTileset,
         tilesetX: tilesetAreaBox.x + offsetX,
         tilesetY: tilesetAreaBox.y + offsetY

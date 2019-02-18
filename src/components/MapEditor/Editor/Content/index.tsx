@@ -148,6 +148,7 @@ const MapWrapper = styled.div`
 
 const PreviewLayer = styled.div`
   opacity: 0.6;
+  position: absolute;
 `
 
 export default connect(
