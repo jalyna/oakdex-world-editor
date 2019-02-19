@@ -25,9 +25,12 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
   layers[currentLayer].fields = layers[currentLayer].fields.filter((field) => {
     return newFields.every((f) => f.x !== field.x || f.y !== field.y)
   })
-  layers[currentLayer].fields = newFields.filter((field) => {
-    return field.x >= 0 && field.x < mapData.width && field.y >= 0 && field.y < mapData.height
-  }).concat(layers[currentLayer].fields)
+
+  if (state.editorData.tool !== 'erase') {
+    layers[currentLayer].fields = newFields.filter((field) => {
+      return field.x >= 0 && field.x < mapData.width && field.y >= 0 && field.y < mapData.height
+    }).concat(layers[currentLayer].fields)
+  }
 
   dispatch({
     type: UPDATE_MAP,

@@ -90,6 +90,18 @@ function renderLayer (layerFields: LayerField[], i: number, tilesets: Tileset[])
     <React.Fragment key={i}>
       {layerFields.map((field) => {
         const tileset = tilesets.find((t) => t.title === field.tilesetTitle)
+        
+        if (!tileset) {
+          return (
+            <Tile
+              key={field.x + '_' + field.y}
+              x={field.x}
+              y={field.y}
+              style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+            />
+          )
+        }
+
         const style = {
           backgroundImage: 'url(' + tileset.imageBase64 + ')',
           backgroundPosition: (field.tilesetX * -16) + 'px ' + (field.tilesetY * -16) + 'px'
