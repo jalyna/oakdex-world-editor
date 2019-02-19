@@ -9,7 +9,6 @@ import LayerMenu from './LayerMenu'
 import Content from './Content'
 
 const TOPBAR_HEIGHT = 60
-const LAYER_MENU_HEIGHT = 200
 const SIDEBAR_WIDTH = 400
 
 export default function Editor () {
@@ -53,7 +52,7 @@ const ContentWrapper = styled.div`
 `
 
 const LayerMenuWrapper = styled.div`
-  height: ${LAYER_MENU_HEIGHT}px;
+  height: calc(50% - ${TOPBAR_HEIGHT}px);
   width: ${SIDEBAR_WIDTH}px;
   overflow: auto;
   box-sizing: border-box;
@@ -63,7 +62,7 @@ const LayerMenuWrapper = styled.div`
 `
 
 const TilesetMenuWrapper = styled.div`
-  height: calc(100% - ${TOPBAR_HEIGHT}px - ${LAYER_MENU_HEIGHT}px);
+  height: 50%;
   width: ${SIDEBAR_WIDTH}px;
   overflow: auto;
   box-sizing: border-box;

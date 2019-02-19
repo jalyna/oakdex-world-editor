@@ -19,12 +19,12 @@ interface LayerMenuProps {
   editTitleLayerIndex?: number,
   onSelect: (layerIndex: number) => void,
   onDelete: (layerIndex: number) => void,
-  onAdd: (beforeLayerIndex?: number) => void,
-  onEdit: (layerIndex: number) => void,
+  onAdd: (beforeLayerIndex: number | null, inputRef: React.RefObject<HTMLInputElement>) => void,
+  onEdit: (layerIndex: number, inputRef: React.RefObject<HTMLInputElement>) => void,
   onFinishEdit: (layerIndex: number, e: React.KeyboardEvent<HTMLInputElement>) => void,
   onChangeTitle: (layerIndex: number, e: React.FormEvent<HTMLInputElement>) => void,
-  onMoveUp: (layerIndex: number) => void,
-  onMoveDown: (layerIndex: number) => void
+  onMoveUp: (layerIndex: number, e: React.MouseEvent) => void,
+  onMoveDown: (layerIndex: number, e: React.MouseEvent) => void
 }
 
 interface LayerItemProps {
@@ -56,7 +56,8 @@ function mapDispatchToProps (dispatch: Dispatch) {
         dispatch({ type: CHANGE_EDITOR_DATA, data: { editTitleLayerIndex: undefined }})
       }
     },
-    onMoveUp: (layerIndex: number) => {
+    onMoveUp: (layerIndex: number, e: React.MouseEvent) => {
+      e.stopPropagation()
       const mapData = store.getState().mapData
       if (!mapData) {
         return
@@ -73,8 +74,14 @@ function mapDispatchToProps (dispatch: Dispatch) {
           layers: layers
         }
       })
+
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: { activeLayerIndex: layerIndex + 1 }
+      })
     },
-    onMoveDown: (layerIndex: number) => {
+    onMoveDown: (layerIndex: number, e: React.MouseEvent) => {
+      e.stopPropagation()
       const mapData = store.getState().mapData
       if (!mapData) {
         return
@@ -90,6 +97,11 @@ function mapDispatchToProps (dispatch: Dispatch) {
           ...mapData,
           layers: layers
         }
+      })
+
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: { activeLayerIndex: layerIndex - 1 }
       })
     },
     onChangeTitle: (layerIndex: number, e: React.FormEvent<HTMLInputElement>) => {
@@ -107,19 +119,21 @@ function mapDispatchToProps (dispatch: Dispatch) {
         }
       })
     },
-    onAdd: (beforeLayerIndex?: number) => {
+    onAdd: (beforeLayerIndex: number | null) => {
       const mapData = store.getState().mapData
       if (!mapData) {
         return
       }
       const newLayer = {
-        title: 'New Layer',
+        title: '',
         fields: []
       } as Layer
       let layers = mapData.layers.slice()
+      let layerIndex = layers.length
 
       if (beforeLayerIndex) {
         layers.splice(beforeLayerIndex, 0, newLayer)
+        layerIndex = beforeLayerIndex
       } else {
         layers.push(newLayer)
       }
@@ -130,6 +144,11 @@ function mapDispatchToProps (dispatch: Dispatch) {
           ...mapData,
           layers: layers
         }
+      })
+
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: { activeLayerIndex: layerIndex, editTitleLayerIndex: layerIndex }
       })
     },
     onDelete: (layerIndex: number) => {
@@ -170,23 +189,27 @@ function LayerMenu ({
         {reverseLayers.map((layer: Layer, j: number) => {
           const i = reverseLayers.length - j - 1
           return (
-            <LayerItem key={i} onClick={onSelect.bind(this, i, activeLayerIndex)} selected={activeLayerIndex === i}>
+            <LayerItem
+              key={i}
+              onClick={onSelect.bind(this, i, activeLayerIndex)}
+              onDoubleClick={onEdit.bind(this, i)}
+              selected={activeLayerIndex === i}>
               <LayerTitle>
                 {i !== editTitleLayerIndex && layer.title}
                 {i === editTitleLayerIndex && <TextField
                   value={layer.title}
+                  autoFocus
                   onKeyPress={onFinishEdit.bind(this, i)}
                   onChange={onChangeTitle.bind(this, i)} />}
               </LayerTitle>
-              {i !== 0 && <Button onClick={onMoveDown.bind(this, i)}><FontAwesomeIcon icon={faArrowDown} /></Button>}
-              {i + 1 !== reverseLayers.length && <Button onClick={onMoveUp.bind(this, i)}><FontAwesomeIcon icon={faArrowUp} /></Button>}
-              <Button onClick={onEdit.bind(this, i)}><FontAwesomeIcon icon={faPen} /></Button>
+              <Button disabled={i + 1 === reverseLayers.length} onClick={onMoveUp.bind(this, i)}><FontAwesomeIcon icon={faArrowUp} /></Button>
+              <Button disabled={i === 0} onClick={onMoveDown.bind(this, i)}><FontAwesomeIcon icon={faArrowDown} /></Button>
               <Button onClick={onDelete.bind(this, i)}><FontAwesomeIcon icon={faTrash} /></Button>
             </LayerItem>
           )
         })}
       </LayerList>
-      <Button onClick={onAdd.bind(this, undefined)}>
+      <Button onClick={onAdd.bind(this, null)}>
         <FontAwesomeIcon icon={faPlus} />&nbsp;
         New Layer
       </Button>
