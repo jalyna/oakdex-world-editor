@@ -7,6 +7,7 @@ import { faObjectUngroup } from '@fortawesome/free-solid-svg-icons'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { SelectedTilesetArea, tilesetAreaToBox } from 'components/MapEditor/reducers/editorData'
+import { Coordinate } from 'components/TilesetEditor/reducers/currentCoordinates'
 import store from 'components/MapEditor/store'
 import Tile from 'shared/Tile'
 
@@ -24,6 +25,7 @@ interface TilesetMenuProps {
   tilesets: Tileset[],
   activeTileset?: string,
   tool: string,
+  randomTiles: Coordinate[],
   selectedTilesetArea?: SelectedTilesetArea,
   onTabClick: (tilesetTitle: string) => void,
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
@@ -37,7 +39,8 @@ function mapStateToProps ({ tilesets, editorData }: any) {
     tilesets,
     activeTileset: editorData.activeTileset,
     selectedTilesetArea: editorData.selectedTilesetArea,
-    tool: editorData.tool
+    tool: editorData.tool,
+    randomTiles: editorData.randomTiles
   }
 }
 
@@ -101,12 +104,19 @@ function renderSelectedTilesetArea (selectedTilesetArea?: SelectedTilesetArea): 
   )
 }
 
+function renderRandomTiles (randomTiles: Coordinate[]): React.ReactNode {
+  return randomTiles.map((tile, i) => {
+    return <SelectedTile key={i} {...tile} />
+  })
+}
+
 function TilesetMenu ({
   tilesets,
   tool,
   onTabClick,
   activeTileset,
   selectedTilesetArea,
+  randomTiles,
   onMouseUp,
   onMouseDown,
   onMouseMove,
@@ -134,8 +144,10 @@ function TilesetMenu ({
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}
+          onContextMenu={(e) => e.preventDefault()}
           style={styleForTileset(selectedTileset)}>
-          {renderSelectedTilesetArea(selectedTilesetArea)}
+          {tool !== 'random' && renderSelectedTilesetArea(selectedTilesetArea)}
+          {tool === 'random' && renderRandomTiles(randomTiles)}
         </TilesetWrapper>
       )}
       {selectedTileset && tool === 'auto' && (

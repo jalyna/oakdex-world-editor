@@ -12,7 +12,8 @@ export default function drawFields (coordinates: Coordinate, selectedTilesetArea
     return []
   }
 
-  const tool = store.getState().editorData.tool
+  const editorData = store.getState().editorData
+  const tool = editorData.tool
 
   if (tool === 'auto') {
     return drawAutoFields(coordinates, activeTileset)
@@ -22,6 +23,19 @@ export default function drawFields (coordinates: Coordinate, selectedTilesetArea
       tilesetX: -1,
       tilesetY: -1,
       tilesetTitle: ''
+    } as LayerField]
+  } else if (tool === 'random') {
+    if (editorData.randomTiles.length === 0) {
+      return []
+    }
+
+    const tilesetCoordinates = editorData.randomTiles[Math.floor(Math.random() * editorData.randomTiles.length)]
+
+    return [{
+      ...coordinates,
+      tilesetX: tilesetCoordinates.x,
+      tilesetY: tilesetCoordinates.y,
+      tilesetTitle: activeTileset
     } as LayerField]
   }
 

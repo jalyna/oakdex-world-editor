@@ -23,7 +23,7 @@ Go to `http://localhost:8080/`
 ## TODO
 
 - [x] Erase tool
-- [ ] Random tool
+- [x] Random tool
 - [ ] Upload other tileset
 - [ ] Remove tileset
 

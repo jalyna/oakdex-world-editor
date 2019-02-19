@@ -28,6 +28,7 @@ export interface EditorData {
   activeLayerIndex?: number,
   editTitleLayerIndex?: number,
   selectedTilesetArea?: SelectedTilesetArea,
+  randomTiles: Coordinate[],
   previewFields: LayerField[],
   close?: () => void
 }
@@ -36,7 +37,8 @@ const defaultEditorData: EditorData = {
   tool: 'default',
   tilesetMouseHolding: false,
   mapMouseHolding: false,
-  previewFields: []
+  previewFields: [],
+  randomTiles: []
 }
 
 export function tilesetAreaToBox (tilesetArea: SelectedTilesetArea): TilesetAreaBox {
