@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMap } from '@fortawesome/free-solid-svg-icons'
 
 import Button from 'shared/Button'
+import t from 'shared/translate'
 
 import { RESET_TILESET } from 'components/TilesetEditor/actionTypes'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
@@ -42,7 +43,7 @@ class NewMapButton extends React.Component<NewMapButtonProps, {}> {
       <Button onClick={this.onClick}>
         <FontAwesomeIcon icon={faMap} />
         &nbsp;
-        New Map
+        {t('new_map')}
       </Button>
     )
   }

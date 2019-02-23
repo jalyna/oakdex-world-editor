@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faCircle, faThLarge, faSquare } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { TabData } from 'components/TilesetEditor/reducers/tabData'
 import Button from 'shared/Button'
 import { CHANGE_TAB_DATA } from 'components/TilesetEditor/actionTypes'
@@ -34,20 +35,17 @@ function Walk ({ tabData, changeTool }: WalkProps) {
       <ActionWrapper>
         <Button isActive={tabData.walkabilityMode === 'default'}
           onClick={changeTool.bind(this, 'default')}>
-          <FontAwesomeIcon icon={faSquare} /> Simple
+          <FontAwesomeIcon icon={faSquare} /> {t('walk_simple')}
         </Button>
         <Button isActive={tabData.walkabilityMode === 'details'}
           onClick={changeTool.bind(this, 'details')}>
-          <FontAwesomeIcon icon={faThLarge} /> Details
+          <FontAwesomeIcon icon={faThLarge} /> {t('walk_details')}
         </Button>
       </ActionWrapper>
-      There are three types of walkability settings.
-      The default is walkable (O).
-      Then there is a simple block (<FontAwesomeIcon icon={faTimes} />).
-      And additionally you can override the blocks e.g.
-      for Bridges (<FontAwesomeIcon icon={faCircle} />).
-      <br /><br />
-      You can either set this for the whole tile or for all 4 corners.
+      <b>{t('legend')}</b><br />
+      O - {t('walkable')}<br />
+      <FontAwesomeIcon icon={faTimes} /> - {t('blocked')}<br />
+      <FontAwesomeIcon icon={faCircle} /> - {t('overridable')}
     </div>
   )
 }

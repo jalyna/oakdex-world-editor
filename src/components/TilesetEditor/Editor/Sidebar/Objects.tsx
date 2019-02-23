@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEraser, faPaintBrush } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { TabData } from 'components/TilesetEditor/reducers/tabData'
 import Button from 'shared/Button'
 import { CHANGE_TAB_DATA } from 'components/TilesetEditor/actionTypes'
@@ -34,16 +35,14 @@ function Objects ({ tabData, changeTool }: ObjectsProps) {
       <ActionWrapper>
         <Button isActive={tabData.objectsTool === 'default'}
           onClick={changeTool.bind(this, 'default')}>
-          <FontAwesomeIcon icon={faPaintBrush} /> Add objects
+          <FontAwesomeIcon icon={faPaintBrush} /> {t('add_objects')}
         </Button>
         <Button isActive={tabData.objectsTool === 'erase'}
           onClick={changeTool.bind(this, 'erase')}>
-          <FontAwesomeIcon icon={faEraser} /> Remove objects
+          <FontAwesomeIcon icon={faEraser} /> {t('remove_objects')}
         </Button>
       </ActionWrapper>
-      Objects will be placed in the foreground, so
-      the player walks in front of them.<br /><br />
-      Mark the objects in the map (see the circle).
+      {t('objects_info')}
     </div>
   )
 }

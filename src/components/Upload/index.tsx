@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled from 'styled-components'
 
+import t from 'shared/translate'
+
 import { DEFAULT_FONT, GREY_30, TEAL_70 } from 'shared/theme'
 import readImage from 'shared/readImage'
 import readJson from 'shared/readJson'
@@ -50,12 +52,9 @@ class Upload extends React.Component<{}, UploadState> {
 
     return (
       <StyledWrapper>
-        <p>Tileset Upload: *.png or *.tileset.json</p>
-        <p>Map Upload: *.map.json</p>
-        <br />
-        <p>Your first time here? Just add a Tileset that is a PNG and start creating
-        awesome Maps</p>
+        <p>{t('intro')}</p>
         <FileUpload type='file' onChange={this.onChangeFile} />
+        <p>{t('accepted_formats')}</p>
       </StyledWrapper>
     )
   }
@@ -104,7 +103,8 @@ class Upload extends React.Component<{}, UploadState> {
           this.changeLoading(false)
         })
       } else {
-        alert('INVALID FORMAT')
+        alert(t('invalid_format'))
+        this.changeLoading(false)
       }
     }
   }

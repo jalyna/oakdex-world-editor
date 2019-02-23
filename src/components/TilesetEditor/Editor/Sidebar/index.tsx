@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faObjectUngroup, faWalking, faStar, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import { CHANGE_TAB } from 'components/TilesetEditor/actionTypes'
 
@@ -29,22 +30,22 @@ const TABS: TabData = {
   objects: {
     component: Objects,
     icon: faObjectUngroup,
-    title: 'Objects'
+    title: t('objects')
   },
   walk: {
     component: Walk,
     icon: faWalking,
-    title: 'Walk'
+    title: t('walk')
   },
   auto: {
     component: Auto,
     icon: faPuzzlePiece,
-    title: 'Auto'
+    title: t('auto')
   },
   special: {
     component: Special,
     icon: faStar,
-    title: 'Special'
+    title: t('special')
   }
 }
 

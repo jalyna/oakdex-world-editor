@@ -5,6 +5,7 @@ import { Dispatch } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import Button from 'shared/Button'
 import downloadJson from 'shared/downloadJson'
@@ -34,7 +35,7 @@ class SaveButton extends React.Component<SaveButtonProps, {}> {
       <Button onClick={this.onClick}>
         <FontAwesomeIcon icon={faDownload} />
         &nbsp;
-        Download Tileset
+        {t('download')}
       </Button>
     )
   }

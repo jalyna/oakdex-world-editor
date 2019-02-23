@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEraser, faPaintBrush, faTrash } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { TabData } from 'components/TilesetEditor/reducers/tabData'
 import { AutoTile } from 'components/TilesetEditor/reducers/tilesetData'
 import Button from 'shared/Button'
@@ -108,10 +109,9 @@ function Auto ({
             value={tabData.nextAutoTileTitle}
             placeholder="Autotile Title" />
         </InputWrapper>
-        <Button onClick={onAutoTileAdd}>Add</Button>
+        <Button onClick={onAutoTileAdd}>{t('add')}</Button>
       </Form>
-      Auto Tiles should be used for mountain groups, water, pavement.
-      Anything that has borders.
+      {t('autotile_description')}
     </div>
   )
 }

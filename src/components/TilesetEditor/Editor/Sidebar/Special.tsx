@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEraser, faPaintBrush, faTrash } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { TabData } from 'components/TilesetEditor/reducers/tabData'
 import { SpecialTile } from 'components/TilesetEditor/reducers/tilesetData'
 import Button from 'shared/Button'
@@ -100,11 +101,11 @@ function Special ({
       <ActionWrapper>
         <Button isActive={tabData.specialTool === 'default'}
           onClick={changeTool.bind(this, 'default')}>
-          <FontAwesomeIcon icon={faPaintBrush} /> Add
+          <FontAwesomeIcon icon={faPaintBrush} /> {t('add')}
         </Button>
         <Button isActive={tabData.specialTool === 'erase'}
           onClick={changeTool.bind(this, 'erase')}>
-          <FontAwesomeIcon icon={faEraser} /> Remove
+          <FontAwesomeIcon icon={faEraser} /> {t('remove')}
         </Button>
       </ActionWrapper>
       <SpecialTileList>
@@ -124,11 +125,9 @@ function Special ({
             value={tabData.nextSpecialTileTitle}
             placeholder="Special Title" />
         </InputWrapper>
-        <Button onClick={onSpecialTileAdd}>Add</Button>
+        <Button onClick={onSpecialTileAdd}>{t('add')}</Button>
       </Form>
-      Special Tiles can be used for whatever you want.
-      It makes for example sense to mark water if you later want
-      to surf in it.
+      {t('special_description')}
     </div>
   )
 }
