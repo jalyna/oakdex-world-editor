@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
+import t from 'shared/translate'
 import Button from 'shared/Button'
 
 import { RESET_MAP } from 'components/MapEditor/actionTypes'
@@ -35,7 +36,7 @@ class CloseButton extends React.Component<CloseButtonProps, {}> {
   render () {
     return (
       <Button onClick={this.onClick}>
-        Close
+        {t('close')}
       </Button>
     )
   }

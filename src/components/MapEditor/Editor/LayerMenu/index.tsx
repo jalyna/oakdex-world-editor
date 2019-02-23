@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrash, faPen, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import Button from 'shared/Button'
 import TextField from 'shared/TextField'
@@ -175,7 +176,7 @@ function LayerMenu ({
       </LayerList>
       <Button onClick={onAdd.bind(this, null)}>
         <FontAwesomeIcon icon={faPlus} />&nbsp;
-        New Layer
+        {t('new_layer')}
       </Button>
     </StyledSidebar>
   )

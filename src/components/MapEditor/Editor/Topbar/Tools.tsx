@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaintBrush, faFillDrip, faPuzzlePiece, faEraser, faDice } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import Button from 'shared/Button'
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import { CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
@@ -35,23 +36,28 @@ function Tools ({ tool, changeTool }: ToolsProps) {
   return (
     <StyledTools>
       <Button isActive={tool === 'default'}
-        onClick={changeTool.bind(this, 'default')}>
+        onClick={changeTool.bind(this, 'default')}
+        title={t('brush_tool')}>
         <FontAwesomeIcon icon={faPaintBrush} />
       </Button>
       <Button isActive={tool === 'fill'}
-        onClick={changeTool.bind(this, 'fill')}>
+        onClick={changeTool.bind(this, 'fill')}
+        title={t('fill_tool')}>
         <FontAwesomeIcon icon={faFillDrip} />
       </Button>
       <Button isActive={tool === 'auto'}
-        onClick={changeTool.bind(this, 'auto')}>
+        onClick={changeTool.bind(this, 'auto')}
+        title={t('auto_tool')}>
         <FontAwesomeIcon icon={faPuzzlePiece} />
       </Button>
       <Button isActive={tool === 'erase'}
-        onClick={changeTool.bind(this, 'erase')}>
+        onClick={changeTool.bind(this, 'erase')}
+        title={t('erase_tool')}>
         <FontAwesomeIcon icon={faEraser} />
       </Button>
       <Button isActive={tool === 'random'}
-        onClick={changeTool.bind(this, 'random')}>
+        onClick={changeTool.bind(this, 'random')}
+        title={t('random_tool')}>
         <FontAwesomeIcon icon={faDice} />
       </Button>
     </StyledTools>

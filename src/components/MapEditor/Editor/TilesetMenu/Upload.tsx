@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { DEFAULT_FONT, GREY_30, TEAL_70 } from 'shared/theme'
 import readJson from 'shared/readJson'
 import Button from 'shared/Button'
@@ -58,11 +59,11 @@ class Upload extends React.Component<UploadProps, UploadState> {
       return (
         <StyledWrapper>
           <Button onClick={this.onShowForm}>
-                    <FontAwesomeIcon icon={faUpload} />
-                    &nbsp;
-                    Upload another Tileset   
-                  </Button>
-                </StyledWrapper>
+            <FontAwesomeIcon icon={faUpload} />
+            &nbsp;
+            {t('upload_another_tileset')}
+          </Button>
+        </StyledWrapper>
       )
     }
 
@@ -76,7 +77,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
 
     return (
       <StyledWrapper>
-        Upload *.tileset.json
+        {t('upload_tileset_text')}
         <FileUpload type='file' onChange={this.onChangeFile} />
       </StyledWrapper>
     )

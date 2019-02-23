@@ -28,7 +28,17 @@ const TRANSLATIONS = {
     autotile_description: 'Auto Tiles sollten für Berggruppen, Flüsse, Wege genutzt werden.',
     add: 'Hinzufügen',
     remove: 'Löschen',
-    special_description: 'Spezial-Tiles kannst du nach belieben konfigurieren. Zum Beispiel könntest du Wasser markieren, damit du später darauf surfen kannst.'
+    special_description: 'Spezial-Tiles kannst du nach belieben konfigurieren. Zum Beispiel könntest du Wasser markieren, damit du später darauf surfen kannst.',
+    export_as_png: 'Als PNG exportieren',
+    brush_tool: 'Stempel',
+    fill_tool: 'Füllwerkzeug',
+    auto_tool: 'Auto-Tiles',
+    erase_tool: 'Löschwerkzeug',
+    random_tool: 'Zufallstool',
+    new_layer: 'Neue Ebene',
+    upload_another_tileset: 'Weiteres Tileset hochladen',
+    upload_tileset_text: 'Lade ein *.tileset.json hoch',
+    remove_tileset: 'Tileset entfernen'
   },
 
   en: {
@@ -54,7 +64,17 @@ const TRANSLATIONS = {
     autotile_description: 'Auto Tiles should be used for mountain groups, water, pavement. Anything that has borders.',
     add: 'Add',
     remove: 'Remove',
-    special_description: 'Special Tiles can be used for whatever you want. It makes for example sense to mark water if you later want to surf in it.'
+    special_description: 'Special Tiles can be used for whatever you want. It makes for example sense to mark water if you later want to surf in it.',
+    export_as_png: 'Export as PNG',
+    brush_tool: 'Brush',
+    fill_tool: 'Fill tool',
+    auto_tool: 'Auto Tiles',
+    erase_tool: 'Eraser',
+    random_tool: 'Random tool',
+    new_layer: 'New Layer',
+    upload_another_tileset: 'Upload another Tileset',
+    upload_tileset_text: 'Upload *.tileset.json',
+    remove_tileset: 'Remove Tileset'
   }
 } as TranslationMap
 

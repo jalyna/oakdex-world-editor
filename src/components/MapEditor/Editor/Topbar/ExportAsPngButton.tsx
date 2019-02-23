@@ -5,6 +5,7 @@ import { Dispatch } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { MapData, Layer } from 'components/MapEditor/reducers/mapData'
 import { drawMap } from 'components/MapEditor/Editor/Content/canvas'
@@ -61,7 +62,7 @@ class ExportAsPngButton extends React.Component<ExportAsPngButtonProps, ExportAs
             height={this.props.mapData.height * 16} />
           <FontAwesomeIcon icon={faImage} />
           &nbsp;
-          Export as PNG
+          {t('export_as_png')}
         </Button>
       </React.Fragment>
     )

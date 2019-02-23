@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
+import t from 'shared/translate'
 import Button from 'shared/Button'
 import { CHANGE_EDITOR_DATA, UPDATE_MAP, REMOVE_TILESET } from 'components/MapEditor/actionTypes'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
@@ -66,7 +67,7 @@ function Delete ({ tilesets, activeTileset, layers, onDelete }: DeleteProps) {
     <StyledWrapper>
       <Button onClick={onDelete.bind(this, tileset, layers)}>
         <FontAwesomeIcon icon={faTrash} />&nbsp;
-        Remove Tileset
+        {t('remove_tileset')}
       </Button>
     </StyledWrapper>
   )
