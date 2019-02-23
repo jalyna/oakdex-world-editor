@@ -1,5 +1,7 @@
 # <img src="https://v20.imgup.net/oakdex_logfbad.png" alt="fixer" width=282>
 
+[![Build Status](https://travis-ci.org/jalyna/oakdex-world-editor.svg?branch=master)](https://travis-ci.org/jalyna/oakdex-world-editor)
+
 ## Getting Started
 
 ```
