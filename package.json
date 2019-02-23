@@ -5,6 +5,7 @@
     "type": "git",
     "url": "git+https://github.com/jalyna/oakdex-world-editor.git"
   },
+  "homepage": "http://world-editor.oakdex.org",
   "description": "2d Map Editor based on React",
   "main": "index.js",
   "scripts": {
