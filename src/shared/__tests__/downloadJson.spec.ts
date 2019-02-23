@@ -11,7 +11,7 @@ describe('.downloadJson', () => {
     click: jest.fn()
   }
   beforeEach(() => {
-    window.document.getElementById = jest.fn((id: string) => {
+    window.document.getElementById = jest.fn((id: string): any => {
       return anchorElem
     })
   })
