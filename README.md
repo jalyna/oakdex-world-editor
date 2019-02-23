@@ -20,13 +20,6 @@ $ npm run start
 
 Go to `http://localhost:8080/`
 
-## TODO
-
-- [x] Erase tool
-- [x] Random tool
-- [ ] Upload other tileset
-- [ ] Remove tileset
-
 ## Contributing
 
 I would be happy if you want to add your contribution to the project. In order to contribute, you just have to fork this repository.

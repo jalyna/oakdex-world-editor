@@ -2,7 +2,7 @@ import { Reducer } from 'redux'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 
-import { ADD_TILESET, RESET_MAP } from '../actionTypes'
+import { ADD_TILESET, RESET_MAP, REMOVE_TILESET } from '../actionTypes'
 
 const tilesets: Reducer<Tileset[]> = (state: Tileset[] = [], action): Tileset[] => {
   switch (action.type) {
@@ -12,6 +12,10 @@ const tilesets: Reducer<Tileset[]> = (state: Tileset[] = [], action): Tileset[] 
       return newTilesets
     case RESET_MAP:
       return []
+    case REMOVE_TILESET:
+      return state.slice().filter((t: Tileset) => {
+        return t.title !== action.tilesetTitle
+      })
     default:
       return state
   }

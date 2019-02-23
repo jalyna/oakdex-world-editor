@@ -2,8 +2,6 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faObjectUngroup } from '@fortawesome/free-solid-svg-icons'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { SelectedTilesetArea, tilesetAreaToBox } from 'components/MapEditor/reducers/editorData'
@@ -16,6 +14,8 @@ import { CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
 
 import draw from './draw'
 import AutoTiles from './AutoTiles'
+import Upload from './Upload'
+import Delete from './Delete'
 
 interface TabItemProps {
   isActive?: boolean
@@ -47,7 +47,10 @@ function mapStateToProps ({ tilesets, editorData }: any) {
 function mapDispatchToProps (dispatch: Dispatch) {
   return {
     onTabClick: (tilesetTitle: string) => {
-      dispatch({ type: CHANGE_EDITOR_DATA, activeTileset: tilesetTitle })
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: { activeTileset: tilesetTitle }
+      })
     },
     onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
       if (store.getState().editorData.tilesetMouseHolding) {
@@ -138,6 +141,7 @@ function TilesetMenu ({
           )
         })}
       </TabList>
+      <Upload />
       {selectedTileset && tool !== 'auto' && (
         <TilesetWrapper
           onMouseUp={onMouseUp}
@@ -153,6 +157,7 @@ function TilesetMenu ({
       {selectedTileset && tool === 'auto' && (
         <AutoTiles tileset={selectedTileset} />
       )}
+      <Delete />
     </StyledSidebar>
   )
 }
