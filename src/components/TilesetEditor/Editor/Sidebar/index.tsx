@@ -13,6 +13,7 @@ import Objects from './Objects'
 import Walk from './Walk'
 import Auto from './Auto'
 import Special from './Special'
+import Upload from './Upload'
 
 interface TabItemProps {
   isActive?: boolean
@@ -86,7 +87,7 @@ function Sidebar ({ activeTab, onTabClick }: SidebarProps) {
           )
         })}
       </TabList>
-      <TabContent><ActiveTab /></TabContent>
+      <TabContent><ActiveTab /><Upload /></TabContent>
     </StyledSidebar>
   )
 }

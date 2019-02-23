@@ -38,7 +38,10 @@ const TRANSLATIONS = {
     new_layer: 'Neue Ebene',
     upload_another_tileset: 'Weiteres Tileset hochladen',
     upload_tileset_text: 'Lade ein *.tileset.json hoch',
-    remove_tileset: 'Tileset entfernen'
+    remove_tileset: 'Tileset entfernen',
+    upload_new_tileset_image: 'Neues Bild für Tileset',
+    upload_tileset_image_text: 'Lade ein .png hoch',
+    tileset_too_small: 'Die Abmessungen des Bildes sind kleiner als das Original'
   },
 
   en: {
@@ -74,7 +77,10 @@ const TRANSLATIONS = {
     new_layer: 'New Layer',
     upload_another_tileset: 'Upload another Tileset',
     upload_tileset_text: 'Upload *.tileset.json',
-    remove_tileset: 'Remove Tileset'
+    remove_tileset: 'Remove Tileset',
+    upload_new_tileset_image: 'Upload new tileset image',
+    upload_tileset_image_text: 'Upload a .png file',
+    tileset_too_small: 'The image dimensions are smaller than the original'
   }
 } as TranslationMap
 
