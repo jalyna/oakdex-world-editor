@@ -31,7 +31,10 @@ const mapData: Reducer<MapData> = (state: MapData | null = null, action): MapDat
   switch (action.type) {
     case UPLOAD_MAP:
       return {
-        layers: [],
+        layers: [{
+          title: 'Layer 1',
+          fields: []
+        }],
         width: 30,
         height: 20,
         title: 'New Map',
