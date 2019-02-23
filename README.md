@@ -20,6 +20,12 @@ $ npm run start
 
 Go to `http://localhost:8080/`
 
+### Run tests
+
+```
+$ npm test
+```
+
 ## Contributing
 
 I would be happy if you want to add your contribution to the project. In order to contribute, you just have to fork this repository.

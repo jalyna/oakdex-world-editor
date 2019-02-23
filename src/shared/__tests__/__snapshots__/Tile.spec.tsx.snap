@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tile> renders correctly 1`] = `
+<default_1
+  className="foo"
+  style={
+    Object {
+      "width": "55px",
+    }
+  }
+  x={2}
+  y={3}
+>
+  <styled.div
+    className="foo"
+    style={
+      Object {
+        "left": "32px",
+        "top": "48px",
+        "width": "55px",
+      }
+    }
+  >
+    <StyledComponent
+      className="foo"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": true,
+            "lastClassName": "epnlmi",
+            "rules": Array [
+              "
+  position: absolute;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      style={
+        Object {
+          "left": "32px",
+          "top": "48px",
+          "width": "55px",
+        }
+      }
+    >
+      <div
+        className="foo sc-bdVaJa epnlmi"
+        style={
+          Object {
+            "left": "32px",
+            "top": "48px",
+            "width": "55px",
+          }
+        }
+      >
+        content
+      </div>
+    </StyledComponent>
+  </styled.div>
+</default_1>
+`;

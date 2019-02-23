@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button> renders correctly 1`] = `
+<Button
+  onClick={[MockFunction]}
+>
+  <styled.button
+    onClick={[MockFunction]}
+  >
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": false,
+            "lastClassName": "bITllK",
+            "rules": Array [
+              "
+  cursor: pointer;
+  font-family: ",
+              "'Roboto', sans-serif",
+              ";
+  font-size: 16px;
+  color: ",
+              [Function],
+              ";
+  border: 1px solid ",
+              [Function],
+              ";
+  padding: 5px 10px;
+  outline: none;
+  background: ",
+              [Function],
+              ";
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+
+  &:hover {
+    border-color: ",
+              "#b3b3b3",
+              ";
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+",
+            ],
+          },
+          "displayName": "styled.button",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "button",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      onClick={[MockFunction]}
+    >
+      <button
+        className="sc-bdVaJa bITllK"
+        onClick={[MockFunction]}
+      />
+    </StyledComponent>
+  </styled.button>
+</Button>
+`;
