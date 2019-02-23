@@ -7,6 +7,7 @@
     "target": "es2017",
     "jsx": "react",
     "baseUrl": ".",
+    "skipLibCheck": true,
     "paths": {
       "shared/*": [
         "src/shared/*"
