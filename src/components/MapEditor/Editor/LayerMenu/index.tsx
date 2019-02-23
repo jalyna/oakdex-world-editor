@@ -13,6 +13,7 @@ import { Layer } from 'components/MapEditor/reducers/mapData'
 import { CHANGE_EDITOR_DATA, UPDATE_MAP } from 'components/MapEditor/actionTypes'
 import store from 'components/MapEditor/store'
 
+import MapDimensions from './MapDimensions'
 import moveLayer from './moveLayer'
 
 interface LayerMenuProps {
@@ -147,6 +148,7 @@ function LayerMenu ({
   const reverseLayers = layers.slice().reverse()
   return (
     <StyledSidebar>
+      <MapDimensions />
       <LayerList>
         {reverseLayers.map((layer: Layer, j: number) => {
           const i = reverseLayers.length - j - 1

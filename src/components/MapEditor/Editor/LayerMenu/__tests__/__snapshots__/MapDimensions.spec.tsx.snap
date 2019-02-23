@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MapDimensions> renders correctly 1`] = `
+<styled.div>
+  <div
+    className="sc-bdVaJa hjseDC"
+  >
+    12
+     x 
+    10
+  </div>
+</styled.div>
+`;
