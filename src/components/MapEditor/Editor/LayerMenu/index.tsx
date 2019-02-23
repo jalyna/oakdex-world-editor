@@ -13,6 +13,8 @@ import { Layer } from 'components/MapEditor/reducers/mapData'
 import { CHANGE_EDITOR_DATA, UPDATE_MAP } from 'components/MapEditor/actionTypes'
 import store from 'components/MapEditor/store'
 
+import moveLayer from './moveLayer'
+
 interface LayerMenuProps {
   layers: Layer[],
   activeLayerIndex?: number,
@@ -58,51 +60,11 @@ function mapDispatchToProps (dispatch: Dispatch) {
     },
     onMoveUp: (layerIndex: number, e: React.MouseEvent) => {
       e.stopPropagation()
-      const mapData = store.getState().mapData
-      if (!mapData) {
-        return
-      }
-      let layers = mapData.layers.slice()
-      const layer = layers[layerIndex]
-      layers.splice(layerIndex, 1)
-      layers.splice(layerIndex + 1, 0, layer)
-
-      dispatch({
-        type: UPDATE_MAP,
-        data: {
-          ...mapData,
-          layers: layers
-        }
-      })
-
-      dispatch({
-        type: CHANGE_EDITOR_DATA,
-        data: { activeLayerIndex: layerIndex + 1 }
-      })
+      moveLayer(dispatch, layerIndex, 1)
     },
     onMoveDown: (layerIndex: number, e: React.MouseEvent) => {
       e.stopPropagation()
-      const mapData = store.getState().mapData
-      if (!mapData) {
-        return
-      }
-      let layers = mapData.layers.slice()
-      const layer = layers[layerIndex]
-      layers.splice(layerIndex, 1)
-      layers.splice(layerIndex - 1, 0, layer)
-
-      dispatch({
-        type: UPDATE_MAP,
-        data: {
-          ...mapData,
-          layers: layers
-        }
-      })
-
-      dispatch({
-        type: CHANGE_EDITOR_DATA,
-        data: { activeLayerIndex: layerIndex - 1 }
-      })
+      moveLayer(dispatch, layerIndex, -1)
     },
     onChangeTitle: (layerIndex: number, e: React.FormEvent<HTMLInputElement>) => {
       const mapData = store.getState().mapData
