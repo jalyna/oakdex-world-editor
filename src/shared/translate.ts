@@ -41,7 +41,11 @@ const TRANSLATIONS = {
     remove_tileset: 'Tileset entfernen',
     upload_new_tileset_image: 'Neues Bild für Tileset',
     upload_tileset_image_text: 'Lade ein .png hoch',
-    tileset_too_small: 'Die Abmessungen des Bildes sind kleiner als das Original'
+    tileset_too_small: 'Die Abmessungen des Bildes sind kleiner als das Original',
+    credit_title_placeholder: 'Credit Name',
+    credits_description: 'Trage hier ein wer an dieses Tileset erstellt hast, damit du sie nennst.',
+    credit_url_placeholder: 'URL (optional)',
+    credits: 'Credits'
   },
 
   en: {
@@ -80,7 +84,11 @@ const TRANSLATIONS = {
     remove_tileset: 'Remove Tileset',
     upload_new_tileset_image: 'Upload new tileset image',
     upload_tileset_image_text: 'Upload a .png file',
-    tileset_too_small: 'The image dimensions are smaller than the original'
+    tileset_too_small: 'The image dimensions are smaller than the original',
+    credit_title_placeholder: 'Credit Name',
+    credits_description: 'Add here who should get credit for the tileset.',
+    credit_url_placeholder: 'URL (optional)',
+    credits: 'Credits'
   }
 } as TranslationMap
 

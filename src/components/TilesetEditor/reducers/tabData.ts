@@ -10,6 +10,8 @@ export interface TabData {
   zoom: number,
   nextAutoTileTitle: string,
   nextSpecialTileTitle: string,
+  nextCreditTitle: string,
+  nextCreditUrl: string,
   selectedAutoTile?: string,
   selectedSpecialTile?: string,
   close?: () => void,
@@ -22,6 +24,8 @@ const defaultTabData: TabData = {
   specialTool: 'default',
   nextAutoTileTitle: '',
   nextSpecialTileTitle: '',
+  nextCreditTitle: '',
+  nextCreditUrl: '',
   zoom: 1
 }
 

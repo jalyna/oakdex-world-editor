@@ -40,6 +40,11 @@ export interface Walkability {
   left: number
 }
 
+export interface Credit {
+  title: string,
+  url?: string
+}
+
 export interface Tileset {
   title: string,
   width: number,
@@ -48,7 +53,8 @@ export interface Tileset {
   walkability: Walkability[][],
   objects: boolean[][],
   autoTiles: AutoTile[],
-  specialTiles: SpecialTile[]
+  specialTiles: SpecialTile[],
+  credits?: Credit[]
 }
 
 function generateDefaultObjects(width: number, height: number): boolean[][] {

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faObjectUngroup, faWalking, faStar, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons'
+import { faObjectUngroup, faWalking, faStar, faPuzzlePiece, faHandHoldingHeart } from '@fortawesome/free-solid-svg-icons'
 
 import t from 'shared/translate'
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
@@ -14,6 +14,7 @@ import Walk from './Walk'
 import Auto from './Auto'
 import Special from './Special'
 import Upload from './Upload'
+import Credits from './Credits'
 
 interface TabItemProps {
   isActive?: boolean
@@ -47,6 +48,11 @@ const TABS: TabData = {
     component: Special,
     icon: faStar,
     title: t('special')
+  },
+  credits: {
+    component: Credits,
+    icon: faHandHoldingHeart,
+    title: t('credits')
   }
 }
 
