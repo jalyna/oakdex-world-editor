@@ -12,7 +12,7 @@ import Button from 'shared/Button'
 import TextField from 'shared/TextField'
 import store from 'components/TilesetEditor/store'
 import { CHANGE_TAB_DATA, UPDATE_TILESET } from 'components/TilesetEditor/actionTypes'
-import { GREY_90, DEFAULT_FONT, GREY_30, TEAL_30, TEAL_70 } from 'shared/theme'
+import ListItem, { ItemTitle, Actions } from 'shared/ListItem'
 
 interface ObjectsProps {
   tabData: TabData,
@@ -21,10 +21,6 @@ interface ObjectsProps {
   onAutoTileAdd: () => void,
   onSelectAutoTile: (title: string) => void,
   onRemoveAutoTile: (title: string) => void
-}
-
-interface AutoTileItemProps {
-  selected: boolean
 }
 
 function mapStateToProps ({ tabData, tilesetData }: any) {
@@ -95,10 +91,12 @@ function Auto ({
       <AutoTileList>
         {autoTiles.map((autoTile) => {
           return (
-            <AutoTileItem key={autoTile.title} selected={tabData.selectedAutoTile === autoTile.title}>
-              <AutoTileItemTitle onClick={onSelectAutoTile.bind(this, autoTile.title)}>{autoTile.title}</AutoTileItemTitle>
-              <Button onClick={onRemoveAutoTile.bind(this, autoTile.title)}><FontAwesomeIcon icon={faTrash} /></Button>
-            </AutoTileItem>
+            <ListItem key={autoTile.title} selected={tabData.selectedAutoTile === autoTile.title}>
+              <ItemTitle onClick={onSelectAutoTile.bind(this, autoTile.title)}>{autoTile.title}</ItemTitle>
+              <Actions>
+                <Button onClick={onRemoveAutoTile.bind(this, autoTile.title)}><FontAwesomeIcon icon={faTrash} /></Button>
+              </Actions>
+            </ListItem>
           )
         })}
       </AutoTileList>
@@ -118,35 +116,6 @@ function Auto ({
 
 const AutoTileList = styled.div`
   margin-bottom: 30px;
-`
-
-const AutoTileItem = styled.div`
-  border-bottom: 1px solid ${GREY_90};
-  padding: 5px;
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  align-items: center;
-  background: ${({ selected }: AutoTileItemProps) => selected ? TEAL_70 : 'transparent'};
-`
-
-const AutoTileItemTitle = styled.button`
-  flex-grow: 2;
-  flex-basis: 200%;
-  outline: none;
-  border: 0;
-  background: transparent;
-  font-size: ${DEFAULT_FONT};
-  font-size: 18px;
-  padding: 4px;
-  box-sizing: border-box;
-  text-align: left;
-  color: ${GREY_30}
-  cursor: pointer;
-
-  &:hover {
-    color: ${TEAL_30};
-  }
 `
 
 const Form = styled.div`

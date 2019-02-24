@@ -12,7 +12,7 @@ import Button from 'shared/Button'
 import TextField from 'shared/TextField'
 import store from 'components/TilesetEditor/store'
 import { CHANGE_TAB_DATA, UPDATE_TILESET } from 'components/TilesetEditor/actionTypes'
-import { GREY_90, DEFAULT_FONT, GREY_30, TEAL_30, TEAL_70 } from 'shared/theme'
+import ListItem, { ItemTitle, Actions } from 'shared/ListItem'
 
 interface SpecialProps {
   tabData: TabData,
@@ -23,11 +23,6 @@ interface SpecialProps {
   onSelectSpecialTile: (title: string) => void,
   onRemoveSpecialTile: (title: string) => void
 }
-
-interface SpecialTileItemProps {
-  selected: boolean
-}
-
 
 function mapStateToProps ({ tabData, tilesetData }: any) {
   return {
@@ -111,10 +106,12 @@ function Special ({
       <SpecialTileList>
         {specialTiles.map((specialTile) => {
           return (
-            <SpecialTileItem key={specialTile.title} selected={tabData.selectedSpecialTile === specialTile.title}>
-              <SpecialTileItemTitle onClick={onSelectSpecialTile.bind(this, specialTile.title)}>{specialTile.title}</SpecialTileItemTitle>
-              <Button onClick={onRemoveSpecialTile.bind(this, specialTile.title)}><FontAwesomeIcon icon={faTrash} /></Button>
-            </SpecialTileItem>
+            <ListItem key={specialTile.title} selected={tabData.selectedSpecialTile === specialTile.title}>
+              <ItemTitle onClick={onSelectSpecialTile.bind(this, specialTile.title)}>{specialTile.title}</ItemTitle>
+              <Actions>
+                <Button onClick={onRemoveSpecialTile.bind(this, specialTile.title)}><FontAwesomeIcon icon={faTrash} /></Button>
+              </Actions>
+            </ListItem>
           )
         })}
       </SpecialTileList>
@@ -134,35 +131,6 @@ function Special ({
 
 const SpecialTileList = styled.div`
   margin-bottom: 30px;
-`
-
-const SpecialTileItem = styled.div`
-  border-bottom: 1px solid ${GREY_90};
-  padding: 5px;
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  align-items: center;
-  background: ${({ selected }: SpecialTileItemProps) => selected ? TEAL_70 : 'transparent'};
-`
-
-const SpecialTileItemTitle = styled.button`
-  flex-grow: 2;
-  flex-basis: 200%;
-  outline: none;
-  border: 0;
-  background: transparent;
-  font-size: ${DEFAULT_FONT};
-  font-size: 18px;
-  padding: 4px;
-  box-sizing: border-box;
-  text-align: left;
-  color: ${GREY_30}
-  cursor: pointer;
-
-  &:hover {
-    color: ${TEAL_30};
-  }
 `
 
 const ActionWrapper = styled.div `

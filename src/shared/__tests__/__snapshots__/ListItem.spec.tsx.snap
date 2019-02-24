@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListItem> renders correctly 1`] = `
+<styled.div>
+  <div
+    className="sc-bdVaJa cXMlYN"
+  >
+    <styled.button>
+      <button
+        className="sc-bwzfXH ggNpSn"
+      >
+        Foobar
+      </button>
+    </styled.button>
+    <styled.div>
+      <div
+        className="sc-htpNat dGbXB"
+      >
+        Actions
+      </div>
+    </styled.div>
+  </div>
+</styled.div>
+`;
