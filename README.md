@@ -2,9 +2,21 @@
 
 [![Build Status](https://travis-ci.org/jalyna/oakdex-world-editor.svg?branch=master)](https://travis-ci.org/jalyna/oakdex-world-editor) [![Maintainability](https://api.codeclimate.com/v1/badges/a00dfa53b47a2202768f/maintainability)](https://codeclimate.com/github/jalyna/oakdex-world-editor/maintainability) ![David](https://img.shields.io/david/jalyna/oakdex-world-editor.svg)
 
-## Use the tool
+![Preview](docs/demo_tool.png)
 
 ====> [http://world-editor.oakdex.org](http://world-editor.oakdex.org)
+
+### Auto Tiles
+
+![Demo Auto Tiles](docs/demo_auto_tiles.gif)
+
+Easily create mountains, rivers and pavement with the auto tool.
+
+### Random Tool
+
+![Demo Select Randoms](docs/demo_select_random.gif)
+
+![Demo Use Randoms](docs/demo_use_random.gif)
 
 ## Getting Started
 
