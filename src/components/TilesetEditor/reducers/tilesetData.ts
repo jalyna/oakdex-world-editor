@@ -83,7 +83,21 @@ function adjustWalkability (width: number, height: number, walkability: Walkabil
     return row.concat(newX)
   })
 
-  return walkability.concat(newY)
+  return newWalkability.concat(newY)
+}
+
+function adjustObjects (width: number, height: number, objects: boolean[][]): boolean[][] {
+  const diffY = height - objects.length
+  const diffX = width - objects[0].length
+
+  const newY = new Array(diffY).fill(new Array(width).fill(0).map(() => false))
+
+  let newObjects = objects.map((row) => {
+    const newX = new Array(diffX).fill(0).map(() => false)
+    return row.concat(newX)
+  })
+
+  return newObjects.concat(newY)
 }
 
 const tilesetData: Reducer<Tileset> = (state: Tileset | null = null, action): Tileset | null => {
@@ -100,6 +114,9 @@ const tilesetData: Reducer<Tileset> = (state: Tileset | null = null, action): Ti
       if (action.data.walkability) {
         newState.walkability = adjustWalkability(action.data.width, action.data.height, action.data.walkability)
       }
+      if (action.data.objects) {
+        newState.objects = adjustObjects(action.data.width, action.data.height, action.data.objects)
+      }
       return newState
     case UPDATE_TILESET:
       newState = {
@@ -108,6 +125,7 @@ const tilesetData: Reducer<Tileset> = (state: Tileset | null = null, action): Ti
       }
       if (action.data.width || action.data.height) {
         newState.walkability = adjustWalkability(newState.width, newState.height, newState.walkability)
+        newState.objects = adjustObjects(newState.width, newState.height, newState.objects)
       }
       return newState
     case RESET_TILESET:
