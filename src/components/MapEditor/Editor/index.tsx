@@ -9,7 +9,7 @@ import LayerMenu from './LayerMenu'
 import Content from './Content'
 
 const TOPBAR_HEIGHT = 60
-const SIDEBAR_WIDTH = 400
+const SIDEBAR_WIDTH = 450
 
 export default function Editor () {
   return (
