@@ -12,7 +12,7 @@ import Button from 'shared/Button'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { MapData } from 'components/MapEditor/reducers/mapData'
-import { ADD_TILESET } from 'components/MapEditor/actionTypes'
+import { ADD_TILESET, REMOVE_TILESET } from 'components/MapEditor/actionTypes'
 
 interface UploadState {
   loading: boolean,
@@ -21,11 +21,18 @@ interface UploadState {
 
 interface UploadProps {
   tilesets: Tileset[],
-  addTileset: (tileset: Tileset) => void
+  addTileset: (tileset: Tileset) => void,
+  removeTileset: (tileset: Tileset) => void
 }
 
 function mapDispatchToProps (dispatch: Dispatch) {
   return {
+    removeTileset: (tileset: Tileset) => {
+      dispatch({
+        type: REMOVE_TILESET,
+        tilesetTitle: tileset.title
+      })
+    },
     addTileset: (tileset: Tileset) => {
       dispatch({
         type: ADD_TILESET,
@@ -108,8 +115,11 @@ class Upload extends React.Component<UploadProps, UploadState> {
     const tileset = json as Tileset
     const existingTileset = this.props.tilesets.find((t) => t.title === tileset.title)
     if (existingTileset) {
-      alert('Tileset with same name already exists')
-      return
+      if (!confirm('Overwrite existing tileset with the same name?')) {
+        return
+      } else {
+        this.props.removeTileset(existingTileset)
+      }
     }
     this.props.addTileset(tileset)
   }
