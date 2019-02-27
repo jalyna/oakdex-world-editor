@@ -33,9 +33,9 @@ function allSame (tile: Walkability, status: number): boolean {
 
 function renderSimple (cell: Walkability): React.ReactNode {
   if (allSame(cell, 2)) {
-    return <FontAwesomeIcon icon={faTimes} />
-  } else if (allSame(cell, 1)) {
     return <FontAwesomeIcon icon={faCircle} />
+  } else if (allSame(cell, 1)) {
+    return <FontAwesomeIcon icon={faTimes} />
   } else if (allSame(cell, 0)) {
     return 'O'
   } else {
@@ -45,9 +45,9 @@ function renderSimple (cell: Walkability): React.ReactNode {
 
 function renderType (status: number): React.ReactNode | string {
   if (status === 2) {
-    return <FontAwesomeIcon icon={faTimes} />
-  } else if (status === 1) {
     return <FontAwesomeIcon icon={faCircle} />
+  } else if (status === 1) {
+    return <FontAwesomeIcon icon={faTimes} />
   } else {
     return 'O'
   }
