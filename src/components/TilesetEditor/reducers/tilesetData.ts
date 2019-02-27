@@ -57,34 +57,59 @@ export interface Tileset {
   credits?: Credit[]
 }
 
+const EMPTY_WALK = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0
+} as Walkability
+
 function generateDefaultObjects(width: number, height: number): boolean[][] {
   return new Array(height).fill(new Array(width).fill(false).map(() => false))
 }
 
 function generateDefaultWalkability(width: number, height: number): Walkability[][] {
-  return new Array(height).fill(new Array(width).fill(0).map(() => ({
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
-  })))
+  return new Array(height).fill(new Array(width).fill(0).map(() => EMPTY_WALK))
+}
+
+function adjustWalkability (width: number, height: number, walkability: Walkability[][]): Walkability[][] {
+  const diffY = height - walkability.length
+  const diffX = width - walkability[0].length
+
+  const newY = new Array(diffY).fill(new Array(width).fill(0).map(() => EMPTY_WALK))
+
+  let newWalkability = walkability.map((row) => {
+    const newX = new Array(diffX).fill(0).map(() => EMPTY_WALK)
+    return row.concat(newX)
+  })
+
+  return walkability.concat(newY)
 }
 
 const tilesetData: Reducer<Tileset> = (state: Tileset | null = null, action): Tileset | null => {
+  let newState: Tileset | null = null
   switch (action.type) {
     case UPLOAD_TILESET:
-      return {
+      newState = {
         walkability: generateDefaultWalkability(action.data.width, action.data.height),
         objects: generateDefaultObjects(action.data.width, action.data.height),
         autoTiles: [],
         specialTiles: [],
         ...action.data
       }
+      if (action.data.walkability) {
+        newState.walkability = adjustWalkability(action.data.width, action.data.height, action.data.walkability)
+      }
+      return newState
     case UPDATE_TILESET:
-      return {
+      newState = {
         ...state,
         ...action.data
       }
+      if (action.data.width || action.data.height) {
+        newState.walkability = adjustWalkability(newState.width, newState.height, newState.walkability)
+      }
+      return newState
     case RESET_TILESET:
       return null
     default:
