@@ -59,7 +59,8 @@ const TopbarWrapper = styled.div`
 const ContentWrapper = styled.div`
   height: calc(100% - ${TOPBAR_HEIGHT}px);
   width: calc(100% - ${SIDEBAR_WIDTH}px);
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: auto;
   box-sizing: border-box;
   float: left;
 `
