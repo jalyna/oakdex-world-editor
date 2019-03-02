@@ -1,9 +1,10 @@
+import { saveAs } from 'file-saver'
+
 function downloadJson (fileName: string, json: Object) : void {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json, null, 2))
-  const dlAnchorElem = document.getElementById('downloadAnchorElem')
-  dlAnchorElem.setAttribute('href', dataStr)
-  dlAnchorElem.setAttribute('download', fileName)
-  dlAnchorElem.click()
+  const fileToSave = new Blob([JSON.stringify(json, null, 2)], {
+    type: 'application/json'
+  })
+  saveAs(fileToSave, fileName)
 }
 
 export default downloadJson
