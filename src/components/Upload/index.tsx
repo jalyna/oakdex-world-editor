@@ -111,6 +111,12 @@ class Upload extends React.Component<{}, UploadState> {
       type: ADD_TILESET,
       data: indoor
     })
+    mapEditorStore.dispatch({
+      type: CHANGE_EDITOR_DATA,
+      data: {
+        activeTileset: 'outdoor'
+      }
+    })
   }
 
   onChangeFile (e: React.FormEvent<HTMLInputElement>) {
