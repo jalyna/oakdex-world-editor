@@ -28,6 +28,7 @@ describe('.resize', () => {
     expect(dispatch).toHaveBeenCalledWith({
       type: UPDATE_MAP,
       data: {
+        width: 10,
         height: 8,
         layers: [
           { title: 'a', fields: [{ x: 0, y: 1 }] },
@@ -43,6 +44,7 @@ describe('.resize', () => {
       type: UPDATE_MAP,
       data: {
         width: 9,
+        height: 7,
         layers: [
           { title: 'a', fields: [] },
           { title: 'b', fields: [{ x: 5, y: 2 }] }
@@ -56,6 +58,7 @@ describe('.resize', () => {
     expect(dispatch).toHaveBeenCalledWith({
       type: UPDATE_MAP,
       data: {
+        width: 10,
         height: 8,
         layers: [
           { title: 'a', fields: [{ x: 0, y: 0 }] },

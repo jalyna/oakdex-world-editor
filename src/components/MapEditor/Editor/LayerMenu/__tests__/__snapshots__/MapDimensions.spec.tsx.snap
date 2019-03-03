@@ -1,9 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<MapDimensions> renders correctly 1`] = `
-<styled.div>
+<styled.div
+  onClick={[Function]}
+>
   <div
-    className="sc-bdVaJa hjseDC"
+    className="sc-htpNat eGAMQe"
+    onClick={[Function]}
   >
     12
      x 
