@@ -2,12 +2,15 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 import t from 'shared/translate'
 
 import { DEFAULT_FONT, GREY_30, TEAL_70 } from 'shared/theme'
 import readImage from 'shared/readImage'
 import readJson from 'shared/readJson'
+import Button from 'shared/Button'
 
 import tilesetEditorStore from 'components/TilesetEditor/store'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
@@ -33,6 +36,7 @@ class Upload extends React.Component<{}, UploadState> {
     this.changeLoading = this.changeLoading.bind(this)
     this.closeEditor = this.closeEditor.bind(this)
     this.createMap = this.createMap.bind(this)
+    this.createMapWithDefaultTilesets = this.createMapWithDefaultTilesets.bind(this)
   }
 
   render () {
@@ -52,6 +56,11 @@ class Upload extends React.Component<{}, UploadState> {
 
     return (
       <StyledWrapper>
+        <Button onClick={this.createMapWithDefaultTilesets}>
+          <FontAwesomeIcon icon={faPlusCircle} />&nbsp;
+          {t('create_new_map_tilesets')}
+        </Button>
+        <br /><br /><br />
         <p>{t('intro')}</p>
         <FileUpload type='file' onChange={this.onChangeFile} />
         <p>{t('accepted_formats')}</p>
@@ -63,7 +72,7 @@ class Upload extends React.Component<{}, UploadState> {
     this.setState({ page: undefined })
   }
 
-  createMap (tilesetData: Tileset) {
+  createEmptyMap () {
     mapEditorStore.dispatch({
       type: UPLOAD_MAP,
       data: {}
@@ -74,11 +83,34 @@ class Upload extends React.Component<{}, UploadState> {
         close: this.closeEditor
       }
     })
+    this.setState({ page: 'mapEditor' })
+  }
+
+  createMap (tilesetData: Tileset) {
+    this.createEmptyMap()
     mapEditorStore.dispatch({
       type: ADD_TILESET,
       data: tilesetData
     })
-    this.setState({ page: 'mapEditor' })
+  }
+
+  createMapWithDefaultTilesets () {
+    this.createEmptyMap()
+    const outdoor = require('../../tilesets/outdoor.tileset.json')
+    mapEditorStore.dispatch({
+      type: ADD_TILESET,
+      data: outdoor
+    })
+    const architecture = require('../../tilesets/architecture.tileset.json')
+    mapEditorStore.dispatch({
+      type: ADD_TILESET,
+      data: architecture
+    })
+    const indoor = require('../../tilesets/indoor.tileset.json')
+    mapEditorStore.dispatch({
+      type: ADD_TILESET,
+      data: indoor
+    })
   }
 
   onChangeFile (e: React.FormEvent<HTMLInputElement>) {

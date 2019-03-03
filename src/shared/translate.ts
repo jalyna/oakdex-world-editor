@@ -6,9 +6,10 @@ interface TranslationMap {
 
 const TRANSLATIONS = {
   de: {
+    create_new_map_tilesets: 'Neue Map',
     invalid_format: 'Ungültiges Dateiformat',
     accepted_formats: 'Akzeptierte Formate: .png, .tileset.json, .map.json',
-    intro: 'Das erste mal hier? Einfach ein Tileset, das ein PNG ist, hinzufügen und tolle Maps erstellen.',
+    intro: 'Du willst selber ein Tileset erstellen? Einfach ein PNG hochladen.',
     close: 'Schließen',
     new_map: 'Neue Map',
     download: 'Download',
@@ -49,6 +50,7 @@ const TRANSLATIONS = {
   },
 
   en: {
+    create_new_map_tilesets: 'New Map',
     invalid_format: 'Invalid Format',
     accepted_formats: 'Accepted Formats: .png, .tileset.json, .map.json',
     intro: 'Your first time here? Just add a Tileset that is a PNG and start creating awesome Maps.',
