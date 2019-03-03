@@ -26,7 +26,10 @@ function moveLayersByOffset (layers: Layer[], offsetX: number, offsetY: number):
 
 function changeDimensions(direction: string, changeBy: number) {
   const mapData = store.getState().mapData
-  let data = {} as MapDataSubset
+  let data = {
+    width: mapData.width,
+    height: mapData.height
+  } as MapDataSubset
 
   if (direction === 'top' || direction === 'bottom') {
     data.height = mapData.height + changeBy
@@ -37,8 +40,7 @@ function changeDimensions(direction: string, changeBy: number) {
   return data
 }
 
-function removeOutsideTiles (layers: Layer[]): Layer[] {
-  const mapData = store.getState().mapData
+function removeOutsideTiles (mapData: MapDataSubset, layers: Layer[]): Layer[] {
   return layers.map((layer) => {
     let newLayer = { ...layer }
     newLayer.fields = newLayer.fields.slice().filter((field) => {
@@ -53,7 +55,7 @@ export default function (dispatch: Dispatch, direction: string, changeBy: number
   const mapData = store.getState().mapData
   let data = changeDimensions(direction, changeBy)
 
-  data.layers = removeOutsideTiles(moveLayersByOffset(
+  data.layers = removeOutsideTiles(data, moveLayersByOffset(
     mapData.layers.slice(),
     (direction === 'left' ? changeBy : 0),
     (direction === 'top' ? changeBy : 0)
