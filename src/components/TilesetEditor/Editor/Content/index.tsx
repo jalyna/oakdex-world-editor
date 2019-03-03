@@ -93,7 +93,7 @@ function Content ({
     coordinates = currentCoordinates.x + ' | ' + currentCoordinates.y
   }
   return (
-    <StyledContent zoom={tabData.zoom}>
+    <StyledContent>
       <Coordinates>{coordinates}</Coordinates>
       <Magnifier />
       <TilesetWrapper
@@ -117,9 +117,9 @@ const StyledContent = styled.div`
   box-sizing: border-box;
   padding: 15px;
   position: relative;
-  display: flex;
-  justify-content: ${({ zoom }: TilesetWrapperProps) => zoom === 1 ? 'center' : 'flex-start'};
   width: 100%;
+  height: 100%;
+  overflow: auto;
 `
 
 const TilesetWrapper = styled.div`
