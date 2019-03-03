@@ -96,8 +96,8 @@ function mapDispatchToProps (dispatch: Dispatch) {
       let layerIndex = layers.length
 
       if (beforeLayerIndex) {
-        layers.splice(beforeLayerIndex, 0, newLayer)
-        layerIndex = beforeLayerIndex
+        layers.splice(beforeLayerIndex + 1, 0, newLayer)
+        layerIndex = beforeLayerIndex + 1
       } else {
         layers.push(newLayer)
       }
@@ -174,7 +174,7 @@ function LayerMenu ({
           )
         })}
       </LayerList>
-      <Button onClick={onAdd.bind(this, null)}>
+      <Button onClick={onAdd.bind(this, activeLayerIndex)}>
         <FontAwesomeIcon icon={faPlus} />&nbsp;
         {t('new_layer')}
       </Button>
