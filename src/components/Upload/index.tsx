@@ -12,6 +12,7 @@ import readImage from 'shared/readImage'
 import readJson from 'shared/readJson'
 import Button from 'shared/Button'
 
+import { loadState, saveState } from 'shared/localStorage'
 import tilesetEditorStore from 'components/TilesetEditor/store'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { UPLOAD_TILESET, CHANGE_TAB_DATA } from 'components/TilesetEditor/actionTypes'
@@ -29,14 +30,22 @@ interface UploadState {
 class Upload extends React.Component<{}, UploadState> {
   constructor (props: {}) {
     super(props)
-    this.state = {
-      loading: false
-    }
     this.onChangeFile = this.onChangeFile.bind(this)
     this.changeLoading = this.changeLoading.bind(this)
     this.closeEditor = this.closeEditor.bind(this)
     this.createMap = this.createMap.bind(this)
     this.createMapWithDefaultTilesets = this.createMapWithDefaultTilesets.bind(this)
+    mapEditorStore.dispatch({
+      type: CHANGE_EDITOR_DATA,
+      data: {
+        close: this.closeEditor
+      }
+    })
+    const persistedState = loadState()
+    this.state = {
+      loading: false,
+      page: persistedState && persistedState.mapData ? 'mapEditor' : undefined
+    }
   }
 
   render () {
@@ -69,6 +78,7 @@ class Upload extends React.Component<{}, UploadState> {
   }
 
   closeEditor () {
+    saveState(null)
     this.setState({ page: undefined })
   }
 
@@ -76,12 +86,6 @@ class Upload extends React.Component<{}, UploadState> {
     mapEditorStore.dispatch({
       type: UPLOAD_MAP,
       data: {}
-    })
-    mapEditorStore.dispatch({
-      type: CHANGE_EDITOR_DATA,
-      data: {
-        close: this.closeEditor
-      }
     })
     this.setState({ page: 'mapEditor' })
   }
