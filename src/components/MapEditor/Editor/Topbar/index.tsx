@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import TitleField from './TitleField'
 import CloseButton from './CloseButton'
+import DemoButton from './DemoButton'
 import SaveButton from './SaveButton'
 import SaveForGameButton from './SaveForGameButton'
 import ExportAsPngButton from './ExportAsPngButton'
@@ -16,6 +17,7 @@ export default function Topbar () {
       <CurrentCoordinates />
       <Tools />
       <ButtonsWrapper>
+        <DemoButton />
         <SaveButton />
         <SaveForGameButton />
         <ExportAsPngButton />
@@ -47,7 +49,7 @@ const ButtonsWrapper = styled.div`
   padding-right: 15px;
   justify-content: flex-end;
 
-  > * {
+  > button {
     margin-left: 10px;
     flex-grow: 0;
     width: auto;
