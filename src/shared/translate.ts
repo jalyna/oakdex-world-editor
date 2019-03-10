@@ -30,7 +30,7 @@ const TRANSLATIONS = {
     add: 'Hinzufügen',
     remove: 'Löschen',
     special_description: 'Spezial-Tiles kannst du nach belieben konfigurieren. Zum Beispiel könntest du Wasser markieren, damit du später darauf surfen kannst.',
-    export_as_png: 'Als PNG exportieren',
+    export_as_png: 'Download PNG',
     brush_tool: 'Stempel',
     fill_tool: 'Füllwerkzeug',
     auto_tool: 'Auto-Tiles',
@@ -47,7 +47,7 @@ const TRANSLATIONS = {
     credits_description: 'Trage hier ein wer an dieses Tileset erstellt hast, damit du sie nennst.',
     credit_url_placeholder: 'URL (optional)',
     credits: 'Credits',
-    save_for_game: 'Download für Spiel'
+    save_for_game: 'Download GameMap'
   },
 
   en: {

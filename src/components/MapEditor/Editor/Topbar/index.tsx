@@ -42,11 +42,14 @@ const TitleWrapper = styled.div`
 const ButtonsWrapper = styled.div`
   flex-grow: 0;
   display: flex;
-  flex-basis: 600px;
+  flex-basis: 700px;
   box-sizing: border-box;
   padding-right: 15px;
+  justify-content: flex-end;
 
   > * {
     margin-left: 10px;
+    flex-grow: 0;
+    width: auto;
   }
 `
