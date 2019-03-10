@@ -32,7 +32,7 @@
     "@types/react-redux": "^7.0.0",
     "@types/styled-components": "^4.1.6",
     "file-saver": "^2.0.1",
-    "oakdex-world-engine": "0.0.2",
+    "oakdex-world-engine": "0.0.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
