@@ -46,7 +46,8 @@ const TRANSLATIONS = {
     credit_title_placeholder: 'Credit Name',
     credits_description: 'Trage hier ein wer an dieses Tileset erstellt hast, damit du sie nennst.',
     credit_url_placeholder: 'URL (optional)',
-    credits: 'Credits'
+    credits: 'Credits',
+    save_for_game: 'Download für Spiel'
   },
 
   en: {
@@ -90,7 +91,8 @@ const TRANSLATIONS = {
     credit_title_placeholder: 'Credit Name',
     credits_description: 'Add here who should get credit for the tileset.',
     credit_url_placeholder: 'URL (optional)',
-    credits: 'Credits'
+    credits: 'Credits',
+    save_for_game: 'Download for Game'
   }
 } as TranslationMap
 

@@ -57,7 +57,7 @@ export interface Tileset {
   credits?: Credit[]
 }
 
-const EMPTY_WALK = {
+export const EMPTY_WALK = {
   top: 0,
   right: 0,
   bottom: 0,

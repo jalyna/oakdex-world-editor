@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import TitleField from './TitleField'
 import CloseButton from './CloseButton'
 import SaveButton from './SaveButton'
+import SaveForGameButton from './SaveForGameButton'
 import ExportAsPngButton from './ExportAsPngButton'
 import Tools from './Tools'
 import CurrentCoordinates from './CurrentCoordinates'
@@ -16,6 +17,7 @@ export default function Topbar () {
       <Tools />
       <ButtonsWrapper>
         <SaveButton />
+        <SaveForGameButton />
         <ExportAsPngButton />
         <CloseButton />
       </ButtonsWrapper>
