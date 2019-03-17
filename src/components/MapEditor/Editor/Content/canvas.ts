@@ -22,6 +22,7 @@ async function loadImage (base64: string): Promise<HTMLImageElement> {
     const img = new Image()
     img.src = base64
     img.onload = () => resolve(img)
+    setTimeout(() => resolve(img), 1000)
   })
 }
 

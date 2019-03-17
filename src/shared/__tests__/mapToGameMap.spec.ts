@@ -102,8 +102,8 @@ describe('.mapToGameMap', () => {
     }
   ] as any
 
-  it('returns game map', () => {
-    const gameData = mapToGameMap(canvas, mapData, tilesets)
+  it('returns game map', async () => {
+    const gameData = await mapToGameMap(canvas, mapData, tilesets)
     expect(gameData).toEqual({
       title: 'abc',
       width: 2,
