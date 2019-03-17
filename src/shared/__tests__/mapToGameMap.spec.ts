@@ -1,3 +1,5 @@
+import { Direction } from 'oakdex-world-engine'
+
 import mapToGameMap from '../mapToGameMap'
 
 describe('.mapToGameMap', () => {
@@ -25,6 +27,24 @@ describe('.mapToGameMap', () => {
             tilesetY: 1
           }
         ]
+      }
+    ],
+    chars: [
+      {
+        tilesetTitle: 'tileset1',
+        charsetTitle: 'charset1',
+        id: 'charset1-id',
+        x: 1,
+        y: 1,
+        dir: Direction.Up
+      },
+      {
+        tilesetTitle: 'tileset1',
+        charsetTitle: 'charset2',
+        id: 'charset2-id',
+        x: 1,
+        y: 1,
+        dir: Direction.Left
       }
     ]
   } as any
@@ -57,7 +77,21 @@ describe('.mapToGameMap', () => {
       }, {
         title: 'b',
         url: 'some-url'
-      }]
+      }],
+      charsets: [
+        {
+          title: 'charset1',
+          imageBase64: 'af'
+        },
+        {
+          title: 'charset2',
+          imageBase64: 'ad'
+        },
+        {
+          title: 'charset3',
+          imageBase64: 'du'
+        }
+      ]
     },
     {
       credits: [{
@@ -82,6 +116,22 @@ describe('.mapToGameMap', () => {
       walkability: [
         [{ top: 1, right: 1, bottom: 1, left: 1 }, { top: 0, right: 0, bottom: 0, left: 0 }],
         [{ top: 0, right: 0, bottom: 0, left: 0 }, { top: 0, right: 0, bottom: 0, left: 0 }]
+      ],
+      chars: [
+        {
+          id: 'charset1-id',
+          image: 'af',
+          x: 1,
+          y: 1,
+          dir: Direction.Up
+        },
+        {
+          id: 'charset2-id',
+          image: 'ad',
+          x: 1,
+          y: 1,
+          dir: Direction.Left
+        }
       ],
       mapBackgroundImage: 'base64example',
       mapForegroundImage: 'base64example'

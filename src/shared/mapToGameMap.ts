@@ -1,6 +1,16 @@
+import { Direction } from 'oakdex-world-engine'
+
 import { Tileset, Credit, EMPTY_WALK, Walkability } from 'components/TilesetEditor/reducers/tilesetData'
 import { MapData } from 'components/MapEditor/reducers/mapData'
 import { drawMap } from 'components/MapEditor/Editor/Content/canvas'
+
+interface GameChar {
+  x: number,
+  y: number,
+  id: string,
+  dir: Direction,
+  image: string
+}
 
 export interface GameMap {
   title: string,
@@ -10,7 +20,8 @@ export interface GameMap {
   specialTiles: (string | null)[][],
   walkability: Walkability[][],
   mapBackgroundImage: string,
-  mapForegroundImage: string
+  mapForegroundImage: string,
+  chars?: GameChar[]
 }
 
 function getCredits (tilesets: Tileset[]): Credit[] {
@@ -70,6 +81,22 @@ function getWalkability (mapData: MapData, tilesets: Tileset[]): Walkability[][]
   return walkability
 }
 
+function getChars (mapData: MapData, tilesets: Tileset[]): GameChar[] {
+  return (mapData.chars || []).map((char) => {
+    const tileset = tilesets.find((t) => t.title === char.tilesetTitle)
+    if (!tileset) { return null }
+    const charset = (tileset.charsets || []).find((c) => c.title === char.charsetTitle)
+    if (!charset) { return null }
+    return {
+      id: char.id,
+      image: charset.imageBase64,
+      x: char.x,
+      y: char.y,
+      dir: char.dir
+    }
+  }).filter((c) => c)
+}
+
 export default function (canvas: HTMLCanvasElement, mapData: MapData, tilesets: Tileset[]): GameMap {
   drawMap(canvas, mapData.layers, tilesets, 'background')
   const mapBackgroundImage = canvas.toDataURL('image/png')
@@ -83,6 +110,7 @@ export default function (canvas: HTMLCanvasElement, mapData: MapData, tilesets: 
     credits: getCredits(tilesets),
     specialTiles: getSpecialTiles(mapData, tilesets),
     walkability: getWalkability(mapData, tilesets),
+    chars: getChars(mapData, tilesets),
     mapBackgroundImage,
     mapForegroundImage
   }
