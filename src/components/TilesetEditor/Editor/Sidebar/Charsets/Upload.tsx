@@ -27,7 +27,7 @@ function mapDispatchToProps (dispatch: Dispatch) {
     uploadCharset: (imageData: ImageData) => {
       const state = store.getState()
       let charsets = (state.tilesetData.charsets || []).slice().filter((c) => {
-        c.title !== imageData.title
+        return c.title !== imageData.title
       })
       charsets.push({
         title: imageData.title,

@@ -115,6 +115,11 @@ class Upload extends React.Component<{}, UploadState> {
       type: ADD_TILESET,
       data: indoor
     })
+    const charsets = require('../../tilesets/charsets.tileset.json')
+    mapEditorStore.dispatch({
+      type: ADD_TILESET,
+      data: charsets
+    })
     mapEditorStore.dispatch({
       type: CHANGE_EDITOR_DATA,
       data: {
