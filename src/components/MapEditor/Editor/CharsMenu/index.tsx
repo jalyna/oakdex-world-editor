@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faRedo, faEye, faEyeSlash, faBan, faWalking } from '@fortawesome/free-solid-svg-icons'
 import { Direction } from 'oakdex-world-engine'
 
 import t from 'shared/translate'
@@ -23,6 +23,8 @@ interface CharsMenuProps {
   onSelectCharset: (id: string) => void,
   onRemoveChar: (id: string) => void,
   onRotateChar: (id: string) => void,
+  onChangeVisbility: (id: string) => void,
+  onChangeWalk: (id: string) => void,
   selectedCharset?: string
 }
 
@@ -73,6 +75,36 @@ function mapDispatchToProps (dispatch: Dispatch) {
         type: UPDATE_MAP,
         data: { chars }
       })
+    },
+    onChangeVisbility: (id: string) => {
+      const chars = (store.getState().mapData.chars || []).slice().map((c) => {
+        if (c.id === id) {
+          return {
+            ...c,
+            hidden: !c.hidden
+          }
+        }
+        return c
+      })
+      dispatch({
+        type: UPDATE_MAP,
+        data: { chars }
+      })
+    },
+    onChangeWalk: (id: string) => {
+      const chars = (store.getState().mapData.chars || []).slice().map((c) => {
+        if (c.id === id) {
+          return {
+            ...c,
+            walkThrough: !c.walkThrough
+          }
+        }
+        return c
+      })
+      dispatch({
+        type: UPDATE_MAP,
+        data: { chars }
+      })
     }
   }
 }
@@ -83,7 +115,9 @@ function CharsMenu ({
   selectedCharset,
   onSelectCharset,
   onRemoveChar,
-  onRotateChar
+  onRotateChar,
+  onChangeVisbility,
+  onChangeWalk
 }: CharsMenuProps) {
   return (
     <StyledSidebar>
@@ -122,7 +156,12 @@ function CharsMenu ({
                 </InnerTitle>
               </ItemTitle>
               <Actions>
-                <Button onClick={onRotateChar.bind(this, char.id)}><FontAwesomeIcon icon={faRedo} /></Button>&nbsp;
+                <Button onClick={onChangeVisbility.bind(this, char.id)}><FontAwesomeIcon icon={char.hidden ? faEyeSlash : faEye} /></Button>
+                &nbsp;
+                <Button onClick={onChangeWalk.bind(this, char.id)}><FontAwesomeIcon icon={char.walkThrough ? faWalking : faBan} /></Button>
+                &nbsp;
+                <Button onClick={onRotateChar.bind(this, char.id)}><FontAwesomeIcon icon={faRedo} /></Button>
+                &nbsp;
                 <Button onClick={onRemoveChar.bind(this, char.id)}><FontAwesomeIcon icon={faTrash} /></Button>
               </Actions>
             </ListItem>

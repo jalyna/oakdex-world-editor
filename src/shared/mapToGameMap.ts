@@ -9,7 +9,9 @@ interface GameChar {
   y: number,
   id: string,
   dir: Direction,
-  image: string
+  image: string,
+  hidden?: boolean,
+  walkThrough?: boolean
 }
 
 export interface GameMap {
@@ -92,7 +94,9 @@ function getChars (mapData: MapData, tilesets: Tileset[]): GameChar[] {
       image: charset.imageBase64,
       x: char.x,
       y: char.y,
-      dir: char.dir
+      dir: char.dir,
+      hidden: char.hidden,
+      walkThrough: char.walkThrough
     }
   }).filter((c) => c)
 }

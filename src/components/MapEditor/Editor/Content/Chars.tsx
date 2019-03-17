@@ -67,6 +67,7 @@ function Chars ({
           backgroundImage: 'url(' + charset.imageBase64 + ')',
           left: c.x * 16,
           top: c.y * 16,
+          opacity: c.hidden ? 0.3 : 1
         }
         return <CharItem
           key={c.id}

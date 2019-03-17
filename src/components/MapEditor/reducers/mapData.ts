@@ -27,7 +27,9 @@ export interface MapChar {
   id: string,
   x: number,
   y: number,
-  dir: Direction
+  dir: Direction,
+  hidden?: boolean,
+  walkThrough?: boolean
 }
 
 export interface MapData {
