@@ -68,12 +68,12 @@ class ExportAsPngButton extends React.Component<ExportAsPngButtonProps, ExportAs
     )
   }
 
-  onClick (e: React.MouseEvent) {
+  async onClick (e: React.MouseEvent) {
     e.preventDefault()
     if (!this.canvas.current) {
       return
     }
-    drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets)
+    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets)
     this.setState({
       href: this.canvas.current.toDataURL('image/png')
     }, () => {

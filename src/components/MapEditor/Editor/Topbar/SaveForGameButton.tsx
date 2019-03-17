@@ -50,14 +50,14 @@ class SaveForGameButton extends React.Component<SaveButtonProps, {}> {
     )
   }
 
-  onClick (e: React.MouseEvent) {
+  async onClick (e: React.MouseEvent) {
     e.preventDefault()
     if (!this.canvas.current) {
       return
     }
     const fileName = `${this.props.mapData.title}.gamemap.json`
     const { mapData, tilesets } = this.props
-    const json = mapToGameMap(this.canvas.current, mapData, tilesets)
+    const json = await mapToGameMap(this.canvas.current, mapData, tilesets)
     downloadJson(fileName, json)
   }
 }

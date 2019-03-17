@@ -5,22 +5,31 @@ interface TilesetImages {
   [key: string]: HTMLImageElement
 }
 
-function tilesetsToMap (tilesets: Tileset[]): TilesetImages {
-  let tilesetImages = {} as TilesetImages
-  tilesets.forEach((tileset) => {
-    const img = new Image()
-    img.src = tileset.imageBase64
-    tilesetImages[tileset.title] = img
-  })
+let tilesetImages = {} as TilesetImages
+
+async function tilesetsToMap (tilesets: Tileset[]): Promise<TilesetImages> {
+  for(let i = 0; i < tilesets.length; i++) {
+    if (!tilesetImages[tilesets[i].title]) {
+      tilesetImages[tilesets[i].title] = await loadImage(tilesets[i].imageBase64)
+    }
+  }
 
   return tilesetImages
 }
 
-export function drawMap (canvas: HTMLCanvasElement, layers: Layer[], tilesets: Tileset[], type?: string) {
+async function loadImage (base64: string): Promise<HTMLImageElement> {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.src = base64
+    img.onload = () => resolve(img)
+  })
+}
+
+export async function drawMap (canvas: HTMLCanvasElement, layers: Layer[], tilesets: Tileset[], type?: string) {
   const ctx = canvas.getContext('2d')
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  const tilesetImages = tilesetsToMap(tilesets)
+  const tilesetImages = await tilesetsToMap(tilesets)
 
   layers.forEach((layer) => {
     layer.fields.forEach((field) => {

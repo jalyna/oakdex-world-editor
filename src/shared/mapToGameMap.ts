@@ -97,10 +97,10 @@ function getChars (mapData: MapData, tilesets: Tileset[]): GameChar[] {
   }).filter((c) => c)
 }
 
-export default function (canvas: HTMLCanvasElement, mapData: MapData, tilesets: Tileset[]): GameMap {
-  drawMap(canvas, mapData.layers, tilesets, 'background')
+export default async function (canvas: HTMLCanvasElement, mapData: MapData, tilesets: Tileset[]): Promise<GameMap> {
+  await drawMap(canvas, mapData.layers, tilesets, 'background')
   const mapBackgroundImage = canvas.toDataURL('image/png')
-  drawMap(canvas, mapData.layers, tilesets, 'foreground')
+  await drawMap(canvas, mapData.layers, tilesets, 'foreground')
   const mapForegroundImage = canvas.toDataURL('image/png')
   
   return {

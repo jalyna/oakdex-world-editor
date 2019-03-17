@@ -116,14 +116,15 @@ class DemoButton extends React.Component<DemoButtonProps, DemoButtonState> {
     this.setState({ gameMap: undefined })
   }
 
-  onClick (e: React.MouseEvent) {
+  async onClick (e: React.MouseEvent) {
     e.preventDefault()
     if (!this.canvas.current) {
       return
     }
     const { mapData, tilesets } = this.props
+    const data = await mapToGameMap(this.canvas.current, mapData, tilesets)
     this.setState({
-      gameMap: mapToGameMap(this.canvas.current, mapData, tilesets)
+      gameMap: data
     })
   }
 }

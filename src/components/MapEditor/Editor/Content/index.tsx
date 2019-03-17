@@ -178,8 +178,8 @@ class Content extends React.Component<ContentProps, {}> {
     this.redraw()
   }
 
-  redraw () {
-    drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets)
+  async redraw () {
+    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets)
   }
 }
 
