@@ -30,6 +30,7 @@ export interface EditorData {
   selectedTilesetArea?: SelectedTilesetArea,
   randomTiles: Coordinate[],
   previewFields: LayerField[],
+  selectedCharset?: string,
   close?: () => void
 }
 

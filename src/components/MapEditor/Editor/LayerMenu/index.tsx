@@ -192,7 +192,7 @@ const LayerItem = styled.div`
   ${({ selected }: LayerItemProps) => selected && `
     background: ${TEAL_30};
     color: white;
-  `};
+  `}
 
   button {
     flex-grow: 0;

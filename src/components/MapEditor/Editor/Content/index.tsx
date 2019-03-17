@@ -14,13 +14,16 @@ import { GREY_70 } from 'shared/theme'
 
 import draw from './draw'
 import fill from './fill'
+import drawChar from './drawChar'
 import drawFields from './drawFields'
 import { drawMap } from './canvas'
 import Resize from './Resize'
+import Chars from './Chars'
 
 interface ContentProps {
   tilesets: Tileset[],
   mapData: MapData,
+  tool?: string,
   previewFields: LayerField[],
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
   onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => void,
@@ -32,7 +35,8 @@ function mapStateToProps ({ tilesets, mapData, editorData }: any) {
   return {
     tilesets,
     mapData,
-    previewFields: editorData.previewFields
+    previewFields: editorData.previewFields,
+    tool: editorData.tool
   }
 }
 
@@ -53,6 +57,8 @@ function mapDispatchToProps (dispatch: Dispatch) {
         if (editorData.mapMouseHolding) {
           if (editorData.tool === 'fill') {
             fill(dispatch, e)
+          } else if (editorData.tool === 'chars') {
+            drawChar(dispatch, e)
           } else {
             draw(dispatch, e)
           }
@@ -72,6 +78,8 @@ function mapDispatchToProps (dispatch: Dispatch) {
       })
       if (store.getState().editorData.tool === 'fill') {
         fill(dispatch, e)
+      } else if (store.getState().editorData.tool === 'chars') {
+        drawChar(dispatch, e)
       } else {
         draw(dispatch, e)
       }
@@ -130,6 +138,7 @@ class Content extends React.Component<ContentProps, {}> {
     const {
       tilesets,
       mapData,
+      tool,
       previewFields,
       onMouseUp,
       onMouseDown,
@@ -155,10 +164,11 @@ class Content extends React.Component<ContentProps, {}> {
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}>
           <canvas ref={this.canvas} width={mapData.width * 16} height={mapData.height * 16} />
-          <PreviewLayer>
+          {tool !== 'chars' && <PreviewLayer>
             {renderLayer(previewFields, -1, tilesets)}
-          </PreviewLayer>
-          <Resize />
+          </PreviewLayer>}
+          {tool !== 'chars' && <Resize />}
+          {tool === 'chars' && <Chars />}
         </MapWrapper>
       </StyledContent>
     )

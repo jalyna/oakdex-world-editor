@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 import { DEFAULT_FONT, GREY_30, GREY_90 } from 'shared/theme'
 
@@ -7,11 +8,32 @@ import Topbar from './Topbar'
 import TilesetMenu from './TilesetMenu'
 import LayerMenu from './LayerMenu'
 import Content from './Content'
+import CharsMenu from './CharsMenu'
 
 const TOPBAR_HEIGHT = 60
 const SIDEBAR_WIDTH = 450
 
-export default function Editor () {
+interface EditorProps {
+  tool: string
+}
+
+function mapStateToProps ({ editorData }: any) {
+  return {
+    tool: editorData.tool
+  }
+}
+
+function Editor ({ tool }: EditorProps) {
+  if (tool === 'chars') {
+    return (
+      <Wrapper>
+        <TopbarWrapper><Topbar /></TopbarWrapper>
+        <ContentWrapper><Content /></ContentWrapper>
+        <SidebarWrapper><CharsMenu /></SidebarWrapper>
+      </Wrapper>
+    )
+  }
+
   return (
     <Wrapper>
       <TopbarWrapper><Topbar /></TopbarWrapper>
@@ -61,6 +83,10 @@ const LayerMenuWrapper = styled.div`
   float: left;
 `
 
+const SidebarWrapper = styled(LayerMenuWrapper)`
+  height: calc(100% - ${TOPBAR_HEIGHT}px);
+`
+
 const TilesetMenuWrapper = styled.div`
   height: 50%;
   width: ${SIDEBAR_WIDTH}px;
@@ -69,3 +95,7 @@ const TilesetMenuWrapper = styled.div`
   border-left: 1px solid ${GREY_90};
   float: left;
 `
+
+export default connect(
+  mapStateToProps
+)(Editor)

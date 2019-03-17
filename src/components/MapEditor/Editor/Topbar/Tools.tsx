@@ -60,9 +60,9 @@ function Tools ({ tool, changeTool }: ToolsProps) {
         title={t('random_tool')}>
         <FontAwesomeIcon icon={faDice} />
       </Button>
-      <Button isActive={tool === 'events'}
-        onClick={changeTool.bind(this, 'events')}
-        title={t('events_tool')}>
+      <Button isActive={tool === 'chars'}
+        onClick={changeTool.bind(this, 'chars')}
+        title={t('chars_tool')}>
         <FontAwesomeIcon icon={faUsers} />
       </Button>
     </StyledTools>

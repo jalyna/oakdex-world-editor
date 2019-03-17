@@ -1,4 +1,5 @@
 import { Reducer } from 'redux'
+import { Direction } from 'oakdex-world-engine'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 
@@ -20,8 +21,13 @@ export interface Layer {
   fields: LayerField[]
 }
 
-export interface MapEvent {
-  charset: string
+export interface MapChar {
+  tilesetTitle: string,
+  charsetTitle: string,
+  id: string,
+  x: number,
+  y: number,
+  dir: Direction
 }
 
 export interface MapData {
@@ -29,7 +35,7 @@ export interface MapData {
   width: number,
   height: number,
   layers: Layer[],
-  events?: MapEvent[]
+  chars?: MapChar[]
 }
 
 const mapData: Reducer<MapData> = (state: MapData | null = null, action): MapData | null => {
