@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faObjectUngroup, faWalking, faStar, faPuzzlePiece, faHandHoldingHeart } from '@fortawesome/free-solid-svg-icons'
+import { faObjectUngroup, faWalking, faStar, faPuzzlePiece, faHandHoldingHeart, faUsers, faUpload } from '@fortawesome/free-solid-svg-icons'
 
 import t from 'shared/translate'
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
@@ -15,6 +15,7 @@ import Auto from './Auto'
 import Special from './Special'
 import Upload from './Upload'
 import Credits from './Credits'
+import Charsets from './Charsets'
 
 interface TabItemProps {
   isActive?: boolean
@@ -49,10 +50,20 @@ const TABS: TabData = {
     icon: faStar,
     title: t('special')
   },
+  charsets: {
+    component: Charsets,
+    icon: faUsers,
+    title: t('charsets')
+  },
   credits: {
     component: Credits,
     icon: faHandHoldingHeart,
     title: t('credits')
+  },
+  upload: {
+    component: Upload,
+    icon: faUpload,
+    title: t('tileset_reupload')
   }
 }
 
@@ -93,7 +104,7 @@ function Sidebar ({ activeTab, onTabClick }: SidebarProps) {
           )
         })}
       </TabList>
-      <TabContent><ActiveTab /><Upload /></TabContent>
+      <TabContent><ActiveTab /></TabContent>
     </StyledSidebar>
   )
 }
@@ -105,6 +116,7 @@ const StyledSidebar = styled.div`
 
 const TabList = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `
 
 const TabContent = styled.div`
@@ -122,7 +134,8 @@ const TabItem = styled.button`
   outline: none;
   background: white;
   box-sizing: border-box;
-  flex-grow: 1;
+  flex-grow: 0;
+  flex-basis: 33.33%;
 
   &:hover {
     border-color: ${GREY_70};

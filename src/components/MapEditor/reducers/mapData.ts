@@ -20,11 +20,16 @@ export interface Layer {
   fields: LayerField[]
 }
 
+export interface MapEvent {
+  charset: string
+}
+
 export interface MapData {
   title: string,
   width: number,
   height: number,
-  layers: Layer[]
+  layers: Layer[],
+  events?: MapEvent[]
 }
 
 const mapData: Reducer<MapData> = (state: MapData | null = null, action): MapData | null => {

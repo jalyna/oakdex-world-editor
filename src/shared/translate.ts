@@ -48,7 +48,13 @@ const TRANSLATIONS = {
     credit_url_placeholder: 'URL (optional)',
     credits: 'Credits',
     save_for_game: 'Download GameMap',
-    play_demo: 'Demo'
+    play_demo: 'Demo',
+    events_tool: 'Events',
+    charsets: 'Charsets',
+    tileset_reupload: 'Neues Bild',
+    charsets_description: 'Charset-Sprites können in der Map später Ereignisse auslösen.',
+    upload_charset_image_text: 'Lade ein .PNG hoch: 96x128px',
+    charset_wrong_size: 'Falsche Größe. Muss exakt 96x128px groß sein.'
   },
 
   en: {
@@ -94,7 +100,13 @@ const TRANSLATIONS = {
     credit_url_placeholder: 'URL (optional)',
     credits: 'Credits',
     save_for_game: 'Download for Game',
-    play_demo: 'Demo'
+    play_demo: 'Demo',
+    events_tool: 'Events',
+    charsets: 'Charsets',
+    tileset_reupload: 'New Image',
+    charsets_description: 'Charset Sprites can be added to your map.',
+    upload_charset_image_text: 'Upload a .PNG: dimensions 96x128px',
+    charset_wrong_size: 'Wrong dimensions. Must have 96x128px.'
   }
 } as TranslationMap
 

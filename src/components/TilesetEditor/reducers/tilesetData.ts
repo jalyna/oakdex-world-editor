@@ -45,6 +45,11 @@ export interface Credit {
   url?: string
 }
 
+export interface Charset {
+  title: string,
+  imageBase64: string
+}
+
 export interface Tileset {
   title: string,
   width: number,
@@ -54,7 +59,8 @@ export interface Tileset {
   objects: boolean[][],
   autoTiles: AutoTile[],
   specialTiles: SpecialTile[],
-  credits?: Credit[]
+  credits?: Credit[],
+  charsets?: Charset[]
 }
 
 export const EMPTY_WALK = {

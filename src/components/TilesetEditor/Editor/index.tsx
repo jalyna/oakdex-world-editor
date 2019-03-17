@@ -12,7 +12,7 @@ import Sidebar from './Sidebar'
 import Content from './Content'
 
 const TOPBAR_HEIGHT = 80
-const SIDEBAR_WIDTH = 450
+const SIDEBAR_WIDTH = 400
 
 interface EditorProps {
   tilesetData: Tileset

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaintBrush, faFillDrip, faPuzzlePiece, faEraser, faDice } from '@fortawesome/free-solid-svg-icons'
+import { faPaintBrush, faFillDrip, faPuzzlePiece, faEraser, faDice, faUsers } from '@fortawesome/free-solid-svg-icons'
 
 import t from 'shared/translate'
 import Button from 'shared/Button'
@@ -59,6 +59,11 @@ function Tools ({ tool, changeTool }: ToolsProps) {
         onClick={changeTool.bind(this, 'random')}
         title={t('random_tool')}>
         <FontAwesomeIcon icon={faDice} />
+      </Button>
+      <Button isActive={tool === 'events'}
+        onClick={changeTool.bind(this, 'events')}
+        title={t('events_tool')}>
+        <FontAwesomeIcon icon={faUsers} />
       </Button>
     </StyledTools>
   )
