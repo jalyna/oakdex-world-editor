@@ -60,21 +60,28 @@ function renderTypeColor (status: number): string {
   }
 }
 
-function setDefaults(ctx: CanvasRenderingContext2D) {
+function setDefaults(ctx: CanvasRenderingContext2D, walkabilityMode: string) {
   ctx.font = 'normal 8px Verdana'
   ctx.textBaseline = 'top'
   ctx.textAlign = 'left'
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
-  ctx.shadowOffsetX = 1
-  ctx.shadowOffsetY = 1
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.4)'
-  ctx.shadowBlur = 1
+
+  if (walkabilityMode === 'details') {
+    ctx.shadowOffsetX = 1
+    ctx.shadowOffsetY = 1
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.4)'
+    ctx.shadowBlur = 1
+  } else {
+    ctx.shadowOffsetX = 0
+    ctx.shadowOffsetY = 0
+    ctx.shadowBlur = 0
+  }
 }
 
 function drawWalkability(canvas: HTMLCanvasElement, walkability: Walkability[][], walkabilityMode: string) {
   const ctx = canvas.getContext('2d')
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  setDefaults(ctx)
+  setDefaults(ctx, walkabilityMode)
   walkability.forEach((row, y) => {
     row.forEach((cell, x) => {
       drawCell(ctx, walkability, walkabilityMode, x, y)
@@ -85,7 +92,7 @@ function drawWalkability(canvas: HTMLCanvasElement, walkability: Walkability[][]
 function drawCell(ctx: CanvasRenderingContext2D, walkability: Walkability[][], walkabilityMode: string, x: number, y: number, redraw?: boolean) {
   if (redraw) {
     ctx.clearRect(x * 16, y * 16, 16, 16)
-    setDefaults(ctx)
+    setDefaults(ctx, walkabilityMode)
   }
 
   const cell = walkability[y][x]
