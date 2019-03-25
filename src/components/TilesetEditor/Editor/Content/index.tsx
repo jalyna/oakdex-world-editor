@@ -67,7 +67,6 @@ function mapDispatchToProps (dispatch: Dispatch) {
     onMouseUp: (currentCoordinates: Coordinate, zoom: number, e: React.MouseEvent<HTMLDivElement>) => {
       const newCoordinates = getCoordinates(zoom, e)
       dispatch({ type: CHANGE_MOUSE_HOLD, hold: false })
-      //executeAction(dispatch, e)
     }
   }
 }

@@ -56,6 +56,9 @@ export default function executeWalk (e: React.MouseEvent<HTMLDivElement>, coordi
   })
 
   if (mode === 'details') {
+    walkability[coordinates.y][coordinates.x] = {
+      ...walkability[coordinates.y][coordinates.x]
+    }
     if (prop === 'left') {
       walkability[coordinates.y][coordinates.x].left = newValue
     } else if (prop === 'right') {

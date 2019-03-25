@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faCircle, faThLarge, faSquare } from '@fortawesome/free-solid-svg-icons'
+import { faThLarge, faSquare } from '@fortawesome/free-solid-svg-icons'
 
 import t from 'shared/translate'
 import { TabData } from 'components/TilesetEditor/reducers/tabData'
@@ -44,8 +44,8 @@ function Walk ({ tabData, changeTool }: WalkProps) {
       </ActionWrapper>
       <b>{t('legend')}</b><br />
       O - {t('walkable')}<br />
-      <FontAwesomeIcon icon={faTimes} /> - {t('blocked')}<br />
-      <FontAwesomeIcon icon={faCircle} /> - {t('overridable')}
+      X - {t('blocked')}<br />
+      ◎ - {t('overridable')}
     </div>
   )
 }
