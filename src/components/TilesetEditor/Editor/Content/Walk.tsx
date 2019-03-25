@@ -52,11 +52,11 @@ function renderSimpleColor (cell: Walkability): string {
 
 function renderTypeColor (status: number): string {
   if (status === 2) {
-    return 'rgba(0, 191, 255, 0.4)'
+    return 'rgba(0, 191, 255, 0.6)'
   } else if (status === 1) {
-    return 'rgba(211, 76, 52, 0.4)'
+    return 'rgba(211, 76, 52, 0.6)'
   } else {
-    return 'rgba(58, 178, 106, 0.4)'
+    return 'rgba(58, 178, 106, 0.6)'
   }
 }
 
