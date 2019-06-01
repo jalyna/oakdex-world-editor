@@ -1,16 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<MapDimensions> renders correctly 1`] = `
-<styled.div
-  onClick={[Function]}
->
-  <div
-    className="sc-htpNat eGAMQe"
+<Connect(MapDimensions)>
+  <styled.div
     onClick={[Function]}
   >
-    12
-     x 
-    10
-  </div>
-</styled.div>
+    <div
+      className="sc-htpNat eGAMQe"
+      onClick={[Function]}
+    >
+      12
+       x 
+      10
+    </div>
+  </styled.div>
+</Connect(MapDimensions)>
 `;
