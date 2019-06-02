@@ -11,7 +11,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js",
-    "build": "rm -Rf dist && tsc && ./node_modules/webpack/bin/webpack.js --mode=production",
+    "build": "rm -Rf dist && tsc --build tsconfig.production.json && ef-tspm -c tsconfig.production.json && ./node_modules/webpack/bin/webpack.js --mode=production",
     "start": "./node_modules/.bin/webpack-dev-server --mode=development"
   },
   "keywords": [
@@ -41,6 +41,7 @@
     "styled-components": "^4.2.1"
   },
   "devDependencies": {
+    "@ef-carbon/tspm": "^2.2.5",
     "@types/enzyme": "^3.9.3",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/file-saver": "^2.0.1",
