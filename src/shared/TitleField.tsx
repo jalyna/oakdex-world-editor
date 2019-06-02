@@ -24,7 +24,7 @@ const ButtonWrapper = styled.div`
   width: 20%;
 `
 
-interface TitleFieldProps {
+export interface TitleFieldProps {
   title: string,
   onChange: (newTitle: string) => void
 }

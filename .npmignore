@@ -1,0 +1,10 @@
+.circleci
+.codeclimate.yml
+.travis.yml
+jest.config.js
+webpack.config.js
+tsconfig.json
+docs
+public
+dist/demo
+src

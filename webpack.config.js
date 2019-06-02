@@ -1,11 +1,11 @@
 var path = require('path');
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: "./src/demo/index.tsx",
 
   output: {
     filename: "bundle.js",
-    path: __dirname + "/dist"
+    path: __dirname + "/public"
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'public'),
     publicPath: '/',
     historyApiFallback: true
   },

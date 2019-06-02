@@ -7,10 +7,11 @@
   },
   "homepage": "http://world-editor.oakdex.org",
   "description": "2d Map Editor based on React",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js",
-    "build": "./node_modules/webpack/bin/webpack.js --mode=production",
+    "build": "rm -R dist && tsc && ./node_modules/webpack/bin/webpack.js --mode=production",
     "start": "./node_modules/.bin/webpack-dev-server --mode=development"
   },
   "keywords": [

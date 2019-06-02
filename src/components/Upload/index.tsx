@@ -27,8 +27,12 @@ interface UploadState {
   page?: string
 }
 
-class Upload extends React.Component<{}, UploadState> {
-  constructor (props: {}) {
+interface UploadProps {
+  tilesets?: Tileset[]
+}
+
+class Upload extends React.Component<UploadProps, UploadState> {
+  constructor (props: UploadProps) {
     super(props)
     this.onChangeFile = this.onChangeFile.bind(this)
     this.changeLoading = this.changeLoading.bind(this)
@@ -100,26 +104,15 @@ class Upload extends React.Component<{}, UploadState> {
 
   createMapWithDefaultTilesets () {
     this.createEmptyMap()
-    const outdoor = require('../../tilesets/outdoor.tileset.json')
-    mapEditorStore.dispatch({
-      type: ADD_TILESET,
-      data: outdoor
-    })
-    const architecture = require('../../tilesets/architecture.tileset.json')
-    mapEditorStore.dispatch({
-      type: ADD_TILESET,
-      data: architecture
-    })
-    const indoor = require('../../tilesets/indoor.tileset.json')
-    mapEditorStore.dispatch({
-      type: ADD_TILESET,
-      data: indoor
-    })
-    const charsets = require('../../tilesets/charsets.tileset.json')
-    mapEditorStore.dispatch({
-      type: ADD_TILESET,
-      data: charsets
-    })
+    const { tilesets } = this.props
+    if (tilesets) {
+      tilesets.forEach((tileset) => {
+        mapEditorStore.dispatch({
+          type: ADD_TILESET,
+          data: tileset
+        })
+      })
+    }
     mapEditorStore.dispatch({
       type: CHANGE_EDITOR_DATA,
       data: {
