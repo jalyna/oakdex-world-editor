@@ -11,7 +11,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js",
-    "build": "rm -R dist && tsc && ./node_modules/webpack/bin/webpack.js --mode=production",
+    "build": "rm -Rf dist && tsc && ./node_modules/webpack/bin/webpack.js --mode=production",
     "start": "./node_modules/.bin/webpack-dev-server --mode=development"
   },
   "keywords": [
