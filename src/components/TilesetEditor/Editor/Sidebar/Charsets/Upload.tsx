@@ -87,11 +87,11 @@ class Upload extends React.Component<UploadProps, UploadState> {
   }
 
   uploadCharset (imageData: ImageData) {
-    if (imageData.width !== 6 || imageData.height !== 8) {
+    if ((imageData.width === 6 || imageData.width === 10) && imageData.height === 8) {
+      this.props.uploadCharset(imageData)
+    } else {
       alert(t('charset_wrong_size'))
-      return
     }
-    this.props.uploadCharset(imageData)
   }
 
   changeLoading (value: boolean) {

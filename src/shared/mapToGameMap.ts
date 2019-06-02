@@ -29,6 +29,9 @@ export interface GameMap {
 function getCredits (tilesets: Tileset[]): Credit[] {
   const credits = [].concat.apply([], tilesets.map((t) => t.credits)) as Credit[]
   return credits.reduce((uniqueCredits, credit) => {
+    if (!credit) {
+      return uniqueCredits
+    }
     if (uniqueCredits.find((c) => c.title === credit.title)) {
       return uniqueCredits
     } else {

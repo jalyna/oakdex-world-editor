@@ -16,6 +16,7 @@ import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { MapChar } from 'components/MapEditor/reducers/mapData'
 import { CHANGE_EDITOR_DATA, UPDATE_MAP } from 'components/MapEditor/actionTypes'
 import store from 'components/MapEditor/store'
+import CharPreview from './CharPreview'
 
 interface CharsMenuProps {
   chars: MapChar[],
@@ -26,10 +27,6 @@ interface CharsMenuProps {
   onChangeVisbility: (id: string) => void,
   onChangeWalk: (id: string) => void,
   selectedCharset?: string
-}
-
-interface CharItemProps {
-  selected?: boolean
 }
 
 function mapStateToProps ({ mapData, editorData, tilesets }: any) {
@@ -125,14 +122,11 @@ function CharsMenu ({
         {tilesets.map((tileset) => {
           return (tileset.charsets || []).map((charset) => {
             const key = tileset.title + ',' + charset.title
-            const style = {
-              backgroundImage: 'url(' + charset.imageBase64 + ')'
-            }
-            return <CharItem
-              selected={selectedCharset === key}
+            return <CharPreview
               key={key}
+              selected={selectedCharset === key}
               onClick={onSelectCharset.bind(this, key)}
-              style={style} />
+              charset={charset} />
           })
         })}
       </CharBox>
@@ -143,15 +137,11 @@ function CharsMenu ({
           const charset = (tileset.charsets || []).find((c) => c.title === char.charsetTitle)
           if (!charset) { return null }
 
-          const style = {
-            backgroundImage: 'url(' + charset.imageBase64 + ')'
-          }
-
           return (
             <ListItem key={char.id}>
               <ItemTitle>
                 <InnerTitle>
-                  <CharPreview style={style} />
+                  <CharPreview charset={charset} />
                   {char.id} | {char.x}, {char.y}
                 </InnerTitle>
               </ItemTitle>
@@ -179,28 +169,6 @@ const InnerTitle = styled.div`
 
 const ItemList = styled.div`
   margin-bottom: 20px;
-`
-
-const CharPreview = styled.div`
-  width: 32px;
-  height: 32px;
-  image-rendering: pixelated;
-  background-position: -32px 0px;
-  flex-grow: 0;
-`
-
-const CharItem = styled.div`
-  width: 32px;
-  height: 32px;
-  image-rendering: pixelated;
-  cursor: pointer;
-  background-position: -32px -2px;
-  border: 1px solid transparent;
-  box-sizing: border-box;
-  ${({ selected }: CharItemProps) => selected && `
-    border-color: ${TEAL_30};
-    background-color: ${GREY_90};
-  `}
 `
 
 const CharBox = styled.div`

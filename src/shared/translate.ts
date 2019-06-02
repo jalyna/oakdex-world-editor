@@ -53,7 +53,7 @@ const TRANSLATIONS = {
     charsets: 'Charsets',
     tileset_reupload: 'Neues Bild',
     charsets_description: 'Charset-Sprites können in der Map später Ereignisse auslösen.',
-    upload_charset_image_text: 'Lade ein .PNG hoch: 96x128px',
+    upload_charset_image_text: 'Lade ein .PNG hoch: 96x128px oder 160x128px',
     charset_wrong_size: 'Falsche Größe. Muss exakt 96x128px groß sein.'
   },
 
