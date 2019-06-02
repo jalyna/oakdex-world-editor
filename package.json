@@ -33,7 +33,7 @@
     "@types/react-redux": "^7.0.9",
     "@types/styled-components": "^4.1.15",
     "file-saver": "^2.0.2",
-    "oakdex-world-engine": "0.0.8",
+    "oakdex-world-engine": "0.0.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
