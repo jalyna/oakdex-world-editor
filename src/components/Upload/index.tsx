@@ -19,6 +19,7 @@ import { UPLOAD_TILESET, CHANGE_TAB_DATA } from 'components/TilesetEditor/action
 import TilesetEditor from 'components/TilesetEditor'
 
 import mapEditorStore from 'components/MapEditor/store'
+import { MapData } from 'components/MapEditor/reducers/mapData'
 import MapEditor from 'components/MapEditor'
 import { UPLOAD_MAP, CHANGE_EDITOR_DATA, ADD_TILESET, RESET_MAP } from 'components/MapEditor/actionTypes'
 
@@ -28,7 +29,9 @@ interface UploadState {
 }
 
 interface UploadProps {
-  tilesets?: Tileset[]
+  tilesets?: Tileset[],
+  editMap?: (fn: (mapData: MapData) => void) => void,
+  onPageChange?: (page?: string) => void
 }
 
 class Upload extends React.Component<UploadProps, UploadState> {
@@ -38,6 +41,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     this.changeLoading = this.changeLoading.bind(this)
     this.closeEditor = this.closeEditor.bind(this)
     this.createMap = this.createMap.bind(this)
+    this.editMap = this.editMap.bind(this)
     this.createMapWithDefaultTilesets = this.createMapWithDefaultTilesets.bind(this)
     mapEditorStore.dispatch({
       type: CHANGE_EDITOR_DATA,
@@ -49,6 +53,10 @@ class Upload extends React.Component<UploadProps, UploadState> {
     this.state = {
       loading: false,
       page: persistedState && persistedState.mapData ? 'mapEditor' : undefined
+    }
+
+    if (props.editMap) {
+      props.editMap(this.editMap)
     }
   }
 
@@ -81,9 +89,14 @@ class Upload extends React.Component<UploadProps, UploadState> {
     )
   }
 
+  changePage (page?: string) {
+    this.setState({ page })
+    this.props.onPageChange(page)
+  }
+
   closeEditor () {
     saveState(null)
-    this.setState({ page: undefined })
+    this.changePage(undefined)
   }
 
   createEmptyMap () {
@@ -91,7 +104,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
       type: UPLOAD_MAP,
       data: {}
     })
-    this.setState({ page: 'mapEditor' })
+    this.changePage('mapEditor')
   }
 
   createMap (tilesetData: Tileset) {
@@ -171,7 +184,31 @@ class Upload extends React.Component<UploadProps, UploadState> {
         data: t
       })
     })
-    this.setState({ page: 'mapEditor' })
+    this.changePage('mapEditor')
+  }
+
+  editMap (mapData: MapData) {
+    mapEditorStore.dispatch({
+      type: RESET_MAP
+    })
+    mapEditorStore.dispatch({
+      type: UPLOAD_MAP,
+      data: mapData
+    })
+    mapEditorStore.dispatch({
+      type: CHANGE_EDITOR_DATA,
+      data: {
+        close: this.closeEditor
+      }
+    })
+    const { tilesets } = this.props
+    tilesets.forEach((t: Tileset) => {
+      mapEditorStore.dispatch({
+        type: ADD_TILESET,
+        data: t
+      })
+    })
+    this.changePage('mapEditor')
   }
 
   passDataToTilesetEditor (json: any) {
@@ -186,7 +223,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
         createMap: this.createMap
       }
     })
-    this.setState({ page: 'tilesetEditor' })
+    this.changePage('tilesetEditor')
   }
 
   changeLoading (value: boolean) {
