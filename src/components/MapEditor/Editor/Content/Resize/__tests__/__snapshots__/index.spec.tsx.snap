@@ -13,7 +13,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg
@@ -39,7 +39,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg
@@ -73,7 +73,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg
@@ -99,7 +99,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg
@@ -133,7 +133,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg
@@ -159,7 +159,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg
@@ -193,7 +193,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg
@@ -219,7 +219,7 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="sc-bdVaJa bITllK"
+            className="sc-bdVaJa dJicAm"
             onClick={[Function]}
           >
             <svg

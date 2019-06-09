@@ -15,7 +15,7 @@ exports[`<Button> renders correctly 1`] = `
           "componentStyle": ComponentStyle {
             "componentId": "sc-bdVaJa",
             "isStatic": false,
-            "lastClassName": "bITllK",
+            "lastClassName": "dJicAm",
             "rules": Array [
               "
   cursor: pointer;
@@ -37,6 +37,9 @@ exports[`<Button> renders correctly 1`] = `
   border-radius: 4px;
   box-sizing: border-box;
   width: 100%;
+  ",
+              [Function],
+              ";
 
   &:hover {
     border-color: ",
@@ -65,7 +68,7 @@ exports[`<Button> renders correctly 1`] = `
       onClick={[MockFunction]}
     >
       <button
-        className="sc-bdVaJa bITllK"
+        className="sc-bdVaJa dJicAm"
         onClick={[MockFunction]}
       />
     </StyledComponent>
