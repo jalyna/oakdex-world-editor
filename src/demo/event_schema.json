@@ -55,6 +55,26 @@
       "oneOf": [
         {
           "type": "object",
+          "title": "Talk",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["talk"],
+              "default": "talk"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string",
+              "maxLength": 300
+            }
+          },
+          "required": [
+            "type",
+            "text"
+          ]
+        },
+        {
+          "type": "object",
           "title": "Change Char Dir",
           "properties": {
             "type": {
