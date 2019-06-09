@@ -11,7 +11,12 @@ interface GameChar {
   dir: Direction,
   image: string,
   hidden?: boolean,
-  walkThrough?: boolean
+  walkThrough?: boolean,
+  event?: {
+    onTalk?: object,
+    onWalkOver?: object,
+    onMapEnter?: object
+  }
 }
 
 export interface GameMap {
@@ -99,7 +104,8 @@ function getChars (mapData: MapData, tilesets: Tileset[]): GameChar[] {
       y: char.y,
       dir: char.dir,
       hidden: char.hidden,
-      walkThrough: char.walkThrough
+      walkThrough: char.walkThrough,
+      event: char.event
     }
   }).filter((c) => c)
 }

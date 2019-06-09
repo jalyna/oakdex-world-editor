@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 
 interface ButtonProps {
-  isActive?: boolean
+  isActive?: boolean,
+  secondary?: boolean
 }
 
 const StyledButton = styled.button`
@@ -19,6 +20,7 @@ const StyledButton = styled.button`
   border-radius: 4px;
   box-sizing: border-box;
   width: 100%;
+  ${({ secondary }: ButtonProps) => secondary && `opacity: 0.8;`};
 
   &:hover {
     border-color: ${GREY_70};

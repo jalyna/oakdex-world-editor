@@ -3,13 +3,15 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faRedo, faEye, faEyeSlash, faBan, faWalking } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faRedo, faEye, faEyeSlash, faBan, faWalking, faCode } from '@fortawesome/free-solid-svg-icons'
 import { Direction } from 'oakdex-world-engine'
+import Form, { IChangeEvent, FormValidation } from 'react-jsonschema-form'
 
 import t from 'shared/translate'
 import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
 import Button from 'shared/Button'
 import TextField from 'shared/TextField'
+import Modal from 'shared/Modal'
 import ListItem, { ItemTitle, Actions } from 'shared/ListItem'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 
@@ -17,6 +19,10 @@ import { MapChar } from 'components/MapEditor/reducers/mapData'
 import { CHANGE_EDITOR_DATA, UPDATE_MAP } from 'components/MapEditor/actionTypes'
 import store from 'components/MapEditor/store'
 import CharPreview from './CharPreview'
+
+import { getEventSchema } from '../../../..'
+
+type EventType = 'onTalk' | 'onWalkOver' | 'onMapEnter'
 
 interface CharsMenuProps {
   chars: MapChar[],
@@ -26,6 +32,7 @@ interface CharsMenuProps {
   onRotateChar: (id: string) => void,
   onChangeVisbility: (id: string) => void,
   onChangeWalk: (id: string) => void,
+  onChangeEvent: (id: string, eventType: EventType, event: object) => void,
   selectedCharset?: string
 }
 
@@ -73,6 +80,23 @@ function mapDispatchToProps (dispatch: Dispatch) {
         data: { chars }
       })
     },
+    onChangeEvent: (id: string, eventType: EventType, event: object) => {
+      const chars = (store.getState().mapData.chars || []).slice().map((c) => {
+        if (c.id === id) {
+          let newC = { ...c }
+          newC.event = newC.event || {}
+          newC.event[eventType] = event
+          return {
+            ...newC
+          }
+        }
+        return c
+      })
+      dispatch({
+        type: UPDATE_MAP,
+        data: { chars }
+      })
+    },
     onChangeVisbility: (id: string) => {
       const chars = (store.getState().mapData.chars || []).slice().map((c) => {
         if (c.id === id) {
@@ -106,61 +130,174 @@ function mapDispatchToProps (dispatch: Dispatch) {
   }
 }
 
-function CharsMenu ({
-  chars,
-  tilesets,
-  selectedCharset,
-  onSelectCharset,
-  onRemoveChar,
-  onRotateChar,
-  onChangeVisbility,
-  onChangeWalk
-}: CharsMenuProps) {
-  return (
-    <StyledSidebar>
-      <CharBox>
-        {tilesets.map((tileset) => {
-          return (tileset.charsets || []).map((charset) => {
-            const key = tileset.title + ',' + charset.title
-            return <CharPreview
-              key={key}
-              selected={selectedCharset === key}
-              onClick={onSelectCharset.bind(this, key)}
-              charset={charset} />
-          })
-        })}
-      </CharBox>
-      <ItemList>
-        {chars.map((char) => {
-          const tileset = tilesets.find((t) => t.title === char.tilesetTitle)
-          if (!tileset) { return null }
-          const charset = (tileset.charsets || []).find((c) => c.title === char.charsetTitle)
-          if (!charset) { return null }
-
-          return (
-            <ListItem key={char.id}>
-              <ItemTitle>
-                <InnerTitle>
-                  <CharPreview charset={charset} />
-                  {char.id} | {char.x}, {char.y}
-                </InnerTitle>
-              </ItemTitle>
-              <Actions>
-                <Button onClick={onChangeVisbility.bind(this, char.id)}><FontAwesomeIcon icon={char.hidden ? faEyeSlash : faEye} /></Button>
-                &nbsp;
-                <Button onClick={onChangeWalk.bind(this, char.id)}><FontAwesomeIcon icon={char.walkThrough ? faWalking : faBan} /></Button>
-                &nbsp;
-                <Button onClick={onRotateChar.bind(this, char.id)}><FontAwesomeIcon icon={faRedo} /></Button>
-                &nbsp;
-                <Button onClick={onRemoveChar.bind(this, char.id)}><FontAwesomeIcon icon={faTrash} /></Button>
-              </Actions>
-            </ListItem>
-          )
-        })}
-      </ItemList>
-    </StyledSidebar>
-  )
+interface CharsMenuState {
+  editEvent?: {
+    charId: string,
+    eventType: EventType
+  }
 }
+
+class CharsMenu extends React.Component<CharsMenuProps, CharsMenuState> {
+  constructor (props: CharsMenuProps) {
+    super(props)
+    this.onEditEvent = this.onEditEvent.bind(this)
+    this.closeEditEvent = this.closeEditEvent.bind(this)
+    this.saveEvent = this.saveEvent.bind(this)
+    this.state = {}
+  }
+
+  render () {
+    const {
+      chars,
+      tilesets,
+      selectedCharset,
+      onSelectCharset,
+      onRemoveChar,
+      onRotateChar,
+      onChangeVisbility,
+      onChangeWalk
+    } = this.props
+
+    return (
+      <StyledSidebar>
+        <CharBox>
+          {tilesets.map((tileset) => {
+            return (tileset.charsets || []).map((charset) => {
+              const key = tileset.title + ',' + charset.title
+              return <CharPreview
+                key={key}
+                selected={selectedCharset === key}
+                onClick={onSelectCharset.bind(this, key)}
+                charset={charset} />
+            })
+          })}
+        </CharBox>
+        <ItemList>
+          {chars.map((char) => {
+            const tileset = tilesets.find((t) => t.title === char.tilesetTitle)
+            if (!tileset) { return null }
+            const charset = (tileset.charsets || []).find((c) => c.title === char.charsetTitle)
+            if (!charset) { return null }
+
+            return (
+              <React.Fragment key={char.id}>
+                <ListItem>
+                  <ItemTitle>
+                    <InnerTitle>
+                      <CharPreview charset={charset} />
+                      {char.id} | {char.x}, {char.y}
+                    </InnerTitle>
+                  </ItemTitle>
+                  <Actions>
+                    <Button onClick={onChangeVisbility.bind(this, char.id)}><FontAwesomeIcon icon={char.hidden ? faEyeSlash : faEye} /></Button>
+                    &nbsp;
+                    <Button onClick={onChangeWalk.bind(this, char.id)}><FontAwesomeIcon icon={char.walkThrough ? faWalking : faBan} /></Button>
+                    &nbsp;
+                    <Button onClick={onRotateChar.bind(this, char.id)}><FontAwesomeIcon icon={faRedo} /></Button>
+                    &nbsp;
+                    <Button onClick={onRemoveChar.bind(this, char.id)}><FontAwesomeIcon icon={faTrash} /></Button>
+                  </Actions>
+                </ListItem>
+                <EventActions>
+                  <Button secondary={!char.event || !char.event.onTalk} onClick={this.onEditEvent.bind(this, char.id, 'onTalk')}>
+                    <FontAwesomeIcon icon={faCode} /> onTalk
+                  </Button>
+                  <Button secondary={!char.event || !char.event.onWalkOver} onClick={this.onEditEvent.bind(this, char.id, 'onWalkOver')}>
+                    <FontAwesomeIcon icon={faCode} /> onWalkOver
+                  </Button>
+                  <Button secondary={!char.event || !char.event.onMapEnter} onClick={this.onEditEvent.bind(this, char.id, 'onMapEnter')}>
+                    <FontAwesomeIcon icon={faCode} /> onMapEnter
+                  </Button>
+                </EventActions>
+              </React.Fragment>
+            )
+          })}
+        </ItemList>
+        {this.renderEditEvent()}
+      </StyledSidebar>
+    )
+  }
+
+  renderEditEvent () {
+    if (!this.state.editEvent) {
+      return
+    }
+
+    const { charId, eventType } = this.state.editEvent
+
+    const char = (store.getState().mapData.chars || []).slice().find((c) => {
+      return c.id === charId
+    })
+
+    const schema = getEventSchema()
+
+    return (
+      <Modal onClose={this.closeEditEvent} title={charId + ' ' + eventType}>
+        <FormWrapper>
+          <Form
+            schema={schema}
+            formData={char.event ? char.event[eventType] || {} : {}}
+            onSubmit={this.saveEvent}
+            uiSchema={{
+              commands: {
+                classNames: "command-list"
+              }
+            }}
+           >
+             <button className="btn btn-lg btn-primary" type="submit">
+               Save
+             </button>
+          </Form>
+        </FormWrapper>
+      </Modal>
+    )
+  }
+
+  saveEvent ({ formData }: IChangeEvent<object>) {
+    const { charId, eventType } = this.state.editEvent
+    this.props.onChangeEvent(charId, eventType, formData)
+    this.setState({ editEvent: undefined })
+  }
+
+  onEditEvent (id: string, eventType: EventType) {
+    this.setState({
+      editEvent: {
+        charId: id,
+        eventType
+      }
+    })
+  }
+
+  closeEditEvent () {
+    this.setState({ editEvent: undefined })
+  }
+}
+
+const FormWrapper = styled.div`
+  .command-list {
+    #root_type, label[for="root_type"] {
+      display: none;
+    }
+  }
+
+  #root_commands > .array-item-list > .array-item {
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    padding-top: 16px;
+
+    &:nth-child(odd) {
+      background-color: #eee;
+    }
+  }
+
+  #root_commands > .array-item-list > .array-item > .col-xs-9 > .form-group > .panel-body > .field-object > fieldset > legend {
+    display: none;
+  }
+`
 
 const InnerTitle = styled.div`
   display: flex;
@@ -184,6 +321,10 @@ const CharBox = styled.div`
 const StyledSidebar = styled.div`
   box-sizing: border-box;
   padding: 15px;
+`
+
+const EventActions = styled.div`
+  display: flex;
 `
 
 export default connect(

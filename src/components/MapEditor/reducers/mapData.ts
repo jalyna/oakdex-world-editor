@@ -29,7 +29,12 @@ export interface MapChar {
   y: number,
   dir: Direction,
   hidden?: boolean,
-  walkThrough?: boolean
+  walkThrough?: boolean,
+  event?: {
+    onTalk?: object,
+    onWalkOver?: object,
+    onMapEnter?: object
+  }
 }
 
 export interface MapData {

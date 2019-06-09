@@ -1,0 +1,196 @@
+{
+  "definitions": {
+    "condition": {
+      "type": "object",
+      "oneOf": [
+        {
+          "type": "object",
+          "title": "More or equal than x Monster",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["more_or_equal_than_x_monster"],
+              "default": "more_or_equal_than_x_monster"
+            },
+            "numberMonsters": {
+              "type": "integer",
+              "minimum": 0,
+              "multipleOf": 1
+            }
+          },
+          "required": [
+            "type",
+            "numberMonsters"
+          ]
+        },
+        {
+          "type": "object",
+          "title": "Is Time of day",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["is_time_of_day"],
+              "default": "is_time_of_day"
+            },
+            "time": {
+              "type": "string",
+              "default": "night",
+              "enum": [
+                "morning",
+                "afternoon",
+                "evening",
+                "night"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "time"
+          ]
+        }
+      ]
+    },
+    "command": {
+      "type": "object",
+      "oneOf": [
+        {
+          "type": "object",
+          "title": "Change Char Dir",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["change_char_dir"],
+              "default": "change_char_dir"
+            },
+            "dir": {
+              "title": "Direction",
+              "type": "string",
+              "enum": [
+                "up",
+                "down",
+                "left",
+                "right"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "dir"
+          ]
+        },
+        {
+          "type": "object",
+          "title": "Move Char To",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["move_char_to"],
+              "default": "move_char_to"
+            },
+            "x": {
+              "title": "X",
+              "type": "integer",
+              "minimum": 0,
+              "multipleOf": 1
+            },
+            "y": {
+              "title": "Y",
+              "type": "integer",
+              "minimum": 0,
+              "multipleOf": 1
+            }
+          },
+          "required": [
+            "type",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "title": "Hide Char",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["hide_char"],
+              "default": "hide_char"
+            }
+          },
+          "required": ["type"]
+        },
+        {
+          "type": "object",
+          "title": "Wait",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["wait"],
+              "default": "wait"
+            },
+            "milliseconds": {
+              "title": "Wait Time in Milliseconds",
+              "type": "integer",
+              "minimum": 1,
+              "multipleOf": 1
+            }
+          },
+          "required": [
+            "type",
+            "milliseconds"
+          ]
+        },
+        {
+          "type": "object",
+          "title": "If Else",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["if_else"],
+              "default": "if_else"
+            },
+            "conditions": {
+              "title": "Conditions",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/condition"
+              }
+            },
+            "ifCommands": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/command"
+              }
+            },
+            "elseCommands": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/command"
+              }
+            }
+          },
+          "required": [
+            "type",
+            "conditions"
+          ]
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "title": "Event",
+  "description": "Dynamic game event",
+  "properties": {
+    "commands": {
+      "title": "List of Commands",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/command"
+      }
+    }
+  },
+  "required": [
+    "commands"
+  ],
+  "additionalProperties": false
+}

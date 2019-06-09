@@ -11,9 +11,19 @@ import Upload from './components/Upload'
 export interface WorldEditorProps {
   tilesets?: Tileset[],
   editMap?: (fn: (mapData: MapData) => void) => void,
-  onPageChange?: (page?: string) => void
+  onPageChange?: (page?: string) => void,
+  eventSchema?: object
 }
 
-export default function WorldEditor(props: WorldEditorProps) {
+let globalEventSchema = {} as object
+
+export default function WorldEditor({eventSchema, ...props}: WorldEditorProps) {
+  if (eventSchema) {
+    globalEventSchema = eventSchema
+  }
   return <Upload {...props} />
+}
+
+export function getEventSchema() {
+  return globalEventSchema
 }

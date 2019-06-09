@@ -9,6 +9,7 @@ const indoor = require('../tilesets/indoor.tileset.json')
 const charsets = require('../tilesets/charsets.tileset.json')
 
 const autoOpenMap = require('./auto_open.map.json') as MapData
+const eventSchema = require('./event_schema.json')
 
 let editHandler: (mapData: MapData) => void = null
 
@@ -21,6 +22,7 @@ function App () {
         tilesets={[outdoor, architecture, indoor, charsets]}
         editMap={(fn) => editHandler = fn}
         onPageChange={(page) => setPage(page)}
+        eventSchema={eventSchema}
       />
       {!page && <div style={{ maxWidth: 500, margin: '0 auto' }}>
         <button onClick={() => editHandler && editHandler(autoOpenMap)}>Open demo map</button>
