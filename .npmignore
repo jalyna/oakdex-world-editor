@@ -8,3 +8,5 @@ docs
 public
 dist/demo
 src
+scripts
+.DS_Store

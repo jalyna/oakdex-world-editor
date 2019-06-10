@@ -86,10 +86,10 @@
               "title": "Direction",
               "type": "string",
               "enum": [
-                "up",
-                "down",
-                "left",
-                "right"
+                "Up",
+                "Down",
+                "Left",
+                "Right"
               ]
             }
           },
@@ -198,7 +198,7 @@
     }
   },
   "type": "object",
-  "title": "Event",
+  "title": "Game Event",
   "description": "Dynamic game event",
   "properties": {
     "commands": {
