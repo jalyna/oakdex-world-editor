@@ -32,10 +32,10 @@ function mapDispatchToProps (dispatch: Dispatch) {
 function Magnifier ({ tabData, changeZoom }: MagnifierProps) {
   return (
     <MagnifierWrapper>
-      <Button disabled={tabData.zoom === 1} onClick={changeZoom.bind(this, 1)}>
+      <Button disabled={tabData.zoom === 1} onClick={changeZoom.bind(this, tabData.zoom - 1)}>
         <FontAwesomeIcon icon={faSearchMinus} />
       </Button>
-      <Button disabled={tabData.zoom === 2} onClick={changeZoom.bind(this, 2)}>
+      <Button disabled={tabData.zoom === 4} onClick={changeZoom.bind(this, tabData.zoom + 1)}>
         <FontAwesomeIcon icon={faSearchPlus} />
       </Button>
     </MagnifierWrapper>

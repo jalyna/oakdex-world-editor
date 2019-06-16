@@ -10,13 +10,13 @@ function positionInGrid (coordinates: Coordinate, zoom: number, e: React.MouseEv
   const x = (e.pageX - rect.left - coordinates.x * 16 * zoom) / zoom
   const y = (e.pageY - rect.top - coordinates.y * 16 * zoom) / zoom
 
-  if (x >= 5 && x <= 13 && y >= 0 && y <= 8) {
+  if (x >= 5 && x <= 12 && y >= 0 && y <= 7) {
     return 'top'
-  } else if (x >= 5 && x <= 13 && y >= 8 && y <= 16) {
+  } else if (x >= 5 && x <= 12 && y >= 7 && y <= 16) {
     return 'bottom'
-  } else if (x >= 0 && x <= 8 && y >= 5 && y <= 13) {
+  } else if (x >= 0 && x <= 7 && y >= 5 && y <= 12) {
     return 'left'
-  } else if (x >= 8 && x <= 16 && y >= 5 && y <= 13) {
+  } else if (x >= 7 && x <= 16 && y >= 5 && y <= 12) {
     return 'right'
   }
 

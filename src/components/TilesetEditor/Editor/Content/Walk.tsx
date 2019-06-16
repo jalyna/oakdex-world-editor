@@ -30,11 +30,11 @@ function allSame (tile: Walkability, status: number): boolean {
 
 function renderType (status: number): string {
   if (status === 2) {
-    return '◎'
+    return renderTypeColor(2)
   } else if (status === 1) {
-    return 'X'
+    return renderTypeColor(1)
   } else {
-    return 'O'
+    return renderTypeColor(0)
   }
 }
 
@@ -98,10 +98,14 @@ function drawCell(ctx: CanvasRenderingContext2D, walkability: Walkability[][], w
   const cell = walkability[y][x]
 
   if (walkabilityMode === 'details') {
-    ctx.fillText(renderType(cell.top), x * 16 + 4, y * 16)
-    ctx.fillText(renderType(cell.bottom), x * 16 + 4, y * 16 + 8)
-    ctx.fillText(renderType(cell.left), x * 16, y * 16 + 4)
-    ctx.fillText(renderType(cell.right), x * 16 + 8, y * 16 + 4)
+    ctx.fillStyle = renderType(cell.top)
+    ctx.fillRect(x * 16 + 5, y * 16, 5, 5)
+    ctx.fillStyle = renderType(cell.bottom)
+    ctx.fillRect(x * 16 + 5, y * 16 + 10, 5, 5)
+    ctx.fillStyle = renderType(cell.left)
+    ctx.fillRect(x * 16, y * 16 + 5, 5, 5)
+    ctx.fillStyle = renderType(cell.right)
+    ctx.fillRect(x * 16 + 10, y * 16 + 5, 5, 5)
   } else {
     const color = renderSimpleColor(cell)
     if (color !== ctx.fillStyle) {
