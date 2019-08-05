@@ -51,16 +51,20 @@ const ResizeItemX = styled(ResizeItem)`
   }
 `
 
+const MARGIN = 32
+
 const ResizeRight = styled(ResizeItemX)`
   top: 0;
   bottom: 0;
   left: 100%;
+  margin-left: ${MARGIN}px;
 `
 
 const ResizeLeft = styled(ResizeItemX)`
   top: 0;
   bottom: 0;
   right: 100%;
+  margin-right: ${MARGIN}px;
 `
 
 const ResizeTop = styled(ResizeItem)`
@@ -68,6 +72,7 @@ const ResizeTop = styled(ResizeItem)`
   right: 0;
   width: 100%;
   bottom: 100%;
+  margin-bottom: ${MARGIN}px;
 `
 
 const ResizeBottom = styled(ResizeItem)`
@@ -75,6 +80,11 @@ const ResizeBottom = styled(ResizeItem)`
   right: 0;
   width: 100%;
   top: 100%;
+  margin-top: ${MARGIN}px;
+`
+
+const SpecialButton = styled(Button)`
+  background-color: rgba(255, 255, 255, 0.5)
 `
 
 const CONTAINER_MAP = {
@@ -96,9 +106,9 @@ function mapDispatchToProps (dispatch: Dispatch) {
 
 function renderButton (changeSize: (direction: string, changeBy: number) => void, direction: string, changeBy: number) {
   return (
-    <Button onClick={changeSize.bind(this, direction, changeBy)}>
+    <SpecialButton onClick={changeSize.bind(this, direction, changeBy)}>
       <FontAwesomeIcon icon={ICON_MAP[[direction, changeBy].join('_')]} />
-    </Button>
+    </SpecialButton>
   )
 }
 

@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 
-import { CHANGE_EDITOR_DATA, ADD_TILESET } from '../actionTypes'
+import { CHANGE_EDITOR_DATA, ADD_TILESET, RESET_MAP } from '../actionTypes'
 import { Coordinate } from 'components/TilesetEditor/reducers/currentCoordinates'
 import { LayerField } from 'components/MapEditor/reducers/mapData'
 
@@ -22,6 +22,7 @@ export interface EditorData {
   tool: string,
   tilesetMouseHolding: boolean,
   mapMouseHolding: boolean,
+  background?: React.ReactNode,
   activeAutoTile?: string,
   currentCoordinates?: Coordinate,
   activeTileset?: string,
@@ -67,6 +68,11 @@ const editorData: Reducer<EditorData> = (state: EditorData = defaultEditorData, 
       return {
         ...state,
         ...action.data
+      }
+    case RESET_MAP:
+      return {
+        ...state,
+        background: undefined
       }
     default:
       return state

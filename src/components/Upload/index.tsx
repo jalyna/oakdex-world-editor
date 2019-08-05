@@ -30,7 +30,7 @@ interface UploadState {
 
 interface UploadProps {
   tilesets?: Tileset[],
-  editMap?: (fn: (mapData: MapData) => void) => void,
+  editMap?: (fn: (mapData: MapData, background?: React.ReactNode) => void) => void,
   onPageChange?: (page?: string) => void
 }
 
@@ -187,7 +187,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     this.changePage('mapEditor')
   }
 
-  editMap (mapData: MapData) {
+  editMap (mapData: MapData, background?: React.ReactNode) {
     mapEditorStore.dispatch({
       type: RESET_MAP
     })
@@ -198,7 +198,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
     mapEditorStore.dispatch({
       type: CHANGE_EDITOR_DATA,
       data: {
-        close: this.closeEditor
+        close: this.closeEditor,
+        background
       }
     })
     const { tilesets } = this.props

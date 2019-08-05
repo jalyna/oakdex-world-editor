@@ -25,6 +25,7 @@ interface ContentProps {
   mapData: MapData,
   tool?: string,
   previewFields: LayerField[],
+  background?: React.ReactNode,
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void,
   onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => void,
   onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => void,
@@ -35,6 +36,7 @@ function mapStateToProps ({ tilesets, mapData, editorData }: any) {
   return {
     tilesets,
     mapData,
+    background: editorData.background,
     previewFields: editorData.previewFields,
     tool: editorData.tool
   }
@@ -139,6 +141,7 @@ class Content extends React.Component<ContentProps, {}> {
       tilesets,
       mapData,
       tool,
+      background,
       previewFields,
       onMouseUp,
       onMouseDown,
@@ -163,7 +166,8 @@ class Content extends React.Component<ContentProps, {}> {
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}>
-          <canvas ref={this.canvas} width={mapData.width * 16} height={mapData.height * 16} />
+          {background && <Background mapWidth={mapData.width * 16} mapHeight={mapData.height * 16}>{background}</Background>}
+          <Canvas hasBackground={!!background} ref={this.canvas} width={mapData.width * 16} height={mapData.height * 16} />
           {tool !== 'chars' && <PreviewLayer>
             {renderLayer(previewFields, -1, tilesets)}
           </PreviewLayer>}
@@ -187,9 +191,38 @@ class Content extends React.Component<ContentProps, {}> {
   }
 }
 
+interface CanvasProps {
+  hasBackground?: boolean;
+}
+
+const Canvas = styled.canvas`
+  position: absolute;
+  background-color: white;
+  ${({ hasBackground }: CanvasProps) => hasBackground && `
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  `}
+`
+
+interface BackgroundProps {
+  mapWidth: number,
+  mapHeight: number
+}
+
+const Background = styled.div`
+  position: absolute;
+  ${({ mapWidth, mapHeight }: BackgroundProps) => `
+    width: ${mapWidth * 3}px;
+    height: ${mapHeight * 3}px;
+    margin-left: -${mapWidth * 1.5}px;
+    margin-top: -${mapHeight * 1.5}px;
+  `}
+  left: 50%;
+  top: 50%;
+`
+
 const StyledContent = styled.div`
   box-sizing: border-box;
-  padding: 50px;
+  padding: 100px;
 `
 
 const MapWrapper = styled.div`

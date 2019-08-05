@@ -13,7 +13,9 @@ const charsets = require('../tilesets/charsets.tileset.json')
 const autoOpenMap = require('./auto_open.map.json') as MapData
 const eventSchema = require('./event_schema.json')
 
-let editHandler: (mapData: MapData) => void = null
+import * as fillerMap from './fillerMap.png'
+
+let editHandler: (mapData: MapData, background?: React.ReactNode) => void = null
 
 const dirMap = {
   Up: Direction.Up,
@@ -66,7 +68,11 @@ function App () {
         }}
       />
       {!page && <div style={{ maxWidth: 500, margin: '0 auto' }}>
-        <button onClick={() => editHandler && editHandler(autoOpenMap)}>Open demo map</button>
+        <button onClick={() => editHandler && editHandler(autoOpenMap, <div>
+          <img src={fillerMap} /><img src={fillerMap} /><img src={fillerMap} />
+          <img src={fillerMap} /><img src={fillerMap} /><img src={fillerMap} />
+          <img src={fillerMap} /><img src={fillerMap} /><img src={fillerMap} />
+        </div>)}>Open demo map</button>
       </div>}
     </React.Fragment>
   )
