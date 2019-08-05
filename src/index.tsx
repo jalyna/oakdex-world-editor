@@ -16,21 +16,40 @@ export interface WorldEditorProps {
   editMap?: (fn: (mapData: MapData) => void) => void,
   onPageChange?: (page?: string) => void,
   eventSchema?: object,
-  onDemoEvent?: OnDemoEvent
+  onDemoEvent?: OnDemoEvent,
+  mapSize?: {
+    width: number,
+    height: number
+  }
 }
 
 let globalEventSchema = {} as object
 
 let globalOnDemoEvent: OnDemoEvent = null
 
-export default function WorldEditor({eventSchema, onDemoEvent, ...props}: WorldEditorProps) {
+let defaultMapSize = {
+  width: 30,
+  height: 20
+} as {
+  width: number,
+  height: number
+}
+
+export default function WorldEditor({eventSchema, onDemoEvent, mapSize, ...props}: WorldEditorProps) {
   if (eventSchema) {
     globalEventSchema = eventSchema
   }
   if (onDemoEvent) {
     globalOnDemoEvent = onDemoEvent
   }
+  if (mapSize) {
+    defaultMapSize = mapSize
+  }
   return <Upload {...props} />
+}
+
+export function getDefaultMapSize() {
+  return defaultMapSize
 }
 
 export function getEventSchema() {

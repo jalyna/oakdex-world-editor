@@ -60,6 +60,10 @@ function App () {
         onPageChange={(page) => setPage(page)}
         eventSchema={eventSchema}
         onDemoEvent={onEvent}
+        mapSize={{
+          width: 32,
+          height: 22
+        }}
       />
       {!page && <div style={{ maxWidth: 500, margin: '0 auto' }}>
         <button onClick={() => editHandler && editHandler(autoOpenMap)}>Open demo map</button>

@@ -5,6 +5,8 @@ import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 
 import { UPLOAD_MAP, UPDATE_MAP, RESET_MAP } from '../actionTypes'
 
+import { getDefaultMapSize } from '../../..'
+
 export interface TilesetField {
   tilesetTitle: string,
   tilesetX: number,
@@ -53,8 +55,8 @@ const mapData: Reducer<MapData> = (state: MapData | null = null, action): MapDat
           title: 'Layer 1',
           fields: []
         }],
-        width: 30,
-        height: 20,
+        width: getDefaultMapSize().width,
+        height: getDefaultMapSize().height,
         title: 'New Map',
         ...action.data
       }

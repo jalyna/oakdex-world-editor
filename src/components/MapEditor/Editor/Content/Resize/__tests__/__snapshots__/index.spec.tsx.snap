@@ -7,7 +7,7 @@ exports[`<Resize> renders correctly 1`] = `
       key="right"
     >
       <div
-        className="sc-bwzfXH sc-htpNat sc-bxivhb dvJmnI"
+        className="sc-hrWEMg sc-eTuwsz sc-gwVKww dbEAK"
       >
         <styled.button
           onClick={[Function]}
@@ -67,7 +67,7 @@ exports[`<Resize> renders correctly 1`] = `
       key="left"
     >
       <div
-        className="sc-bwzfXH sc-htpNat sc-ifAKCX kwURJQ"
+        className="sc-hrWEMg sc-eTuwsz sc-hXRMBi bUdirm"
       >
         <styled.button
           onClick={[Function]}
@@ -127,7 +127,7 @@ exports[`<Resize> renders correctly 1`] = `
       key="top"
     >
       <div
-        className="sc-bwzfXH sc-EHOje kgIwdN"
+        className="sc-hrWEMg sc-epnACN gaEhFw"
       >
         <styled.button
           onClick={[Function]}
@@ -187,7 +187,7 @@ exports[`<Resize> renders correctly 1`] = `
       key="bottom"
     >
       <div
-        className="sc-bwzfXH sc-bZQynM gWaPnW"
+        className="sc-hrWEMg sc-iQNlJl gFhoGq"
       >
         <styled.button
           onClick={[Function]}
