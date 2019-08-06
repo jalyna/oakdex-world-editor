@@ -55,6 +55,10 @@ export interface Tileset {
   width: number,
   height: number,
   imageBase64: string,
+  versions?: {
+    name: string,
+    imageBase64: string
+  }[],
   walkability: Walkability[][],
   objects: boolean[][],
   autoTiles: AutoTile[],

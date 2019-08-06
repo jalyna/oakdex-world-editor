@@ -51,10 +51,11 @@ const TRANSLATIONS = {
     play_demo: 'Demo',
     chars_tool: 'Chars',
     charsets: 'Charsets',
-    tileset_reupload: 'Neues Bild',
+    tileset_reupload: 'Neues Bild/Versionen',
     charsets_description: 'Charset-Sprites können in der Map später Ereignisse auslösen.',
     upload_charset_image_text: 'Lade ein .PNG hoch: 96x128px oder 160x128px',
-    charset_wrong_size: 'Falsche Größe. Muss exakt 96x128px groß sein.'
+    charset_wrong_size: 'Falsche Größe. Muss exakt 96x128px groß sein.',
+    download_tileset_image: 'Bild herunterladen'
   },
 
   en: {
@@ -103,10 +104,11 @@ const TRANSLATIONS = {
     play_demo: 'Demo',
     chars_tool: 'Chars',
     charsets: 'Charsets',
-    tileset_reupload: 'New Image',
+    tileset_reupload: 'New Image/Versions',
     charsets_description: 'Charset Sprites can be added to your map.',
     upload_charset_image_text: 'Upload a .PNG: dimensions 96x128px',
-    charset_wrong_size: 'Wrong dimensions. Must have 96x128px.'
+    charset_wrong_size: 'Wrong dimensions. Must have 96x128px.',
+    download_tileset_image: 'Download Image'
   }
 } as TranslationMap
 
