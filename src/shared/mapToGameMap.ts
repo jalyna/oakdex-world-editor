@@ -28,7 +28,12 @@ export interface GameMap {
   walkability: Walkability[][],
   mapBackgroundImage: string,
   mapForegroundImage: string,
-  chars?: GameChar[]
+  chars?: GameChar[],
+  versions?: {
+    name: string,
+    mapBackgroundImage: string,
+    mapForegroundImage: string
+  }[]
 }
 
 function getCredits (tilesets: Tileset[]): Credit[] {
@@ -111,10 +116,25 @@ function getChars (mapData: MapData, tilesets: Tileset[]): GameChar[] {
 }
 
 export default async function (canvas: HTMLCanvasElement, mapData: MapData, tilesets: Tileset[]): Promise<GameMap> {
-  await drawMap(canvas, mapData.layers, tilesets, 'background')
+  await drawMap(canvas, mapData.layers, tilesets, { name: 'default', tilesetVersions: [] }, 'background')
   const mapBackgroundImage = canvas.toDataURL('image/png')
-  await drawMap(canvas, mapData.layers, tilesets, 'foreground')
+  await drawMap(canvas, mapData.layers, tilesets, { name: 'default', tilesetVersions: [] }, 'foreground')
   const mapForegroundImage = canvas.toDataURL('image/png')
+
+  let versions = []
+  const mapVersions = mapData.versions || []
+
+  for(let i = 0; i < mapVersions.length; i++) {
+    await drawMap(canvas, mapData.layers, tilesets, mapVersions[i], 'background')
+    let versionMapBackgroundImage = canvas.toDataURL('image/png')
+    await drawMap(canvas, mapData.layers, tilesets, mapVersions[i], 'foreground')
+    let versionMapForegroundImage = canvas.toDataURL('image/png')
+    versions.push({
+      name: mapVersions[i].name,
+      mapBackgroundImage: versionMapBackgroundImage,
+      mapForegroundImage: versionMapForegroundImage
+    })
+  }
   
   return {
     title: mapData.title,
@@ -125,6 +145,7 @@ export default async function (canvas: HTMLCanvasElement, mapData: MapData, tile
     walkability: getWalkability(mapData, tilesets),
     chars: getChars(mapData, tilesets),
     mapBackgroundImage,
-    mapForegroundImage
+    mapForegroundImage,
+    versions
   }
 }

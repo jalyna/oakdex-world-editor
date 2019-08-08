@@ -9,6 +9,7 @@ import TilesetMenu from './TilesetMenu'
 import LayerMenu from './LayerMenu'
 import Content from './Content'
 import CharsMenu from './CharsMenu'
+import VersionsMenu from './VersionsMenu'
 
 const TOPBAR_HEIGHT = 60
 const SIDEBAR_WIDTH = 450
@@ -30,6 +31,16 @@ function Editor ({ tool }: EditorProps) {
         <TopbarWrapper><Topbar /></TopbarWrapper>
         <ContentWrapper><Content /></ContentWrapper>
         <SidebarWrapper><CharsMenu /></SidebarWrapper>
+      </Wrapper>
+    )
+  }
+
+  if (tool === 'versions') {
+    return (
+      <Wrapper>
+        <TopbarWrapper><Topbar /></TopbarWrapper>
+        <ContentWrapper><Content /></ContentWrapper>
+        <SidebarWrapper><VersionsMenu /></SidebarWrapper>
       </Wrapper>
     )
   }

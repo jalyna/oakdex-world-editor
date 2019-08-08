@@ -134,7 +134,8 @@ describe('.mapToGameMap', () => {
         }
       ],
       mapBackgroundImage: 'base64example',
-      mapForegroundImage: 'base64example'
+      mapForegroundImage: 'base64example',
+      versions: []
     })
   })
 })

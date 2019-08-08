@@ -44,7 +44,14 @@ export interface MapData {
   width: number,
   height: number,
   layers: Layer[],
-  chars?: MapChar[]
+  chars?: MapChar[],
+  versions?: {
+    name: string,
+    tilesetVersions: {
+      tilesetId: string,
+      versionId: string
+    }[]
+  }[]
 }
 
 const mapData: Reducer<MapData> = (state: MapData | null = null, action): MapData | null => {

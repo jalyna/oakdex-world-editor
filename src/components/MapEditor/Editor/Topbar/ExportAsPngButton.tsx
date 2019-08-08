@@ -14,17 +14,19 @@ import { DEFAULT_FONT, GREY_90, GREY_70, GREY_50 } from 'shared/theme'
 
 interface ExportAsPngButtonProps {
   mapData: MapData,
-  tilesets: Tileset[]
+  tilesets: Tileset[],
+  activeVersion: string
 }
 
 interface ExportAsPngButtonState {
   href: string
 }
 
-function mapStateToProps ({ tilesets, mapData }: any) {
+function mapStateToProps ({ tilesets, mapData, editorData }: any) {
   return {
     tilesets,
-    mapData
+    mapData,
+    activeVersion: editorData.activeVersion || 'default'
   }
 }
 
@@ -73,7 +75,12 @@ class ExportAsPngButton extends React.Component<ExportAsPngButtonProps, ExportAs
     if (!this.canvas.current) {
       return
     }
-    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets)
+
+    const version = (this.props.mapData.versions || []).find(v => v.name === this.props.activeVersion) || {
+      name: 'default',
+      tilesetVersions: []
+    }
+    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets, version)
     this.setState({
       href: this.canvas.current.toDataURL('image/png')
     }, () => {

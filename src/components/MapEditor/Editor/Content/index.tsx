@@ -23,6 +23,7 @@ import Chars from './Chars'
 interface ContentProps {
   tilesets: Tileset[],
   mapData: MapData,
+  activeVersion: string,
   tool?: string,
   previewFields: LayerField[],
   background?: React.ReactNode,
@@ -38,7 +39,8 @@ function mapStateToProps ({ tilesets, mapData, editorData }: any) {
     mapData,
     background: editorData.background,
     previewFields: editorData.previewFields,
-    tool: editorData.tool
+    tool: editorData.tool,
+    activeVersion: editorData.activeVersion || 'default'
   }
 }
 
@@ -49,6 +51,17 @@ function mapDispatchToProps (dispatch: Dispatch) {
       const editorData = store.getState().editorData
       
       if (editorData.currentCoordinates !== coordinates) {
+        if (editorData.tool === 'versions') {
+          dispatch({
+            type: CHANGE_EDITOR_DATA,
+            data: {
+              currentCoordinates: coordinates,
+              previewFields: []
+            }
+          })
+          return
+        }
+
         dispatch({
           type: CHANGE_EDITOR_DATA,
           data: {
@@ -78,6 +91,9 @@ function mapDispatchToProps (dispatch: Dispatch) {
         type: CHANGE_EDITOR_DATA,
         data: { mapMouseHolding: true }
       })
+      if (store.getState().editorData.tool === 'versions') {
+        return
+      }
       if (store.getState().editorData.tool === 'fill') {
         fill(dispatch, e)
       } else if (store.getState().editorData.tool === 'chars') {
@@ -187,7 +203,11 @@ class Content extends React.Component<ContentProps, {}> {
   }
 
   async redraw () {
-    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets)
+    const version = (this.props.mapData.versions || []).find(v => v.name === this.props.activeVersion) || {
+      name: 'default',
+      tilesetVersions: []
+    }
+    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets, version)
   }
 }
 

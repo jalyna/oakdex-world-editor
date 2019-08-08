@@ -55,7 +55,8 @@ const TRANSLATIONS = {
     charsets_description: 'Charset-Sprites können in der Map später Ereignisse auslösen.',
     upload_charset_image_text: 'Lade ein .PNG hoch: 96x128px oder 160x128px',
     charset_wrong_size: 'Falsche Größe. Muss exakt 96x128px groß sein.',
-    download_tileset_image: 'Bild herunterladen'
+    download_tileset_image: 'Bild herunterladen',
+    versions_tool: 'Versionen verwalten'
   },
 
   en: {
@@ -108,7 +109,8 @@ const TRANSLATIONS = {
     charsets_description: 'Charset Sprites can be added to your map.',
     upload_charset_image_text: 'Upload a .PNG: dimensions 96x128px',
     charset_wrong_size: 'Wrong dimensions. Must have 96x128px.',
-    download_tileset_image: 'Download Image'
+    download_tileset_image: 'Download Image',
+    versions_tool: 'Manage versions'
   }
 } as TranslationMap
 

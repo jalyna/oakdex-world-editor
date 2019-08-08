@@ -2,7 +2,9 @@ import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { Layer } from 'components/MapEditor/reducers/mapData'
 
 interface TilesetImages {
-  [key: string]: HTMLImageElement
+  [key: string]: {
+    [versionId: string]: HTMLImageElement
+  }
 }
 
 let tilesetImages = {} as TilesetImages
@@ -10,7 +12,14 @@ let tilesetImages = {} as TilesetImages
 async function tilesetsToMap (tilesets: Tileset[]): Promise<TilesetImages> {
   for(let i = 0; i < tilesets.length; i++) {
     if (!tilesetImages[tilesets[i].title]) {
-      tilesetImages[tilesets[i].title] = await loadImage(tilesets[i].imageBase64)
+      tilesetImages[tilesets[i].title] = {
+        default: await loadImage(tilesets[i].imageBase64)
+      }
+      if (tilesets[i].versions) {
+        for(let j = 0; j < tilesets[i].versions.length; j++) {
+          tilesetImages[tilesets[i].title][tilesets[i].versions[j].name] = await loadImage(tilesets[i].versions[j].imageBase64)
+        }
+      }
     }
   }
 
@@ -26,7 +35,15 @@ async function loadImage (base64: string): Promise<HTMLImageElement> {
   })
 }
 
-export async function drawMap (canvas: HTMLCanvasElement, layers: Layer[], tilesets: Tileset[], type?: string) {
+interface Version {
+  name: string,
+  tilesetVersions: {
+    tilesetId: string,
+    versionId: string
+  }[]
+}
+
+export async function drawMap (canvas: HTMLCanvasElement, layers: Layer[], tilesets: Tileset[], version: Version, type?: string) {
   const ctx = canvas.getContext('2d')
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -34,7 +51,9 @@ export async function drawMap (canvas: HTMLCanvasElement, layers: Layer[], tiles
 
   layers.forEach((layer) => {
     layer.fields.forEach((field) => {
-      const image = tilesetImages[field.tilesetTitle]
+      const tilesetVersion = version.tilesetVersions.find(v => v.tilesetId === field.tilesetTitle)
+      const versionId = tilesetVersion && tilesetVersion.versionId ? tilesetVersion.versionId : 'default'
+      const image = tilesetImages[field.tilesetTitle][versionId]
       if (!image) {
         return
       }
