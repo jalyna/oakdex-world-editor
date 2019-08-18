@@ -34,7 +34,7 @@
     "@types/react-redux": "^7.1.1",
     "@types/styled-components": "^4.1.18",
     "file-saver": "^2.0.2",
-    "oakdex-world-engine": "0.0.11",
+    "oakdex-world-engine": "0.0.12",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-jsonschema-form": "^1.7.0",

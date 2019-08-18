@@ -19,7 +19,8 @@ const CHARSET = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAACACAMAAADDA
 
 interface DemoButtonProps {
   mapData: MapData,
-  tilesets: Tileset[]
+  tilesets: Tileset[],
+  activeVersion: string
 }
 
 interface DemoButtonState {
@@ -29,10 +30,11 @@ interface DemoButtonState {
   actionHandler?: ActionHandler
 }
 
-function mapStateToProps ({ tilesets, mapData }: any) {
+function mapStateToProps ({ tilesets, mapData, editorData }: any) {
   return {
     tilesets,
-    mapData
+    mapData,
+    activeVersion: editorData.activeVersion
   }
 }
 
@@ -87,6 +89,7 @@ class DemoButton extends React.Component<DemoButtonProps, DemoButtonState> {
         <Wrapper>
           <WorldEngine
             mapData={this.state.gameMap}
+            mapVersion={this.props.activeVersion}
             viewport={{ width: 19, height: 15 }}
             chars={[]}
             controllableChar={{
