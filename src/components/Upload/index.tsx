@@ -150,7 +150,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
           this.changeLoading(false)
         })
         this.changeLoading(false)
-      } else if (file.name.indexOf('.png') >= 0) {
+      } else if (file.name.indexOf('.png') >= 0 || file.name.indexOf('.gif') >= 0) {
         readImage(file).then((imageData) => {
           this.passDataToTilesetEditor(imageData)
           this.changeLoading(false)

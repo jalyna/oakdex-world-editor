@@ -8,6 +8,7 @@ import { GameEvent } from './GameEvent'
 const outdoor = require('../tilesets/outdoor.tileset.json')
 const architecture = require('../tilesets/architecture.tileset.json')
 const indoor = require('../tilesets/indoor.tileset.json')
+const animated = require('../tilesets/animated.tileset.json')
 const charsets = require('../tilesets/charsets.tileset.json')
 
 const autoOpenMap = require('./auto_open.map.json') as MapData
@@ -57,7 +58,7 @@ function App () {
   return (
     <React.Fragment>
       <WorldEditor
-        tilesets={[outdoor, architecture, indoor, charsets]}
+        tilesets={[outdoor, architecture, indoor, animated, charsets]}
         editMap={(fn) => editHandler = fn}
         onPageChange={(page) => setPage(page)}
         eventSchema={eventSchema}

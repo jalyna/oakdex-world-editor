@@ -151,6 +151,8 @@ class Content extends React.Component<ContentProps, {}> {
   }
 
   private canvas = React.createRef<HTMLCanvasElement>()
+  private canvasForeground = React.createRef<HTMLCanvasElement>()
+  private gifLayer = React.createRef<HTMLDivElement>()
 
   render () {
     const {
@@ -184,6 +186,10 @@ class Content extends React.Component<ContentProps, {}> {
           onMouseLeave={onMouseLeave}>
           {background && <Background mapWidth={mapData.width * 16} mapHeight={mapData.height * 16}>{background}</Background>}
           <Canvas hasBackground={!!background} ref={this.canvas} width={mapData.width * 16} height={mapData.height * 16} />
+          <GifLayer width={mapData.width * 16} height={mapData.height * 16}>
+            <GifLayerInner ref={this.gifLayer}></GifLayerInner>
+          </GifLayer>
+          <CanvasForeground ref={this.canvasForeground} width={mapData.width * 16} height={mapData.height * 16} />
           {tool !== 'chars' && <PreviewLayer>
             {renderLayer(previewFields, -1, tilesets)}
           </PreviewLayer>}
@@ -207,7 +213,10 @@ class Content extends React.Component<ContentProps, {}> {
       name: 'default',
       tilesetVersions: []
     }
-    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets, version)
+    this.gifLayer.current.innerHTML = ''
+    await drawMap(this.canvas.current, this.props.mapData.layers, this.props.tilesets, version, 'background')
+    await drawMap(this.canvasForeground.current, this.props.mapData.layers, this.props.tilesets, version, 'foreground')
+    await drawMap(this.gifLayer.current, this.props.mapData.layers, this.props.tilesets, version, 'gif')
   }
 }
 
@@ -221,6 +230,27 @@ const Canvas = styled.canvas`
   ${({ hasBackground }: CanvasProps) => hasBackground && `
     border: 1px solid rgba(255, 255, 255, 0.4);
   `}
+`
+
+const CanvasForeground = styled.canvas`
+  position: absolute;
+`
+
+interface GifLayerProps {
+  width: number,
+  height: number;
+}
+
+const GifLayer = styled.div`
+  position: absolute;
+  ${({ width, height }: GifLayerProps) => `
+    width: ${width}px;
+    height: ${height}px
+  `}
+`
+
+const GifLayerInner = styled.div`
+  position: relative;
 `
 
 interface BackgroundProps {

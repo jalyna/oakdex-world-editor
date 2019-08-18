@@ -3,7 +3,10 @@ import { Layer } from 'components/MapEditor/reducers/mapData'
 
 interface TilesetImages {
   [key: string]: {
-    [versionId: string]: HTMLImageElement
+    [versionId: string]: {
+      isGif: boolean,
+      element: HTMLImageElement
+    }
   }
 }
 
@@ -13,11 +16,17 @@ async function tilesetsToMap (tilesets: Tileset[]): Promise<TilesetImages> {
   for(let i = 0; i < tilesets.length; i++) {
     if (!tilesetImages[tilesets[i].title]) {
       tilesetImages[tilesets[i].title] = {
-        default: await loadImage(tilesets[i].imageBase64)
+        default: {
+          element: await loadImage(tilesets[i].imageBase64),
+          isGif: tilesets[i].imageBase64.startsWith('data:image/gif')
+        }
       }
       if (tilesets[i].versions) {
         for(let j = 0; j < tilesets[i].versions.length; j++) {
-          tilesetImages[tilesets[i].title][tilesets[i].versions[j].name] = await loadImage(tilesets[i].versions[j].imageBase64)
+          tilesetImages[tilesets[i].title][tilesets[i].versions[j].name] = {
+            element: await loadImage(tilesets[i].versions[j].imageBase64),
+            isGif: tilesets[i].versions[j].imageBase64.startsWith('data:image/gif')
+          }
         }
       }
     }
@@ -43,9 +52,14 @@ interface Version {
   }[]
 }
 
-export async function drawMap (canvas: HTMLCanvasElement, layers: Layer[], tilesets: Tileset[], version: Version, type?: string) {
-  const ctx = canvas.getContext('2d')
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
+export async function drawMap (canvas: HTMLCanvasElement | HTMLDivElement, layers: Layer[], tilesets: Tileset[], version: Version, type?: string) {
+  let ctx: CanvasRenderingContext2D
+
+  if (canvas.tagName === 'CANVAS') {
+    canvas = canvas as HTMLCanvasElement
+    ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
 
   const tilesetImages = await tilesetsToMap(tilesets)
 
@@ -59,12 +73,26 @@ export async function drawMap (canvas: HTMLCanvasElement, layers: Layer[], tiles
       }
       const tileset = tilesets.find((t) => t.title === field.tilesetTitle)
       const isObject = tileset.objects[field.tilesetY] && tileset.objects[field.tilesetY][field.tilesetX]
-      if (type === 'background' && isObject) {
+
+      if (image.isGif) {
+        if (type === 'gif') {
+          canvas = canvas as HTMLDivElement
+          const div = document.createElement('div')
+          div.style.cssText = `width:16px;height:16px;position:absolute;overflow:hidden;left:${field.x * 16}px;top:${field.y * 16}px;`
+          div.style.backgroundImage = 'url(' + image.element.src + ')'
+          div.style.backgroundPosition = `-${field.tilesetX * 16}px -${field.tilesetY * 16}px`
+          canvas.appendChild(div)
+        }
+        return
+      } else if (type === 'background' && isObject) {
         return
       } else if (type === 'foreground' && !isObject) {
         return
       }
-      ctx.drawImage(image, field.tilesetX * 16, field.tilesetY * 16, 16, 16, field.x * 16, field.y * 16, 16, 16)
+
+      if (canvas.tagName === 'CANVAS') {
+        ctx.drawImage(image.element, field.tilesetX * 16, field.tilesetY * 16, 16, 16, field.x * 16, field.y * 16, 16, 16)
+      }
     })
   })
 }

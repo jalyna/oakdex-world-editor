@@ -1,7 +1,7 @@
 import { Direction } from 'oakdex-world-engine'
 
 import { Tileset, Credit, EMPTY_WALK, Walkability } from 'components/TilesetEditor/reducers/tilesetData'
-import { MapData } from 'components/MapEditor/reducers/mapData'
+import { MapData, LayerField } from 'components/MapEditor/reducers/mapData'
 import { drawMap } from 'components/MapEditor/Editor/Content/canvas'
 
 interface GameChar {
@@ -33,7 +33,19 @@ export interface GameMap {
     name: string,
     mapBackgroundImage: string,
     mapForegroundImage: string
-  }[]
+  }[],
+  gifLayer?: {
+    tilesets: {
+      [titlesetTitle: string]: {
+        imageBase64: string,
+        versions?: {
+          name: string,
+          imageBase64: string
+        }[]
+      }
+    },
+    fields: LayerField[]
+  }
 }
 
 function getCredits (tilesets: Tileset[]): Credit[] {
@@ -115,6 +127,34 @@ function getChars (mapData: MapData, tilesets: Tileset[]): GameChar[] {
   }).filter((c) => c)
 }
 
+function getGifLayer (mapData: MapData, tilesets: Tileset[]): GameMap['gifLayer'] {
+  let tilesetList = {} as GameMap['gifLayer']['tilesets']
+  let fields = [] as LayerField[]
+
+  mapData.layers.forEach((layer) => {
+    layer.fields.forEach((field) => {
+      const tileset = tilesets.find((t) => t.title === field.tilesetTitle)
+      if (!tileset) {
+        return
+      }
+      if (!tileset.imageBase64.startsWith('data:image/gif')) {
+        return
+      }
+
+      fields.push(field)
+      tilesetList[tileset.title] = {
+        imageBase64: tileset.imageBase64,
+        versions: (tileset.versions || [])
+      }
+    })
+  })
+
+  return {
+    tilesets: tilesetList,
+    fields
+  }
+}
+
 export default async function (canvas: HTMLCanvasElement, mapData: MapData, tilesets: Tileset[]): Promise<GameMap> {
   await drawMap(canvas, mapData.layers, tilesets, { name: 'default', tilesetVersions: [] }, 'background')
   const mapBackgroundImage = canvas.toDataURL('image/png')
@@ -146,6 +186,7 @@ export default async function (canvas: HTMLCanvasElement, mapData: MapData, tile
     chars: getChars(mapData, tilesets),
     mapBackgroundImage,
     mapForegroundImage,
-    versions
+    versions,
+    gifLayer: getGifLayer(mapData, tilesets)
   }
 }

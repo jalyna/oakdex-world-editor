@@ -57,6 +57,7 @@ describe('.mapToGameMap', () => {
         [true, false],
         [false, false]
       ],
+      imageBase64: 'foobar',
       specialTiles: [
         {
           title: 'Special',
@@ -94,6 +95,7 @@ describe('.mapToGameMap', () => {
       ]
     },
     {
+      imageBase64: 'baz',
       credits: [{
         title: 'a'
       }, {
@@ -135,7 +137,11 @@ describe('.mapToGameMap', () => {
       ],
       mapBackgroundImage: 'base64example',
       mapForegroundImage: 'base64example',
-      versions: []
+      versions: [],
+      gifLayer: {
+        tilesets: {},
+        fields: []
+      }
     })
   })
 })
