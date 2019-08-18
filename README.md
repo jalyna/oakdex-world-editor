@@ -18,6 +18,10 @@ Easily create mountains, rivers and pavement with the auto tool.
 
 ![Demo Use Randoms](docs/demo_use_random.gif)
 
+### Animated GIF Tilesets
+
+You can also add animated water and other animated tilesets.
+
 ## Getting Started
 
 ```
