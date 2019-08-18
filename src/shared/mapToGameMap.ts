@@ -144,7 +144,14 @@ function getGifLayer (mapData: MapData, tilesets: Tileset[]): GameMap['gifLayer'
       fields.push(field)
       tilesetList[tileset.title] = {
         imageBase64: tileset.imageBase64,
-        versions: (tileset.versions || [])
+        versions: (mapData.versions || []).map(version => {
+          const tilesetVersion = version.tilesetVersions.find(t => t.tilesetId === tileset.title)
+          const tVersion = (tileset.versions || []).find(v => !tilesetVersion ? false : v.name === tilesetVersion.versionId)
+          return {
+            name: version.name,
+            imageBase64: tVersion ? tVersion.imageBase64 : tileset.imageBase64
+          }
+        })
       }
     })
   })

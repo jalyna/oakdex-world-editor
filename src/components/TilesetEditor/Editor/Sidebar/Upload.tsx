@@ -139,7 +139,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       this.changeLoading(true)
       const file = e.currentTarget.files[0]
-      if (file.name.indexOf('.png') >= 0) {
+      if (file.name.indexOf('.png') >= 0 || file.name.indexOf('.gif') >= 0) {
         readImage(file).then((imageData) => {
           this.uploadNewTileset(imageData)
           this.setState({ name: '' })
@@ -156,7 +156,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       this.changeLoading(true)
       const file = e.currentTarget.files[0]
-      if (file.name.indexOf('.png') >= 0) {
+      if (file.name.indexOf('.png') >= 0 || file.name.indexOf('.gif') >= 0) {
         readImage(file).then((imageData) => {
           this.updateTileset(imageData)
           this.setState({ versionInEdit: undefined })
