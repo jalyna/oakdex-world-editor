@@ -8,8 +8,17 @@ import { GameEvent } from './GameEvent'
 const outdoor = require('../tilesets/outdoor.tileset.json')
 const architecture = require('../tilesets/architecture.tileset.json')
 const indoor = require('../tilesets/indoor.tileset.json')
-const animated = require('../tilesets/animated.tileset.json')
 const charsets = require('../tilesets/charsets.tileset.json')
+
+const animatedWater = require('../tilesets/animated_water.tileset.json')
+const floor = require('../tilesets/floor.tileset.json')
+const houses = require('../tilesets/houses.tileset.json')
+const other = require('../tilesets/other.tileset.json')
+const streetLights = require('../tilesets/street_lights.tileset.json')
+const trees = require('../tilesets/trees.tileset.json')
+const waterAndBeach = require('../tilesets/water_and_beach.tileset.json')
+const waterfall = require('../tilesets/waterfall.tileset.json')
+
 
 const autoOpenMap = require('./auto_open.map.json') as MapData
 const eventSchema = require('./event_schema.json')
@@ -58,7 +67,7 @@ function App () {
   return (
     <React.Fragment>
       <WorldEditor
-        tilesets={[outdoor, architecture, indoor, animated, charsets]}
+        tilesets={[outdoor, architecture, indoor, floor, trees, waterAndBeach, other, animatedWater, houses, streetLights, waterfall, charsets]}
         editMap={(fn) => editHandler = fn}
         onPageChange={(page) => setPage(page)}
         eventSchema={eventSchema}
