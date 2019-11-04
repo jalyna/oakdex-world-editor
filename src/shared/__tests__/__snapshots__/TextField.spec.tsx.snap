@@ -16,7 +16,7 @@ exports[`<TextField> renders correctly 1`] = `
           "attrs": Array [],
           "componentStyle": ComponentStyle {
             "componentId": "sc-bdVaJa",
-            "isStatic": true,
+            "isStatic": false,
             "lastClassName": "dfAss",
             "rules": Array [
               "

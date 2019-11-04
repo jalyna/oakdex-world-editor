@@ -15,7 +15,7 @@ exports[`<TitleField> renders correctly 1`] = `
           "attrs": Array [],
           "componentStyle": ComponentStyle {
             "componentId": "sc-htpNat",
-            "isStatic": true,
+            "isStatic": false,
             "lastClassName": "jIrAmg",
             "rules": Array [
               "

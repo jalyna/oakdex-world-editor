@@ -29,7 +29,7 @@ exports[`<Tile> renders correctly 1`] = `
           "attrs": Array [],
           "componentStyle": ComponentStyle {
             "componentId": "sc-bdVaJa",
-            "isStatic": true,
+            "isStatic": false,
             "lastClassName": "epnlmi",
             "rules": Array [
               "
@@ -60,7 +60,7 @@ exports[`<Tile> renders correctly 1`] = `
       }
     >
       <div
-        className="foo sc-bdVaJa epnlmi"
+        className="sc-bdVaJa epnlmi foo"
         style={
           Object {
             "left": "32px",
