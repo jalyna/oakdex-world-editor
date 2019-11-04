@@ -12,19 +12,34 @@ interface TilesetImages {
 
 let tilesetImages = {} as TilesetImages
 
+async function loadImage (base64: string): Promise<HTMLImageElement> {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.src = base64
+    img.onload = () => resolve(img)
+    setTimeout(() => resolve(img), 1000)
+  })
+}
+
+let loadImageFn = loadImage
+
+export function setLoadImageFn(fn: (base64: string) => Promise<HTMLImageElement>) {
+  loadImageFn = fn
+}
+
 async function tilesetsToMap (tilesets: Tileset[]): Promise<TilesetImages> {
   for(let i = 0; i < tilesets.length; i++) {
     if (!tilesetImages[tilesets[i].title]) {
       tilesetImages[tilesets[i].title] = {
         default: {
-          element: await loadImage(tilesets[i].imageBase64),
+          element: await loadImageFn(tilesets[i].imageBase64),
           isGif: tilesets[i].imageBase64.startsWith('data:image/gif')
         }
       }
       if (tilesets[i].versions) {
         for(let j = 0; j < tilesets[i].versions.length; j++) {
           tilesetImages[tilesets[i].title][tilesets[i].versions[j].name] = {
-            element: await loadImage(tilesets[i].versions[j].imageBase64),
+            element: await loadImageFn(tilesets[i].versions[j].imageBase64),
             isGif: tilesets[i].versions[j].imageBase64.startsWith('data:image/gif')
           }
         }
@@ -33,15 +48,6 @@ async function tilesetsToMap (tilesets: Tileset[]): Promise<TilesetImages> {
   }
 
   return tilesetImages
-}
-
-async function loadImage (base64: string): Promise<HTMLImageElement> {
-  return new Promise((resolve) => {
-    const img = new Image()
-    img.src = base64
-    img.onload = () => resolve(img)
-    setTimeout(() => resolve(img), 1000)
-  })
 }
 
 interface Version {

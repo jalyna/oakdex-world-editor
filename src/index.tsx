@@ -5,8 +5,9 @@ import { EventType, ActionHandler } from 'oakdex-world-engine'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { MapData } from 'components/MapEditor/reducers/mapData'
 import mapToGameMap from 'shared/mapToGameMap'
+import { setLoadImageFn } from 'components/MapEditor/Editor/Content/canvas'
 
-export { MapData, Tileset, EventType, mapToGameMap }
+export { MapData, Tileset, EventType, mapToGameMap, setLoadImageFn }
 
 import Upload from './components/Upload'
 
