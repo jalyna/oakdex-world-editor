@@ -4,8 +4,9 @@ import { EventType, ActionHandler } from 'oakdex-world-engine'
 
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
 import { MapData } from 'components/MapEditor/reducers/mapData'
+import mapToGameMap from 'shared/mapToGameMap'
 
-export { MapData, Tileset, EventType }
+export { MapData, Tileset, EventType, mapToGameMap }
 
 import Upload from './components/Upload'
 
