@@ -1,16 +1,26 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import useOnClickOutside from 'use-onclickoutside'
 
+import t from 'shared/translate'
 import TitleField from './TitleField'
 import CloseButton from './CloseButton'
 import DemoButton from './DemoButton'
 import SaveButton from './SaveButton'
+import SaveEvents from './SaveEvents'
 import SaveForGameButton from './SaveForGameButton'
 import ExportAsPngButton from './ExportAsPngButton'
 import Tools from './Tools'
 import CurrentCoordinates from './CurrentCoordinates'
+import Button from 'shared/Button'
 
 export default function Topbar () {
+  const ref = React.useRef(null)
+  const [dropdownIsOpen, setDropdownIsOpen] = React.useState(false)
+  useOnClickOutside(ref, () => setDropdownIsOpen(false))
+
   return (
     <StyledTopbar>
       <TitleWrapper><TitleField /></TitleWrapper>
@@ -18,14 +28,37 @@ export default function Topbar () {
       <Tools />
       <ButtonsWrapper>
         <DemoButton />
-        <SaveButton />
-        <SaveForGameButton />
-        <ExportAsPngButton />
+        <DropdownWrapper ref={ref}>
+          <Button onClick={() => setDropdownIsOpen(!dropdownIsOpen)}>
+            <FontAwesomeIcon icon={faDownload} />
+            &nbsp;
+            {t('download_dropdown')}
+          </Button>
+          {dropdownIsOpen && <DropdownContent>
+            <SaveButton />
+            <SaveEvents />
+            <SaveForGameButton />
+            <ExportAsPngButton />
+          </DropdownContent>}
+        </DropdownWrapper>
         <CloseButton />
       </ButtonsWrapper>
     </StyledTopbar>
   )
 }
+
+const DropdownWrapper = styled.div`
+  position: relative;
+  margin-left: 16px;
+`
+
+const DropdownContent = styled.div`
+  position: fixed;
+  top: 60px;
+  right: 60px;
+  width: 240px;
+  z-index: 3;
+`
 
 const StyledTopbar = styled.div`
   display: flex;

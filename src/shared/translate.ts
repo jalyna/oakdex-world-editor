@@ -12,7 +12,7 @@ const TRANSLATIONS = {
     intro: 'Du willst selber ein Tileset erstellen? Einfach ein PNG hochladen.',
     close: 'Schließen',
     new_map: 'Neue Map',
-    download: 'Download',
+    download: 'Download .map.json',
     add_objects: 'Hinzufügen',
     remove_objects: 'Entfernen',
     objects_info: 'Objekte sind im Vordergrund sichtbar, der Spieler verschwindet dahinter. Für Dächer, Baumkronen etc.',
@@ -30,7 +30,7 @@ const TRANSLATIONS = {
     add: 'Hinzufügen',
     remove: 'Löschen',
     special_description: 'Spezial-Tiles kannst du nach belieben konfigurieren. Zum Beispiel könntest du Wasser markieren, damit du später darauf surfen kannst.',
-    export_as_png: 'Download PNG',
+    export_as_png: 'Download .png',
     brush_tool: 'Stempel',
     fill_tool: 'Füllwerkzeug',
     auto_tool: 'Auto-Tiles',
@@ -47,7 +47,7 @@ const TRANSLATIONS = {
     credits_description: 'Trage hier ein wer an dieses Tileset erstellt hast, damit du sie nennst.',
     credit_url_placeholder: 'URL (optional)',
     credits: 'Credits',
-    save_for_game: 'Download GameMap',
+    save_for_game: 'Download .gamemap.json',
     play_demo: 'Demo',
     chars_tool: 'Chars',
     charsets: 'Charsets',
@@ -56,7 +56,9 @@ const TRANSLATIONS = {
     upload_charset_image_text: 'Lade ein .PNG hoch: 96x128px oder 160x128px',
     charset_wrong_size: 'Falsche Größe. Muss exakt 96x128px groß sein.',
     download_tileset_image: 'Bild herunterladen',
-    versions_tool: 'Versionen verwalten'
+    versions_tool: 'Versionen verwalten',
+    download_dropdown: 'Download...',
+    download_events: 'Download .events.json'
   },
 
   en: {
@@ -66,7 +68,7 @@ const TRANSLATIONS = {
     intro: 'Your first time here? Just add a Tileset that is a PNG and start creating awesome Maps.',
     close: 'Close',
     new_map: 'New Map',
-    download: 'Download',
+    download: 'Download .map.json',
     add_objects: 'Add objects',
     remove_objects: 'Remove objects',
     objects_info: 'Objects will be placed in the foreground like trees, so the player walks in front of them.',
@@ -101,7 +103,7 @@ const TRANSLATIONS = {
     credits_description: 'Add here who should get credit for the tileset.',
     credit_url_placeholder: 'URL (optional)',
     credits: 'Credits',
-    save_for_game: 'Download for Game',
+    save_for_game: 'Download .gamemap.json',
     play_demo: 'Demo',
     chars_tool: 'Chars',
     charsets: 'Charsets',
@@ -110,7 +112,9 @@ const TRANSLATIONS = {
     upload_charset_image_text: 'Upload a .PNG: dimensions 96x128px',
     charset_wrong_size: 'Wrong dimensions. Must have 96x128px.',
     download_tileset_image: 'Download Image',
-    versions_tool: 'Manage versions'
+    versions_tool: 'Manage versions',
+    download_dropdown: 'Download...',
+    download_events: 'Download .events.json'
   }
 } as TranslationMap
 
