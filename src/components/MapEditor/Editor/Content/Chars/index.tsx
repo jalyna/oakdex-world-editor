@@ -14,7 +14,9 @@ interface CharsProps {
   chars: MapChar[],
   tilesets: Tileset[],
   currentCoordinates?: Coordinate,
-  selectedCharset?: string
+  selectedCharset?: string,
+  selectedEvent?: string,
+  eventToCopy?: string
 }
 
 function mapStateToProps ({ mapData, editorData, tilesets }: any) {
@@ -22,7 +24,9 @@ function mapStateToProps ({ mapData, editorData, tilesets }: any) {
     chars: mapData.chars || [],
     tilesets,
     selectedCharset: editorData.selectedCharset,
-    currentCoordinates: editorData.currentCoordinates
+    currentCoordinates: editorData.currentCoordinates,
+    selectedEvent: editorData.selectedEvent,
+    eventToCopy: editorData.eventToCopy
   }
 }
 
@@ -50,11 +54,15 @@ function Chars ({
   chars,
   tilesets,
   selectedCharset,
-  currentCoordinates
+  eventToCopy,
+  currentCoordinates,
+  selectedEvent
 }: CharsProps) {
+  const eventToCopyData = chars.find(c => c.id === eventToCopy)
   return (
     <React.Fragment>
       {currentCoordinates && selectedCharset && renderPreview(currentCoordinates, selectedCharset, tilesets)}
+      {currentCoordinates && eventToCopy && renderPreview(currentCoordinates, `${eventToCopyData.tilesetTitle},${eventToCopyData.charsetTitle}`, tilesets)}
       {chars.map((c) => {
         const tileset = tilesets.find((t) => t.title === c.tilesetTitle)
         if (!tileset) { return null }
@@ -66,7 +74,8 @@ function Chars ({
           y={c.y}
           hidden={c.hidden}
           charset={charset}
-          direction={c.dir} />
+          direction={c.dir}
+          selected={selectedEvent === c.id} />
       })}
     </React.Fragment>
   )

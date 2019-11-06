@@ -33,6 +33,8 @@ export interface EditorData {
   previewFields: LayerField[],
   activeVersion: string,
   selectedCharset?: string,
+  selectedEvent?: string,
+  eventToCopy?: string,
   close?: () => void
 }
 

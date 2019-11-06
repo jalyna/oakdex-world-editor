@@ -7,17 +7,17 @@ exports[`<Resize> renders correctly 1`] = `
       key="right"
     >
       <div
-        className="sc-cLQEGU sc-gqPbQI sc-hORach eDjBkT"
+        className="sc-hORach sc-bMVAic sc-bAeIUo cJUogh"
       >
         <Styled(Button)
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg
@@ -44,11 +44,11 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg
@@ -77,17 +77,17 @@ exports[`<Resize> renders correctly 1`] = `
       key="left"
     >
       <div
-        className="sc-cLQEGU sc-gqPbQI sc-bMVAic jvvdTG"
+        className="sc-hORach sc-bMVAic sc-iujRgT kYosyk"
       >
         <Styled(Button)
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg
@@ -114,11 +114,11 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg
@@ -147,17 +147,17 @@ exports[`<Resize> renders correctly 1`] = `
       key="top"
     >
       <div
-        className="sc-cLQEGU sc-bAeIUo bdjegl"
+        className="sc-hORach sc-GMQeP gOPOWM"
       >
         <Styled(Button)
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg
@@ -184,11 +184,11 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg
@@ -217,17 +217,17 @@ exports[`<Resize> renders correctly 1`] = `
       key="bottom"
     >
       <div
-        className="sc-cLQEGU sc-iujRgT jBnGgd"
+        className="sc-hORach sc-exAgwC biiQuI"
       >
         <Styled(Button)
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg
@@ -254,11 +254,11 @@ exports[`<Resize> renders correctly 1`] = `
           onClick={[Function]}
         >
           <styled.button
-            className="sc-GMQeP DEPWA"
+            className="sc-cQFLBn csyqDW"
             onClick={[Function]}
           >
             <button
-              className="sc-bdVaJa dJicAm sc-GMQeP DEPWA"
+              className="sc-bdVaJa dJicAm sc-cQFLBn csyqDW"
               onClick={[Function]}
             >
               <svg

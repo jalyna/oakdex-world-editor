@@ -58,7 +58,9 @@ const TRANSLATIONS = {
     download_tileset_image: 'Bild herunterladen',
     versions_tool: 'Versionen verwalten',
     download_dropdown: 'Download...',
-    download_events: 'Download .events.json'
+    download_events: 'Download .events.json',
+    delete_all_events: 'Alle Events löschen',
+    import_events: 'Events importieren'
   },
 
   en: {
@@ -114,7 +116,9 @@ const TRANSLATIONS = {
     download_tileset_image: 'Download Image',
     versions_tool: 'Manage versions',
     download_dropdown: 'Download...',
-    download_events: 'Download .events.json'
+    download_events: 'Download .events.json',
+    delete_all_events: 'Delete all events',
+    import_events: 'Import events'
   }
 } as TranslationMap
 

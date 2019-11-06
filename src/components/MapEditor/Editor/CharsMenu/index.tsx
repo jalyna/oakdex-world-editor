@@ -3,14 +3,12 @@ import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faRedo, faEye, faEyeSlash, faBan, faWalking, faCode } from '@fortawesome/free-solid-svg-icons'
-import { Direction } from 'oakdex-world-engine'
-import Form, { IChangeEvent, FormValidation } from 'react-jsonschema-form'
+import { faTrash, faRedo, faEye, faEyeSlash, faBan, faWalking, faCode, faCopy } from '@fortawesome/free-solid-svg-icons'
+import Form, { IChangeEvent } from 'react-jsonschema-form'
 
 import t from 'shared/translate'
-import { DEFAULT_FONT, GREY_50, GREY_90, GREY_70, TEAL_30 } from 'shared/theme'
+import { GREY_70 } from 'shared/theme'
 import Button from 'shared/Button'
-import TextField from 'shared/TextField'
 import Modal from 'shared/Modal'
 import ListItem, { ItemTitle, Actions } from 'shared/ListItem'
 import { Tileset } from 'components/TilesetEditor/reducers/tilesetData'
@@ -19,6 +17,7 @@ import { MapChar } from 'components/MapEditor/reducers/mapData'
 import { CHANGE_EDITOR_DATA, UPDATE_MAP } from 'components/MapEditor/actionTypes'
 import store from 'components/MapEditor/store'
 import CharPreview from './CharPreview'
+import UploadEvents from './UploadEvents'
 
 import { getEventSchema } from '../../../..'
 
@@ -33,24 +32,49 @@ interface CharsMenuProps {
   onChangeVisbility: (id: string) => void,
   onChangeWalk: (id: string) => void,
   onChangeEvent: (id: string, eventType: EventType, event: object) => void,
-  selectedCharset?: string
+  selectEvent: (id: string) => void,
+  copyEvent: (id: string) => void,
+  onRemoveAll: () => void,
+  selectedCharset?: string,
+  selectedEvent?: string,
+  eventToCopy?: string
 }
 
 function mapStateToProps ({ mapData, editorData, tilesets }: any) {
   return {
     chars: mapData.chars || [],
     tilesets,
-    selectedCharset: editorData.selectedCharset
+    selectedCharset: editorData.selectedCharset,
+    selectedEvent: editorData.selectedEvent,
+    eventToCopy: editorData.eventToCopy
   }
 }
 
 function mapDispatchToProps (dispatch: Dispatch) {
   return {
+    selectEvent: (id: string) => {
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: {
+          selectedEvent: store.getState().editorData.selectedEvent === id ? undefined : id
+        }
+      })
+    },
+    copyEvent: (id: string) => {
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: {
+          eventToCopy: store.getState().editorData.eventToCopy === id ? undefined : id,
+          selectedCharset: undefined
+        }
+      })
+    },
     onSelectCharset: (id: string) => {
       dispatch({
         type: CHANGE_EDITOR_DATA,
         data: {
-          selectedCharset: id
+          selectedCharset: store.getState().editorData.selectedCharset === id ? undefined : id,
+          eventToCopy: undefined
         }
       })
     },
@@ -59,8 +83,30 @@ function mapDispatchToProps (dispatch: Dispatch) {
         return c.id !== id
       })
       dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: {
+          selectedCharset: undefined,
+          eventToCopy: undefined,
+          selectedEvent: undefined
+        }
+      })
+      dispatch({
         type: UPDATE_MAP,
         data: { chars }
+      })
+    },
+    onRemoveAll: () => {
+      dispatch({
+        type: CHANGE_EDITOR_DATA,
+        data: {
+          selectedCharset: undefined,
+          eventToCopy: undefined,
+          selectedEvent: undefined
+        }
+      })
+      dispatch({
+        type: UPDATE_MAP,
+        data: { chars: [] }
       })
     },
     onRotateChar: (id: string) => {
@@ -155,7 +201,12 @@ class CharsMenu extends React.Component<CharsMenuProps, CharsMenuState> {
       onRemoveChar,
       onRotateChar,
       onChangeVisbility,
-      onChangeWalk
+      onChangeWalk,
+      selectEvent,
+      selectedEvent,
+      copyEvent,
+      eventToCopy,
+      onRemoveAll
     } = this.props
 
     return (
@@ -181,8 +232,8 @@ class CharsMenu extends React.Component<CharsMenuProps, CharsMenuState> {
 
             return (
               <React.Fragment key={char.id}>
-                <ListItem>
-                  <ItemTitle>
+                <ListItem selected={selectedEvent === char.id}>
+                  <ItemTitle onClick={selectEvent.bind(this, char.id)}>
                     <InnerTitle>
                       <CharPreview charset={charset} />
                       {char.id} | {char.x}, {char.y}
@@ -195,10 +246,12 @@ class CharsMenu extends React.Component<CharsMenuProps, CharsMenuState> {
                     &nbsp;
                     <Button onClick={onRotateChar.bind(this, char.id)}><FontAwesomeIcon icon={faRedo} /></Button>
                     &nbsp;
+                    <Button onClick={copyEvent.bind(this, char.id)} isActive={eventToCopy === char.id}><FontAwesomeIcon icon={faCopy} /></Button>
+                    &nbsp;
                     <Button onClick={onRemoveChar.bind(this, char.id)}><FontAwesomeIcon icon={faTrash} /></Button>
                   </Actions>
                 </ListItem>
-                <EventActions>
+                {selectedEvent === char.id && <EventActions>
                   <Button secondary={!char.event || !char.event.onTalk} onClick={this.onEditEvent.bind(this, char.id, 'onTalk')}>
                     <FontAwesomeIcon icon={faCode} /> onTalk
                   </Button>
@@ -208,11 +261,14 @@ class CharsMenu extends React.Component<CharsMenuProps, CharsMenuState> {
                   <Button secondary={!char.event || !char.event.onMapEnter} onClick={this.onEditEvent.bind(this, char.id, 'onMapEnter')}>
                     <FontAwesomeIcon icon={faCode} /> onMapEnter
                   </Button>
-                </EventActions>
+                </EventActions>}
               </React.Fragment>
             )
           })}
         </ItemList>
+        <br />
+        <Button onClick={onRemoveAll}><FontAwesomeIcon icon={faTrash} />&nbsp; {t('delete_all_events')}</Button>
+        <UploadEvents />
         {this.renderEditEvent()}
       </StyledSidebar>
     )

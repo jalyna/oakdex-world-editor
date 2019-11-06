@@ -8,7 +8,8 @@ import { Charset } from 'components/TilesetEditor/reducers/tilesetData'
 import { Direction } from 'oakdex-world-engine'
 
 interface CharItemProps {
-  direction: Direction
+  direction: Direction,
+  selected?: boolean
 }
 
 const CharItem = styled.div`
@@ -30,6 +31,14 @@ const CharItem = styled.div`
   ${({ direction, isBig }: CharItemProps) => direction === Direction.Right && `
     background-position: ${isBig ? '0' : '-32px'} -64px;
   `}
+
+  &::before {
+    content: '';
+    border: 2px solid red;
+    width: 32px;
+    height: 32px;
+    display: ${({ selected }: CharItemProps) => selected ? 'block' : 'none'};
+  }
 `
 
 interface CharItemProps {
@@ -42,10 +51,11 @@ interface CharPreviewProps {
   charset: Charset,
   x: number,
   y: number,
-  hidden: boolean
+  hidden: boolean,
+  selected?: boolean
 }
 
-export default function CharPreview({ direction, charset, x, y, hidden }: CharPreviewProps) {
+export default function CharPreview({ direction, charset, x, y, hidden, selected }: CharPreviewProps) {
   const [width, setWidth] = React.useState(null)
 
   React.useEffect(() => {
@@ -62,5 +72,6 @@ export default function CharPreview({ direction, charset, x, y, hidden }: CharPr
   return <CharItem
     direction={direction}
     isBig={width === 160}
+    selected={selected}
     style={style} />
 }

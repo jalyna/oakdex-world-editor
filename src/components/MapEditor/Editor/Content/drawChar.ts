@@ -3,12 +3,41 @@ import store from 'components/MapEditor/store'
 import { Direction } from 'oakdex-world-engine'
 
 import getCoordinates from 'shared/getCoordinates'
-import { UPDATE_MAP } from 'components/MapEditor/actionTypes'
+import { UPDATE_MAP, CHANGE_EDITOR_DATA } from 'components/MapEditor/actionTypes'
 
 export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>) {
   const coordinates = getCoordinates(1, e)
   const state = store.getState()
   const selectedCharset = state.editorData.selectedCharset
+  const eventToCopy = state.editorData.eventToCopy
+
+  if (eventToCopy) {
+    let chars = (state.mapData.chars || []).slice()
+    const toCopy = state.mapData.chars.find(c => c.id === eventToCopy)
+    const id = `${toCopy.id}-${Math.floor(Math.random() * 21)}`
+    chars.push({
+      ...toCopy,
+      ...coordinates,
+      id
+    })
+
+    dispatch({
+      type: UPDATE_MAP,
+      data: {
+        chars
+      }
+    })
+
+    dispatch({
+      type: CHANGE_EDITOR_DATA,
+      data: {
+        selectedEvent: id
+      }
+    })
+
+    return
+  }
+
   const parts = selectedCharset.split(',')
   const tileset = state.tilesets.find((t) => t.title === parts[0])
   if (!tileset) { return }
@@ -29,6 +58,13 @@ export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>
     type: UPDATE_MAP,
     data: {
       chars
+    }
+  })
+
+  dispatch({
+    type: CHANGE_EDITOR_DATA,
+    data: {
+      selectedEvent: id
     }
   })
 }
