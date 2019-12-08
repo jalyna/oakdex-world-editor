@@ -11,8 +11,8 @@ export type Direction = "Up" | "Down" | "Left" | "Right";
 export type X = number;
 export type Y = number;
 export type WaitTimeInMilliseconds = number;
+export type Conditions = [Condition, ...Condition[]];
 export type Condition = MoreOrEqualThanXMonster | IsTimeOfDay;
-export type Conditions = Condition[];
 export type ListOfCommands = Command[];
 
 /**
