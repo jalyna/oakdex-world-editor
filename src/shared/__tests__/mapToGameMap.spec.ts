@@ -110,6 +110,10 @@ describe('.mapToGameMap', () => {
       title: 'abc',
       width: 2,
       height: 2,
+      startPosition: {
+        x: 0,
+        y: 0
+      },
       credits: [{ title: 'a' }, { title: 'b', url: 'some-url' }, { title: 'c' }],
       specialTiles: [
         ['Special', null],

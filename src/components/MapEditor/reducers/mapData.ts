@@ -45,6 +45,10 @@ export interface MapData {
   height: number,
   layers: Layer[],
   chars?: MapChar[],
+  startPosition?: {
+    x: number,
+    y: number
+  },
   versions?: {
     name: string,
     tilesetVersions: {
@@ -65,6 +69,10 @@ const mapData: Reducer<MapData> = (state: MapData | null = null, action): MapDat
         width: getDefaultMapSize().width,
         height: getDefaultMapSize().height,
         title: 'New Map',
+        startPosition: {
+          x: 0,
+          y: 0
+        },
         ...action.data
       }
     case UPDATE_MAP:

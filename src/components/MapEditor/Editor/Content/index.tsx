@@ -19,6 +19,7 @@ import drawFields from './drawFields'
 import { drawMap } from './canvas'
 import Resize from './Resize'
 import Chars from './Chars'
+import StartPosition from './StartPosition'
 
 interface ContentProps {
   tilesets: Tileset[],
@@ -49,7 +50,7 @@ function mapDispatchToProps (dispatch: Dispatch) {
     onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
       const coordinates = getCoordinates(1, e)
       const editorData = store.getState().editorData
-      
+
       if (editorData.currentCoordinates !== coordinates) {
         if (editorData.tool === 'versions') {
           dispatch({
@@ -116,7 +117,7 @@ function renderLayer (layerFields: LayerField[], i: number, tilesets: Tileset[])
     <React.Fragment key={i}>
       {layerFields.map((field) => {
         const tileset = tilesets.find((t) => t.title === field.tilesetTitle)
-        
+
         if (!tileset) {
           return (
             <Tile
@@ -190,11 +191,12 @@ class Content extends React.Component<ContentProps, {}> {
             <GifLayerInner ref={this.gifLayer}></GifLayerInner>
           </GifLayer>
           <CanvasForeground ref={this.canvasForeground} width={mapData.width * 16} height={mapData.height * 16} />
-          {tool !== 'chars' && <PreviewLayer>
+          {tool !== 'chars' && tool !== 'startPosition' && <PreviewLayer>
             {renderLayer(previewFields, -1, tilesets)}
           </PreviewLayer>}
           {tool !== 'chars' && <Resize />}
           {tool === 'chars' && <Chars />}
+          {tool === 'startPosition' && <StartPosition />}
         </MapWrapper>
       </StyledContent>
     )

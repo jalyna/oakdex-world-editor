@@ -29,6 +29,10 @@ export interface GameMap {
   mapBackgroundImage: string,
   mapForegroundImage: string,
   chars?: GameChar[],
+  startPosition: {
+    x: number,
+    y: number
+  },
   versions?: {
     name: string,
     mapBackgroundImage: string,
@@ -83,7 +87,7 @@ function getSpecialTiles (mapData: MapData, tilesets: Tileset[]): (string | null
 
 function getWalkability (mapData: MapData, tilesets: Tileset[]): Walkability[][] {
   let walkability = new Array(mapData.height).fill(0).map(() => new Array(mapData.width).fill(0).map(() => ({ ...EMPTY_WALK }))) as Walkability[][]
-  
+
   mapData.layers.forEach((layer) => {
     layer.fields.forEach((field) => {
       const tileset = tilesets.find((t) => t.title === field.tilesetTitle)
@@ -182,11 +186,16 @@ export default async function (canvas: HTMLCanvasElement, mapData: MapData, tile
       mapForegroundImage: versionMapForegroundImage
     })
   }
-  
+
   return {
     title: mapData.title,
     width: mapData.width,
     height: mapData.height,
+    startPosition: {
+      x: 0,
+      y: 0,
+      ...mapData.startPosition
+    },
     credits: getCredits(tilesets),
     specialTiles: getSpecialTiles(mapData, tilesets),
     walkability: getWalkability(mapData, tilesets),

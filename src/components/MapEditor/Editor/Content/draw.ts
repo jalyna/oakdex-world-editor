@@ -10,6 +10,21 @@ import { UPDATE_MAP } from 'components/MapEditor/actionTypes'
 export default function (dispatch: Dispatch, e: React.MouseEvent<HTMLDivElement>) {
   const coordinates = getCoordinates(1, e)
   const state = store.getState()
+
+  if (state.editorData.tool === 'startPosition') {
+    dispatch({
+      type: UPDATE_MAP,
+      data: {
+        startPosition: {
+          x: coordinates.x,
+          y: coordinates.y
+        }
+      }
+    })
+
+    return
+  }
+
   const selectedTilesetArea = state.editorData.selectedTilesetArea
   const activeTileset = state.editorData.activeTileset
   const currentLayer = state.editorData.activeLayerIndex

@@ -60,7 +60,8 @@ const TRANSLATIONS = {
     download_dropdown: 'Download...',
     download_events: 'Download .events.json',
     delete_all_events: 'Alle Events löschen',
-    import_events: 'Events importieren'
+    import_events: 'Events importieren',
+    start_position_tool: 'Start-Position'
   },
 
   en: {
@@ -118,7 +119,8 @@ const TRANSLATIONS = {
     download_dropdown: 'Download...',
     download_events: 'Download .events.json',
     delete_all_events: 'Delete all events',
-    import_events: 'Import events'
+    import_events: 'Import events',
+    start_position_tool: 'Start Position'
   }
 } as TranslationMap
 
