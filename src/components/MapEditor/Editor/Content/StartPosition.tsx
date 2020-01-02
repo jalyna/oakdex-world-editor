@@ -41,7 +41,7 @@ function StartPosition ({ x, y, preview }: StartPositionProps) {
 const Square = styled.div`
   width: 16px;
   height: 16px;
-  background: red;
+  background: blue;
   opacity: 0.7;
   position: absolute;
   border: 1px solid #000;

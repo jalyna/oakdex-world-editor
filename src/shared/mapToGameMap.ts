@@ -85,7 +85,7 @@ function getSpecialTiles (mapData: MapData, tilesets: Tileset[]): (string | null
   return specialTiles
 }
 
-function getWalkability (mapData: MapData, tilesets: Tileset[]): Walkability[][] {
+export function getWalkability (mapData: MapData, tilesets: Tileset[]): Walkability[][] {
   let walkability = new Array(mapData.height).fill(0).map(() => new Array(mapData.width).fill(0).map(() => ({ ...EMPTY_WALK }))) as Walkability[][]
 
   mapData.layers.forEach((layer) => {

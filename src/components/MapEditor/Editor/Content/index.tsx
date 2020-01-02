@@ -20,6 +20,7 @@ import { drawMap } from './canvas'
 import Resize from './Resize'
 import Chars from './Chars'
 import StartPosition from './StartPosition'
+import NotWalkable from './NotWalkable'
 
 interface ContentProps {
   tilesets: Tileset[],
@@ -196,6 +197,7 @@ class Content extends React.Component<ContentProps, {}> {
           </PreviewLayer>}
           {tool !== 'chars' && <Resize />}
           {tool === 'chars' && <Chars />}
+          {(tool === 'startPosition' || tool === 'chars') && <NotWalkable />}
           {tool === 'startPosition' && <StartPosition />}
         </MapWrapper>
       </StyledContent>

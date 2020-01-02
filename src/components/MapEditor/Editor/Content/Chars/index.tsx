@@ -1,5 +1,4 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 

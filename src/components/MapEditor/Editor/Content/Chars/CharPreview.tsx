@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { GREY_90, TEAL_30 } from 'shared/theme'
 import base64Dimensions from 'shared/base64Dimensions'
 
 import { Charset } from 'components/TilesetEditor/reducers/tilesetData'
@@ -35,8 +34,10 @@ const CharItem = styled.div`
   &::before {
     content: '';
     border: 2px solid red;
-    width: 32px;
-    height: 32px;
+    width: 16px;
+    height: 16px;
+    margin-top: 16px;
+    margin-left: 8px;
     display: ${({ selected }: CharItemProps) => selected ? 'block' : 'none'};
   }
 `
