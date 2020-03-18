@@ -54,7 +54,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.0",
-    "file-loader": "^5.0.2",
+    "file-loader": "^6.0.0",
     "jest": "^24.8.0",
     "json-schema-to-typescript": "^8.0.0",
     "redux-mock-store": "^1.5.4",
