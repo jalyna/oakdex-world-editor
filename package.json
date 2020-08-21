@@ -58,7 +58,7 @@
     "jest": "^24.8.0",
     "json-schema-to-typescript": "^8.0.0",
     "redux-mock-store": "^1.5.4",
-    "source-map-loader": "^0.2.4",
+    "source-map-loader": "^1.0.2",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.4",
     "url-loader": "^3.0.0",
