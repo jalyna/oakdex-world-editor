@@ -32,7 +32,7 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-jsonschema-form": "^1.6.6",
     "@types/react-redux": "^7.1.1",
-    "@types/styled-components": "^4.4.1",
+    "@types/styled-components": "^5.1.7",
     "file-saver": "^2.0.2",
     "oakdex-world-engine": "0.0.12",
     "react": "^16.12.0",
