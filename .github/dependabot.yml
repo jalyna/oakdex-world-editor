@@ -1,0 +1,41 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - jalyna
+  ignore:
+  - dependency-name: styled-components
+    versions:
+    - 5.2.1
+    - 5.2.2
+  - dependency-name: "@types/jest"
+    versions:
+    - 26.0.20
+    - 26.0.21
+    - 26.0.22
+  - dependency-name: "@types/styled-components"
+    versions:
+    - 5.1.7
+    - 5.1.8
+  - dependency-name: "@types/react-dom"
+    versions:
+    - 17.0.0
+    - 17.0.1
+    - 17.0.2
+  - dependency-name: "@types/react"
+    versions:
+    - 17.0.0
+    - 17.0.1
+    - 17.0.2
+    - 17.0.3
+  - dependency-name: webpack-cli
+    versions:
+    - 4.4.0
+  - dependency-name: json-schema-to-typescript
+    versions:
+    - 10.1.3
